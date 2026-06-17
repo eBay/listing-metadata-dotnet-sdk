@@ -13,6 +13,8 @@
     <Authors>eBay</Authors>
     <Description>Unified .NET SDK for eBay Listing Metadata APIs including Catalog, Taxonomy, Metadata, and Charity operations</Description>
     <PackageTags>ebay;api;sdk;listing;metadata;catalog;taxonomy;charity</PackageTags>
+    <PackageProjectUrl>https://github.com/eBay/listing-metadata-dotnet-sdk</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/eBay/listing-metadata-dotnet-sdk</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
