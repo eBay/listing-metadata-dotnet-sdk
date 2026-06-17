@@ -25,7 +25,7 @@ dotnet kiota generate \
   -d specs/"commerce_catalog_v1_beta_oas3 (2).yaml" \
   -c CatalogApiClient \
   -n EBay.ListingMetadata.Generated.Catalog \
-  -o ListingMetadataSdk/Generated/Catalog \
+  -o EBay.ListingMetadata/Generated/Catalog \
   --ebc --co
 
 dotnet kiota generate \
@@ -33,7 +33,7 @@ dotnet kiota generate \
   -d specs/"commerce_taxonomy_v1_oas3 (1).yaml" \
   -c TaxonomyApiClient \
   -n EBay.ListingMetadata.Generated.Taxonomy \
-  -o ListingMetadataSdk/Generated/Taxonomy \
+  -o EBay.ListingMetadata/Generated/Taxonomy \
   --ebc --co
 
 dotnet kiota generate \
@@ -41,7 +41,7 @@ dotnet kiota generate \
   -d specs/sell_metadata_v1_oas3.yaml \
   -c MetadataApiClient \
   -n EBay.ListingMetadata.Generated.Metadata \
-  -o ListingMetadataSdk/Generated/Metadata \
+  -o EBay.ListingMetadata/Generated/Metadata \
   --ebc --co
 
 dotnet kiota generate \
@@ -49,10 +49,10 @@ dotnet kiota generate \
   -d specs/commerce_charity_v1_oas3.yaml \
   -c CharityApiClient \
   -n EBay.ListingMetadata.Generated.Charity \
-  -o ListingMetadataSdk/Generated/Charity \
+  -o EBay.ListingMetadata/Generated/Charity \
   --ebc --co
 
 echo "Building SDK..."
-dotnet build ListingMetadataSdk/ListingMetadataSdk.csproj
+dotnet build EBay.ListingMetadata/EBay.ListingMetadata.csproj
 
 echo "Done! SDK regenerated successfully."
