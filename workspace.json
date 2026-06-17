@@ -1,0 +1,45 @@
+{
+  "version": "1.0.0",
+  "clients": {
+    "Catalog": {
+      "descriptionLocation": "specs/commerce_catalog_v1_beta_oas3 (2).yaml",
+      "language": "CSharp",
+      "outputPath": "ListingMetadataSdk/Generated/Catalog",
+      "clientClassName": "CatalogApiClient",
+      "clientNamespaceName": "EBay.ListingMetadata.Generated.Catalog",
+      "excludeBackwardCompatible": true,
+      "typeAccessModifier": "internal",
+      "cleanOutput": true
+    },
+    "Taxonomy": {
+      "descriptionLocation": "specs/commerce_taxonomy_v1_oas3 (1).yaml",
+      "language": "CSharp",
+      "outputPath": "ListingMetadataSdk/Generated/Taxonomy",
+      "clientClassName": "TaxonomyApiClient",
+      "clientNamespaceName": "EBay.ListingMetadata.Generated.Taxonomy",
+      "excludeBackwardCompatible": true,
+      "typeAccessModifier": "internal",
+      "cleanOutput": true
+    },
+    "Metadata": {
+      "descriptionLocation": "specs/sell_metadata_v1_oas3.yaml",
+      "language": "CSharp",
+      "outputPath": "ListingMetadataSdk/Generated/Metadata",
+      "clientClassName": "MetadataApiClient",
+      "clientNamespaceName": "EBay.ListingMetadata.Generated.Metadata",
+      "excludeBackwardCompatible": true,
+      "typeAccessModifier": "internal",
+      "cleanOutput": true
+    },
+    "Charity": {
+      "descriptionLocation": "specs/commerce_charity_v1_oas3.yaml",
+      "language": "CSharp",
+      "outputPath": "ListingMetadataSdk/Generated/Charity",
+      "clientClassName": "CharityApiClient",
+      "clientNamespaceName": "EBay.ListingMetadata.Generated.Charity",
+      "excludeBackwardCompatible": true,
+      "typeAccessModifier": "internal",
+      "cleanOutput": true
+    }
+  }
+}

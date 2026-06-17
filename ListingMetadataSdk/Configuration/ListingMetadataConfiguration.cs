@@ -1,0 +1,123 @@
+// Copyright 2026 eBay Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+
+namespace EBay.ListingMetadata.Configuration;
+
+/// <summary>
+/// Configuration for the ListingMetadata SDK
+/// </summary>
+public sealed class ListingMetadataConfiguration
+{
+    private string _catalogBaseUrl = "https://api.ebay.com/commerce/catalog/v1_beta";
+    private string _taxonomyBaseUrl = "https://api.ebay.com/commerce/taxonomy/v1";
+    private string _metadataBaseUrl = "https://api.ebay.com/sell/metadata/v1";
+    private string _charityBaseUrl = "https://api.ebay.com/commerce/charity/v1";
+    /// <summary>
+    /// Base URL for Catalog API (default: https://api.ebay.com/commerce/catalog/v1_beta)
+    /// </summary>
+    public string CatalogBaseUrl
+    {
+        get => _catalogBaseUrl;
+        init => _catalogBaseUrl = RequireHttps(value, nameof(CatalogBaseUrl));
+    }
+
+    /// <summary>
+    /// Base URL for Taxonomy API (default: https://api.ebay.com/commerce/taxonomy/v1)
+    /// </summary>
+    public string TaxonomyBaseUrl
+    {
+        get => _taxonomyBaseUrl;
+        init => _taxonomyBaseUrl = RequireHttps(value, nameof(TaxonomyBaseUrl));
+    }
+
+    /// <summary>
+    /// Base URL for Metadata API (default: https://api.ebay.com/sell/metadata/v1)
+    /// </summary>
+    public string MetadataBaseUrl
+    {
+        get => _metadataBaseUrl;
+        init => _metadataBaseUrl = RequireHttps(value, nameof(MetadataBaseUrl));
+    }
+
+    /// <summary>
+    /// Base URL for Charity API (default: https://api.ebay.com/commerce/charity/v1)
+    /// </summary>
+    public string CharityBaseUrl
+    {
+        get => _charityBaseUrl;
+        init => _charityBaseUrl = RequireHttps(value, nameof(CharityBaseUrl));
+    }
+
+    /// <summary>
+    /// Static access token for all APIs. Simpler but expires (typically 2 hours).
+    /// </summary>
+    public string? AccessToken { get; set; }
+
+    /// <summary>
+    /// Delegate to get a fresh access token on demand. Takes precedence over AccessToken.
+    /// </summary>
+    public Func<CancellationToken, Task<string>>? TokenProvider { get; set; }
+
+    /// <summary>Timeout applied to all HTTP requests. Defaults to 30 seconds.</summary>
+    public TimeSpan HttpTimeout { get; init; } = TimeSpan.FromSeconds(30);
+
+    /// <summary>
+    /// When true, logs the HTTP method, URL, and status code of non-success responses to stderr.
+    /// Response bodies are intentionally excluded to avoid leaking PII.
+    /// <para>
+    /// <b>WARNING — PII risk.</b> URLs may contain item IDs and query parameters that are
+    /// sensitive in context. Never enable this in production. Ensure logs are access-controlled
+    /// and not persisted to any external system when enabled in non-production environments.
+    /// </para>
+    /// </summary>
+    public bool DiagnosticLogging { get; set; }
+
+    /// <summary>
+    /// Gets the access token for API calls
+    /// </summary>
+    internal async Task<string> GetAccessTokenAsync(CancellationToken cancellationToken = default)
+    {
+        if (TokenProvider is not null)
+            return await TokenProvider(cancellationToken);
+
+        if (!string.IsNullOrEmpty(AccessToken))
+            return AccessToken;
+
+        throw new InvalidOperationException(
+            "ListingMetadataConfiguration requires either AccessToken or TokenProvider to be set.");
+    }
+
+    /// <summary>
+    /// Gets allowed hosts for API token validation
+    /// </summary>
+    public IEnumerable<string> GetAllowedHosts()
+    {
+        return new[]
+        {
+            new Uri(CatalogBaseUrl).Host,
+            new Uri(TaxonomyBaseUrl).Host,
+            new Uri(MetadataBaseUrl).Host,
+            new Uri(CharityBaseUrl).Host,
+            "apiz.ebay.com"
+        }.Distinct();
+    }
+
+    private static string RequireHttps(string value, string paramName)
+    {
+        if (!value.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+            throw new ArgumentException("Only HTTPS endpoints are allowed.", paramName);
+        return value;
+    }
+}

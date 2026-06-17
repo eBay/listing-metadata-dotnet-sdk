@@ -1,0 +1,34 @@
+{
+  "descriptionHash": "71DB1DA157E1F37422B6A12C61AE40E05B4743F279F2F8BA93B8AF9411A1ADD8E2FE5B5C5481E6021A6BE037F9D4F33D051523ECD69AA0BCDE2B851A421A68F6",
+  "descriptionLocation": "../../../specs/commerce_catalog_v1_beta_oas3 (2).yaml",
+  "lockFileVersion": "1.0.0",
+  "kiotaVersion": "1.31.1",
+  "clientClassName": "CatalogApiClient",
+  "typeAccessModifier": "Public",
+  "clientNamespaceName": "EBay.ListingMetadata.Generated.Catalog",
+  "language": "CSharp",
+  "usesBackingStore": false,
+  "excludeBackwardCompatible": true,
+  "includeAdditionalData": true,
+  "disableSSLValidation": false,
+  "serializers": [
+    "Microsoft.Kiota.Serialization.Json.JsonSerializationWriterFactory",
+    "Microsoft.Kiota.Serialization.Text.TextSerializationWriterFactory",
+    "Microsoft.Kiota.Serialization.Form.FormSerializationWriterFactory",
+    "Microsoft.Kiota.Serialization.Multipart.MultipartSerializationWriterFactory"
+  ],
+  "deserializers": [
+    "Microsoft.Kiota.Serialization.Json.JsonParseNodeFactory",
+    "Microsoft.Kiota.Serialization.Text.TextParseNodeFactory",
+    "Microsoft.Kiota.Serialization.Form.FormParseNodeFactory"
+  ],
+  "structuredMimeTypes": [
+    "application/json",
+    "text/plain;q=0.9",
+    "application/x-www-form-urlencoded;q=0.2",
+    "multipart/form-data;q=0.1"
+  ],
+  "includePatterns": [],
+  "excludePatterns": [],
+  "disabledValidationRules": []
+}

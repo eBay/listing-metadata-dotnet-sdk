@@ -1,0 +1,19 @@
+.DS_Store
+*/.DS_Store
+
+# Claude Code
+.claude/
+
+# Build artifacts
+bin/
+obj/
+*.user
+*.suo
+
+# NuGet packages
+*.nupkg
+nupkg/
+
+# Test projects
+SdkTest/
+*Test/

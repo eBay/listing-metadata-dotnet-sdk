@@ -1,0 +1,52 @@
+{
+  "rest": {
+    "commerce_catalog_v1_beta_oas3 (2)": [
+      "getProduct",
+      "search"
+    ],
+    "commerce_charity_v1_oas3": [
+      "getCharityOrg",
+      "getCharityOrgs"
+    ],
+    "sell_metadata_v1_oas3": [
+      "getAutomotivePartsCompatibilityPolicies",
+      "getCategoryPolicies",
+      "getClassifiedAdPolicies",
+      "getCompatibilitiesBySpecification",
+      "getCompatibilityPropertyNames",
+      "getCompatibilityPropertyValues",
+      "getCurrencies",
+      "getExcludeShippingLocations",
+      "getExtendedProducerResponsibilityPolicies",
+      "getHandlingTimes",
+      "getHazardousMaterialsLabels",
+      "getItemConditionPolicies",
+      "getListingStructurePolicies",
+      "getListingTypePolicies",
+      "getMotorsListingPolicies",
+      "getMultiCompatibilityPropertyValues",
+      "getNegotiatedPricePolicies",
+      "getProductCompatibilities",
+      "getProductSafetyLabels",
+      "getRegulatoryPolicies",
+      "getReturnPolicies",
+      "getSalesTaxJurisdictions",
+      "getShippingCarriers",
+      "getShippingLocations",
+      "getShippingPolicies",
+      "getShippingServices",
+      "getSiteVisibilityPolicies"
+    ],
+    "commerce_taxonomy_v1_oas3 (1)": [
+      "fetchItemAspects",
+      "getCategorySubtree",
+      "getCategorySuggestions",
+      "getCategoryTree",
+      "getCompatibilityProperties",
+      "getCompatibilityPropertyValues",
+      "getDefaultCategoryTreeId",
+      "getExpiredCategories",
+      "getItemAspectsForCategory"
+    ]
+  }
+}

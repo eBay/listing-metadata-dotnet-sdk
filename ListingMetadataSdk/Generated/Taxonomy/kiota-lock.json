@@ -1,0 +1,34 @@
+{
+  "descriptionHash": "F314E181B3DB9405E0F859658601A8DF6C86BB9053D83B769F4B999E353BED671008ECCE4D29610D91C03C78A4801C2927440167771DC43A05E6E97139013D16",
+  "descriptionLocation": "../../../specs/commerce_taxonomy_v1_oas3 (1).yaml",
+  "lockFileVersion": "1.0.0",
+  "kiotaVersion": "1.31.1",
+  "clientClassName": "TaxonomyApiClient",
+  "typeAccessModifier": "Public",
+  "clientNamespaceName": "EBay.ListingMetadata.Generated.Taxonomy",
+  "language": "CSharp",
+  "usesBackingStore": false,
+  "excludeBackwardCompatible": true,
+  "includeAdditionalData": true,
+  "disableSSLValidation": false,
+  "serializers": [
+    "Microsoft.Kiota.Serialization.Json.JsonSerializationWriterFactory",
+    "Microsoft.Kiota.Serialization.Text.TextSerializationWriterFactory",
+    "Microsoft.Kiota.Serialization.Form.FormSerializationWriterFactory",
+    "Microsoft.Kiota.Serialization.Multipart.MultipartSerializationWriterFactory"
+  ],
+  "deserializers": [
+    "Microsoft.Kiota.Serialization.Json.JsonParseNodeFactory",
+    "Microsoft.Kiota.Serialization.Text.TextParseNodeFactory",
+    "Microsoft.Kiota.Serialization.Form.FormParseNodeFactory"
+  ],
+  "structuredMimeTypes": [
+    "application/json",
+    "text/plain;q=0.9",
+    "application/x-www-form-urlencoded;q=0.2",
+    "multipart/form-data;q=0.1"
+  ],
+  "includePatterns": [],
+  "excludePatterns": [],
+  "disabledValidationRules": []
+}
