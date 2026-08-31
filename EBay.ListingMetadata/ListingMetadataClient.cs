@@ -13,45 +13,18 @@
 // limitations under the License.
 
 
-using System.Net;
-using EBay.ListingMetadata.Generated.Catalog;
-using EBay.ListingMetadata.Generated.Taxonomy;
-using EBay.ListingMetadata.Generated.Metadata;
-using EBay.ListingMetadata.Generated.Charity;
-using EBay.ListingMetadata.Clients.Rest;
 using EBay.ListingMetadata.Configuration;
 using Microsoft.Kiota.Abstractions.Authentication;
-using Microsoft.Kiota.Http.HttpClientLibrary;
 
 namespace EBay.ListingMetadata;
 
 /// <summary>
 /// Main SDK client providing unified access to all eBay Listing Metadata APIs
 /// </summary>
-public sealed class ListingMetadataClient : IDisposable
+public partial class ListingMetadataClient : IDisposable
 {
     private readonly HttpClient _httpClient;
     private readonly bool _disposeHttpClient;
-
-    /// <summary>
-    /// Catalog API client for product catalog operations
-    /// </summary>
-    public CatalogClient Catalog { get; }
-
-    /// <summary>
-    /// Taxonomy API client for category tree operations
-    /// </summary>
-    public TaxonomyClient Taxonomy { get; }
-
-    /// <summary>
-    /// Metadata API client for marketplace metadata operations
-    /// </summary>
-    public MetadataClient Metadata { get; }
-
-    /// <summary>
-    /// Charity API client for charitable organization operations
-    /// </summary>
-    public CharityClient Charity { get; }
 
     /// <summary>
     /// Creates a new SDK client.
@@ -69,22 +42,8 @@ public sealed class ListingMetadataClient : IDisposable
             ct => config.GetAccessTokenAsync(ct),
             config.GetAllowedHosts());
 
-        var catalogAdapter = new HttpClientRequestAdapter(authProvider, httpClient: _httpClient);
-        catalogAdapter.BaseUrl = config.CatalogBaseUrl;
-
-        var taxonomyAdapter = new HttpClientRequestAdapter(authProvider, httpClient: _httpClient);
-        taxonomyAdapter.BaseUrl = config.TaxonomyBaseUrl;
-
-        var metadataAdapter = new HttpClientRequestAdapter(authProvider, httpClient: _httpClient);
-        metadataAdapter.BaseUrl = config.MetadataBaseUrl;
-
-        var charityAdapter = new HttpClientRequestAdapter(authProvider, httpClient: _httpClient);
-        charityAdapter.BaseUrl = config.CharityBaseUrl;
-
-        Catalog = new CatalogClient(new CatalogApiClient(catalogAdapter));
-        Taxonomy = new TaxonomyClient(new TaxonomyApiClient(taxonomyAdapter));
-        Metadata = new MetadataClient(new MetadataApiClient(metadataAdapter));
-        Charity = new CharityClient(new CharityApiClient(charityAdapter));
+        var tokenContext = new AsyncLocalTokenContext();
+        InitializeRestClients(authProvider, _httpClient, config, tokenContext);
     }
 
     private static HttpClient BuildStandaloneHttpClient(ListingMetadataConfiguration config)
