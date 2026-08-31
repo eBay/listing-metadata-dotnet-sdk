@@ -52,6 +52,9 @@ dotnet kiota generate \
   -o EBay.ListingMetadata/Generated/Charity \
   --ebc --co
 
+echo "Adding license headers to generated files..."
+./add-license-headers.sh ./EBay.ListingMetadata/Generated
+
 echo "Building SDK..."
 dotnet build EBay.ListingMetadata/EBay.ListingMetadata.csproj
 
