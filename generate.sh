@@ -56,6 +56,6 @@ echo "Adding license headers to generated files..."
 ./add-license-headers.sh ./EBay.ListingMetadata/Generated
 
 echo "Building SDK..."
-dotnet build EBay.ListingMetadata/EBay.ListingMetadata.csproj
+DOTNET_ROLL_FORWARD=LatestMajor dotnet build EBay.ListingMetadata/EBay.ListingMetadata.csproj
 
 echo "Done! SDK regenerated successfully."
