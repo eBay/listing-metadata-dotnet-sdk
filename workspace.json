@@ -2,7 +2,7 @@
   "version": "1.0.0",
   "clients": {
     "Catalog": {
-      "descriptionLocation": "specs/commerce_catalog_v1_beta_oas3 (2).yaml",
+      "descriptionLocation": "specs/openapi/catalog.yaml",
       "language": "CSharp",
       "outputPath": "ListingMetadataSdk/Generated/Catalog",
       "clientClassName": "CatalogApiClient",
@@ -12,7 +12,7 @@
       "cleanOutput": true
     },
     "Taxonomy": {
-      "descriptionLocation": "specs/commerce_taxonomy_v1_oas3 (1).yaml",
+      "descriptionLocation": "specs/openapi/taxonomy.yaml",
       "language": "CSharp",
       "outputPath": "ListingMetadataSdk/Generated/Taxonomy",
       "clientClassName": "TaxonomyApiClient",
@@ -22,7 +22,7 @@
       "cleanOutput": true
     },
     "Metadata": {
-      "descriptionLocation": "specs/sell_metadata_v1_oas3.yaml",
+      "descriptionLocation": "specs/openapi/metadata.yaml",
       "language": "CSharp",
       "outputPath": "ListingMetadataSdk/Generated/Metadata",
       "clientClassName": "MetadataApiClient",
@@ -32,7 +32,7 @@
       "cleanOutput": true
     },
     "Charity": {
-      "descriptionLocation": "specs/commerce_charity_v1_oas3.yaml",
+      "descriptionLocation": "specs/openapi/charity.yaml",
       "language": "CSharp",
       "outputPath": "ListingMetadataSdk/Generated/Charity",
       "clientClassName": "CharityApiClient",
