@@ -17,21 +17,18 @@ using Microsoft.Kiota.Abstractions.Authentication;
 
 namespace EBay.ListingMetadata.Configuration;
 
-/// <summary>
-/// Kiota access token provider that delegates to a user-provided function
-/// </summary>
-internal sealed class DelegateAccessTokenProvider : IAccessTokenProvider
+internal sealed class KiotaAuthProvider : IAccessTokenProvider
 {
-    private readonly Func<CancellationToken, Task<string>> _tokenProvider;
+    private readonly ListingMetadataConfiguration _config;
+    private readonly ITokenContext _tokenContext;
 
     public AllowedHostsValidator AllowedHostsValidator { get; }
 
-    public DelegateAccessTokenProvider(
-        Func<CancellationToken, Task<string>> tokenProvider,
-        IEnumerable<string> allowedHosts)
+    public KiotaAuthProvider(ListingMetadataConfiguration config, ITokenContext tokenContext)
     {
-        _tokenProvider = tokenProvider ?? throw new ArgumentNullException(nameof(tokenProvider));
-        AllowedHostsValidator = new AllowedHostsValidator(allowedHosts);
+        _config = config;
+        _tokenContext = tokenContext;
+        AllowedHostsValidator = new AllowedHostsValidator(config.AllowedHosts);
     }
 
     public Task<string> GetAuthorizationTokenAsync(
@@ -39,6 +36,10 @@ internal sealed class DelegateAccessTokenProvider : IAccessTokenProvider
         Dictionary<string, object>? additionalAuthenticationContext = null,
         CancellationToken cancellationToken = default)
     {
-        return _tokenProvider(cancellationToken);
+        var token = _tokenContext.Current ?? _config.AccessToken;
+        if (token is null)
+            throw new InvalidOperationException(
+                "No access token available. Pass an accessToken per call or set ListingMetadataConfiguration.AccessToken.");
+        return Task.FromResult(token);
     }
 }

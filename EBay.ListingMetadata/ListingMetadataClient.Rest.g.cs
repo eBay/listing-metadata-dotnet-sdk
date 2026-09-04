@@ -47,23 +47,26 @@ public partial class ListingMetadataClient
     public CharityClient Charity { get; private set; } = null!;
 
     private void InitializeRestClients(
-        IAuthenticationProvider authProvider,
-        HttpClient httpClient,
+        IAuthenticationProvider auth,
+        HttpClient catalogClient,
+        HttpClient charityClient,
+        HttpClient metadataClient,
+        HttpClient taxonomyClient,
         ListingMetadataConfiguration config,
         ITokenContext tokenContext)
     {
         _ = tokenContext;
 
-        var catalogAdapter = new HttpClientRequestAdapter(authProvider, httpClient: httpClient);
+        var catalogAdapter = new HttpClientRequestAdapter(auth, httpClient: catalogClient);
         catalogAdapter.BaseUrl = config.CatalogBaseUrl;
 
-        var taxonomyAdapter = new HttpClientRequestAdapter(authProvider, httpClient: httpClient);
+        var taxonomyAdapter = new HttpClientRequestAdapter(auth, httpClient: taxonomyClient);
         taxonomyAdapter.BaseUrl = config.TaxonomyBaseUrl;
 
-        var metadataAdapter = new HttpClientRequestAdapter(authProvider, httpClient: httpClient);
+        var metadataAdapter = new HttpClientRequestAdapter(auth, httpClient: metadataClient);
         metadataAdapter.BaseUrl = config.MetadataBaseUrl;
 
-        var charityAdapter = new HttpClientRequestAdapter(authProvider, httpClient: httpClient);
+        var charityAdapter = new HttpClientRequestAdapter(auth, httpClient: charityClient);
         charityAdapter.BaseUrl = config.CharityBaseUrl;
 
         Catalog = new CatalogClient(new CatalogApiClient(catalogAdapter));

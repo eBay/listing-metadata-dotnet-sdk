@@ -35,16 +35,36 @@ public static class ServiceCollectionExtensions
         ListingMetadataConfiguration configuration)
     {
         services.AddSingleton(configuration);
+        services.AddSingleton<ITokenContext, AsyncLocalTokenContext>();
 
-        services.AddHttpClient(nameof(ListingMetadataClient))
-            .ConfigureHttpClient(c => c.Timeout = configuration.HttpTimeout)
-            .AddHttpMessageHandler(sp =>
-                new DiagnosticLoggingHandler(sp.GetRequiredService<ListingMetadataConfiguration>()));
+        services.AddHttpClient(ListingMetadataClient.CatalogClientName,
+                (sp, c) => c.BaseAddress = new Uri(sp.GetRequiredService<ListingMetadataConfiguration>().CatalogBaseUrl))
+            .ConfigureHttpClient((sp, c) => c.Timeout = sp.GetRequiredService<ListingMetadataConfiguration>().HttpTimeout)
+            .AddHttpMessageHandler(sp => new DiagnosticLoggingHandler(sp.GetRequiredService<ListingMetadataConfiguration>()));
+        services.AddHttpClient(ListingMetadataClient.CharityClientName,
+                (sp, c) => c.BaseAddress = new Uri(sp.GetRequiredService<ListingMetadataConfiguration>().CharityBaseUrl))
+            .ConfigureHttpClient((sp, c) => c.Timeout = sp.GetRequiredService<ListingMetadataConfiguration>().HttpTimeout)
+            .AddHttpMessageHandler(sp => new DiagnosticLoggingHandler(sp.GetRequiredService<ListingMetadataConfiguration>()));
+        services.AddHttpClient(ListingMetadataClient.MetadataClientName,
+                (sp, c) => c.BaseAddress = new Uri(sp.GetRequiredService<ListingMetadataConfiguration>().MetadataBaseUrl))
+            .ConfigureHttpClient((sp, c) => c.Timeout = sp.GetRequiredService<ListingMetadataConfiguration>().HttpTimeout)
+            .AddHttpMessageHandler(sp => new DiagnosticLoggingHandler(sp.GetRequiredService<ListingMetadataConfiguration>()));
+        services.AddHttpClient(ListingMetadataClient.TaxonomyClientName,
+                (sp, c) => c.BaseAddress = new Uri(sp.GetRequiredService<ListingMetadataConfiguration>().TaxonomyBaseUrl))
+            .ConfigureHttpClient((sp, c) => c.Timeout = sp.GetRequiredService<ListingMetadataConfiguration>().HttpTimeout)
+            .AddHttpMessageHandler(sp => new DiagnosticLoggingHandler(sp.GetRequiredService<ListingMetadataConfiguration>()));
 
         services.AddScoped<ListingMetadataClient>(sp =>
-            new ListingMetadataClient(
+        {
+            var factory = sp.GetRequiredService<IHttpClientFactory>();
+            return new ListingMetadataClient(
                 sp.GetRequiredService<ListingMetadataConfiguration>(),
-                sp.GetRequiredService<IHttpClientFactory>().CreateClient(nameof(ListingMetadataClient))));
+                factory.CreateClient(ListingMetadataClient.CatalogClientName),
+                factory.CreateClient(ListingMetadataClient.CharityClientName),
+                factory.CreateClient(ListingMetadataClient.MetadataClientName),
+                factory.CreateClient(ListingMetadataClient.TaxonomyClientName),
+                sp.GetRequiredService<ITokenContext>());
+        });
 
         services.AddScoped(sp => sp.GetRequiredService<ListingMetadataClient>().Catalog);
         services.AddScoped(sp => sp.GetRequiredService<ListingMetadataClient>().Taxonomy);

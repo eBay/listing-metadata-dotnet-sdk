@@ -24,13 +24,14 @@ public sealed class ListingMetadataConfiguration
     private string _taxonomyBaseUrl = "https://api.ebay.com/commerce/taxonomy/v1";
     private string _metadataBaseUrl = "https://api.ebay.com/sell/metadata/v1";
     private string _charityBaseUrl = "https://api.ebay.com/commerce/charity/v1";
+
     /// <summary>
     /// Base URL for Catalog API (default: https://api.ebay.com/commerce/catalog/v1_beta)
     /// </summary>
     public string CatalogBaseUrl
     {
         get => _catalogBaseUrl;
-        init => _catalogBaseUrl = RequireHttps(value, nameof(CatalogBaseUrl));
+        set => _catalogBaseUrl = RequireHttps(value);
     }
 
     /// <summary>
@@ -39,7 +40,7 @@ public sealed class ListingMetadataConfiguration
     public string TaxonomyBaseUrl
     {
         get => _taxonomyBaseUrl;
-        init => _taxonomyBaseUrl = RequireHttps(value, nameof(TaxonomyBaseUrl));
+        set => _taxonomyBaseUrl = RequireHttps(value);
     }
 
     /// <summary>
@@ -48,7 +49,7 @@ public sealed class ListingMetadataConfiguration
     public string MetadataBaseUrl
     {
         get => _metadataBaseUrl;
-        init => _metadataBaseUrl = RequireHttps(value, nameof(MetadataBaseUrl));
+        set => _metadataBaseUrl = RequireHttps(value);
     }
 
     /// <summary>
@@ -57,18 +58,13 @@ public sealed class ListingMetadataConfiguration
     public string CharityBaseUrl
     {
         get => _charityBaseUrl;
-        init => _charityBaseUrl = RequireHttps(value, nameof(CharityBaseUrl));
+        set => _charityBaseUrl = RequireHttps(value);
     }
 
     /// <summary>
-    /// Static access token for all APIs. Simpler but expires (typically 2 hours).
+    /// Fallback bearer token used when no per-call accessToken is supplied.
     /// </summary>
     public string? AccessToken { get; set; }
-
-    /// <summary>
-    /// Delegate to get a fresh access token on demand. Takes precedence over AccessToken.
-    /// </summary>
-    public Func<CancellationToken, Task<string>>? TokenProvider { get; set; }
 
     /// <summary>Timeout applied to all HTTP requests. Defaults to 30 seconds.</summary>
     public TimeSpan HttpTimeout { get; init; } = TimeSpan.FromSeconds(30);
@@ -84,40 +80,24 @@ public sealed class ListingMetadataConfiguration
     /// </summary>
     public bool DiagnosticLogging { get; set; }
 
-    /// <summary>
-    /// Gets the access token for API calls
-    /// </summary>
-    internal async Task<string> GetAccessTokenAsync(CancellationToken cancellationToken = default)
-    {
-        if (TokenProvider is not null)
-            return await TokenProvider(cancellationToken);
-
-        if (!string.IsNullOrEmpty(AccessToken))
-            return AccessToken;
-
-        throw new InvalidOperationException(
-            "ListingMetadataConfiguration requires either AccessToken or TokenProvider to be set.");
-    }
+    internal IEnumerable<string> AllowedHosts =>
+    [
+        new Uri(_catalogBaseUrl).Host,
+        new Uri(_charityBaseUrl).Host,
+        new Uri(_metadataBaseUrl).Host,
+        new Uri(_taxonomyBaseUrl).Host,
+        "apiz.ebay.com",
+    ];
 
     /// <summary>
     /// Gets allowed hosts for API token validation
     /// </summary>
-    public IEnumerable<string> GetAllowedHosts()
-    {
-        return new[]
-        {
-            new Uri(CatalogBaseUrl).Host,
-            new Uri(TaxonomyBaseUrl).Host,
-            new Uri(MetadataBaseUrl).Host,
-            new Uri(CharityBaseUrl).Host,
-            "apiz.ebay.com"
-        }.Distinct();
-    }
+    public IEnumerable<string> GetAllowedHosts() => AllowedHosts;
 
-    private static string RequireHttps(string value, string paramName)
+    private static string RequireHttps(string value)
     {
         if (!value.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
-            throw new ArgumentException("Only HTTPS endpoints are allowed.", paramName);
+            throw new ArgumentException($"URL must use HTTPS: '{value}'", nameof(value));
         return value;
     }
 }

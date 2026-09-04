@@ -23,44 +23,57 @@ namespace EBay.ListingMetadata;
 /// </summary>
 public partial class ListingMetadataClient : IDisposable
 {
-    private readonly HttpClient _httpClient;
-    private readonly bool _disposeHttpClient;
+    internal const string CatalogClientName = "ListingMetadataClient.Catalog";
+    internal const string CharityClientName = "ListingMetadataClient.Charity";
+    internal const string MetadataClientName = "ListingMetadataClient.Metadata";
+    internal const string TaxonomyClientName = "ListingMetadataClient.Taxonomy";
+
+    private readonly HttpClient[] _ownedClients;
 
     /// <summary>
-    /// Creates a new SDK client.
+    /// DI-friendly constructor: each HttpClient is a named client from IHttpClientFactory
+    /// with DiagnosticLoggingHandler and BaseAddress already configured.
     /// </summary>
-    /// <param name="config">SDK configuration</param>
-    /// <param name="httpClient">Optional HttpClient (if not provided, a standalone client with diagnostic logging will be created)</param>
-    public ListingMetadataClient(
+    internal ListingMetadataClient(
         ListingMetadataConfiguration config,
-        HttpClient? httpClient = null)
+        HttpClient catalogClient,
+        HttpClient charityClient,
+        HttpClient metadataClient,
+        HttpClient taxonomyClient,
+        ITokenContext tokenContext)
     {
-        _httpClient = httpClient ?? BuildStandaloneHttpClient(config);
-        _disposeHttpClient = httpClient is null;
+        _ownedClients = [];
 
-        var authProvider = BuildAuthProvider(
-            ct => config.GetAccessTokenAsync(ct),
-            config.GetAllowedHosts());
+        var auth = new BaseBearerTokenAuthenticationProvider(new KiotaAuthProvider(config, tokenContext));
 
-        var tokenContext = new AsyncLocalTokenContext();
-        InitializeRestClients(authProvider, _httpClient, config, tokenContext);
+        InitializeRestClients(auth, catalogClient, charityClient, metadataClient, taxonomyClient, config, tokenContext);
     }
 
-    private static HttpClient BuildStandaloneHttpClient(ListingMetadataConfiguration config)
+    /// <summary>
+    /// Standalone constructor for use outside DI (tests, scripts).
+    /// Creates its own HttpClients with DiagnosticLoggingHandler.
+    /// </summary>
+    public ListingMetadataClient(ListingMetadataConfiguration config)
+    {
+        var tokenContext = new AsyncLocalTokenContext();
+        var auth = new BaseBearerTokenAuthenticationProvider(new KiotaAuthProvider(config, tokenContext));
+
+        var catalogClient = BuildStandaloneHttpClient(config, config.CatalogBaseUrl);
+        var charityClient = BuildStandaloneHttpClient(config, config.CharityBaseUrl);
+        var metadataClient = BuildStandaloneHttpClient(config, config.MetadataBaseUrl);
+        var taxonomyClient = BuildStandaloneHttpClient(config, config.TaxonomyBaseUrl);
+        _ownedClients = [catalogClient, charityClient, metadataClient, taxonomyClient];
+
+        InitializeRestClients(auth, catalogClient, charityClient, metadataClient, taxonomyClient, config, tokenContext);
+    }
+
+    private static HttpClient BuildStandaloneHttpClient(ListingMetadataConfiguration config, string baseUrl)
     {
         var handler = new DiagnosticLoggingHandler(config)
         {
             InnerHandler = new SocketsHttpHandler { PooledConnectionLifetime = TimeSpan.FromMinutes(2) }
         };
-        return new HttpClient(handler) { Timeout = config.HttpTimeout };
-    }
-
-    private static IAuthenticationProvider BuildAuthProvider(
-        Func<CancellationToken, Task<string>> tokenProvider,
-        IEnumerable<string> allowedHosts)
-    {
-        var accessTokenProvider = new DelegateAccessTokenProvider(tokenProvider, allowedHosts);
-        return new BaseBearerTokenAuthenticationProvider(accessTokenProvider);
+        return new HttpClient(handler) { BaseAddress = new Uri(baseUrl), Timeout = config.HttpTimeout };
     }
 
     /// <summary>
@@ -68,9 +81,7 @@ public partial class ListingMetadataClient : IDisposable
     /// </summary>
     public void Dispose()
     {
-        if (_disposeHttpClient)
-        {
-            _httpClient?.Dispose();
-        }
+        foreach (var client in _ownedClients)
+            client.Dispose();
     }
 }
