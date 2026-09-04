@@ -13,20 +13,13 @@
 // limitations under the License.
 
 
-namespace EBay.ListingMetadata;
+using System;
+using System.Collections.Generic;
 
-/// <summary>
-/// Optional configuration for individual API requests
-/// </summary>
+namespace EBay.ListingMetadata.Configuration;
+
 public sealed class RequestOptions
 {
-    /// <summary>
-    /// Override access token for this specific request (useful for multi-tenant scenarios)
-    /// </summary>
-    public string? AccessToken { get; set; }
-
-    /// <summary>
-    /// Additional custom headers to include in the request
-    /// </summary>
-    public Dictionary<string, string>? Headers { get; set; }
+    public IDictionary<string, string> Headers { get; init; } =
+        new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 }

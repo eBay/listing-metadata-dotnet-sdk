@@ -80,6 +80,9 @@ public sealed class ListingMetadataConfiguration
     /// </summary>
     public bool DiagnosticLogging { get; set; }
 
+    /// <summary>Default headers applied to every REST request. Per-call RequestOptions override these.</summary>
+    public RequestOptions DefaultRequestOptions { get; set; } = new();
+
     internal IEnumerable<string> AllowedHosts =>
     [
         new Uri(_catalogBaseUrl).Host,
