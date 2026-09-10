@@ -22,7 +22,7 @@ dotnet tool restore
 echo "Regenerating REST clients with Kiota..."
 dotnet kiota generate \
   -l csharp \
-  -d specs/"commerce_catalog_v1_beta_oas3 (2).yaml" \
+  -d specs/openapi/catalog.yaml \
   -c CatalogApiClient \
   -n EBay.ListingMetadata.Generated.Catalog \
   -o EBay.ListingMetadata/Generated/Catalog \
@@ -30,7 +30,7 @@ dotnet kiota generate \
 
 dotnet kiota generate \
   -l csharp \
-  -d specs/"commerce_taxonomy_v1_oas3 (1).yaml" \
+  -d specs/openapi/taxonomy.yaml \
   -c TaxonomyApiClient \
   -n EBay.ListingMetadata.Generated.Taxonomy \
   -o EBay.ListingMetadata/Generated/Taxonomy \
@@ -38,7 +38,7 @@ dotnet kiota generate \
 
 dotnet kiota generate \
   -l csharp \
-  -d specs/sell_metadata_v1_oas3.yaml \
+  -d specs/openapi/metadata.yaml \
   -c MetadataApiClient \
   -n EBay.ListingMetadata.Generated.Metadata \
   -o EBay.ListingMetadata/Generated/Metadata \
@@ -46,13 +46,16 @@ dotnet kiota generate \
 
 dotnet kiota generate \
   -l csharp \
-  -d specs/commerce_charity_v1_oas3.yaml \
+  -d specs/openapi/charity.yaml \
   -c CharityApiClient \
   -n EBay.ListingMetadata.Generated.Charity \
   -o EBay.ListingMetadata/Generated/Charity \
   --ebc --co
 
+echo "Adding license headers to generated files..."
+./add-license-headers.sh ./EBay.ListingMetadata/Generated
+
 echo "Building SDK..."
-dotnet build EBay.ListingMetadata/EBay.ListingMetadata.csproj
+DOTNET_ROLL_FORWARD=LatestMajor dotnet build EBay.ListingMetadata/EBay.ListingMetadata.csproj
 
 echo "Done! SDK regenerated successfully."
