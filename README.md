@@ -33,7 +33,7 @@ dotnet add package ListingMetadataSdk
 Or add to your `.csproj`:
 
 ```xml
-<PackageReference Include="ListingMetadataSdk" Version="1.0.0" />
+<PackageReference Include="ListingMetadataSdk" Version="0.2.0" />
 ```
 
 ## Quick Start
