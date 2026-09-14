@@ -30,7 +30,7 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Category_tree
     public partial class Category_treeRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the EBay.ListingMetadata.Generated.Taxonomy.category_tree.item collection</summary>
-        /// <param name="position">The unique identifier of the eBay category tree. The category tree ID for an eBay marketplace can be retrieved using the &lt;b&gt;getDefaultCategoryTreeId&lt;/b&gt; method.</param>
+        /// <param name="position">The unique identifier of the eBay category tree. The category tree ID for an eBay marketplace can be retrieved using the &lt;a href=&quot;/develop/api/sell/taxonomy_api#sell-taxonomy_api-category_tree-getdefaultcategorytreeid&quot; &gt;getDefaultCategoryTreeId&lt;/a&gt; method.</param>
         /// <returns>A <see cref="global::EBay.ListingMetadata.Generated.Taxonomy.Category_tree.Item.WithCategory_tree_ItemRequestBuilder"/></returns>
         public global::EBay.ListingMetadata.Generated.Taxonomy.Category_tree.Item.WithCategory_tree_ItemRequestBuilder this[string position]
         {

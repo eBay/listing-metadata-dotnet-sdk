@@ -53,15 +53,15 @@ namespace EBay.ListingMetadata.Generated.Metadata.Models
         public bool? ClassifiedAdAutoDeclineEnabled { get; set; }
         /// <summary>This enumerated value indicates if Best Offer is enabled, disabled, or required for Classified Ad listings in this category.</summary>
         public global::EBay.ListingMetadata.Generated.Metadata.Models.ClassifiedAdBestOfferEnabledEnum? ClassifiedAdBestOfferEnabled { get; set; }
-        /// <summary>Indicates whether this category supports including a company name in the seller&apos;s contact information. This element is for &lt;b&gt;For Sale By Owner&lt;/b&gt; listings. </summary>
+        /// <summary>Indicates whether this category supports including a company name in the seller&apos;s contact information. This element is for For Sale By Owner listings.</summary>
         public bool? ClassifiedAdCompanyNameEnabled { get; set; }
-        /// <summary>Indicates whether this category supports including an address in the seller&apos;s contact information. This element is for &lt;b&gt;For Sale By Owner&lt;/b&gt; listings. </summary>
+        /// <summary>Indicates whether this category supports including an address in the seller&apos;s contact information. This element is for For Sale By Owner listings.</summary>
         public bool? ClassifiedAdContactByAddressEnabled { get; set; }
         /// <summary>Indicates whether most categories support including an email address in the seller&apos;s contact information.</summary>
         public bool? ClassifiedAdContactByEmailEnabled { get; set; }
         /// <summary>Indicates whether most categories support including a phone number in the seller&apos;s contact information.</summary>
         public bool? ClassifiedAdContactByPhoneEnabled { get; set; }
-        /// <summary>Indicates whether counter offers are allowed on Best offers for the category.</summary>
+        /// <summary>Indicates whether counter offers are allowed on Best Offers for most categories.</summary>
         public bool? ClassifiedAdCounterOfferEnabled { get; set; }
         /// <summary>This enumerated value indicates support for the payment method being displayed to the user for the category. Even if enabled, checkout may or may not be enabled.</summary>
         public global::EBay.ListingMetadata.Generated.Metadata.Models.ClassifiedAdPaymentMethodEnabledEnum? ClassifiedAdPaymentMethodEnabled { get; set; }

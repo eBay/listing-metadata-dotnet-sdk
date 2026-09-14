@@ -32,10 +32,10 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Models
         /// <summary>A list of one or more identifiers of the eBay marketplaces that use this category tree.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<string>? ApplicableMarketplaceIds { get; set; }
+        public List<global::EBay.ListingMetadata.Generated.Taxonomy.Models.MarketplaceIdEnum?>? ApplicableMarketplaceIds { get; set; }
 #nullable restore
 #else
-        public List<string> ApplicableMarketplaceIds { get; set; }
+        public List<global::EBay.ListingMetadata.Generated.Taxonomy.Models.MarketplaceIdEnum?> ApplicableMarketplaceIds { get; set; }
 #endif
         /// <summary>The unique identifier of this eBay category tree.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -53,7 +53,7 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Models
 #else
         public string CategoryTreeVersion { get; set; }
 #endif
-        /// <summary>This type contains information about all nodes of a category tree or subtree hierarchy, including and below the specified &lt;b&gt;Category&lt;/b&gt;, down to the leaf nodes. It is a recursive structure.</summary>
+        /// <summary>Contains details of all nodes of the category tree hierarchy, starting with the root node and down to the leaf nodes. This is a recursive structure.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt; &lt;strong&gt;Note:&lt;/strong&gt; The root node of a full default category tree includes the &lt;b&gt;categoryId&lt;/b&gt; field, but its value should not be relied upon. It provides no useful information for application development.&lt;/span&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.ListingMetadata.Generated.Taxonomy.Models.CategoryTreeNode? RootCategoryNode { get; set; }
@@ -86,7 +86,7 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "applicableMarketplaceIds", n => { ApplicableMarketplaceIds = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
+                { "applicableMarketplaceIds", n => { ApplicableMarketplaceIds = n.GetCollectionOfEnumValues<global::EBay.ListingMetadata.Generated.Taxonomy.Models.MarketplaceIdEnum>()?.AsList(); } },
                 { "categoryTreeId", n => { CategoryTreeId = n.GetStringValue(); } },
                 { "categoryTreeVersion", n => { CategoryTreeVersion = n.GetStringValue(); } },
                 { "rootCategoryNode", n => { RootCategoryNode = n.GetObjectValue<global::EBay.ListingMetadata.Generated.Taxonomy.Models.CategoryTreeNode>(global::EBay.ListingMetadata.Generated.Taxonomy.Models.CategoryTreeNode.CreateFromDiscriminatorValue); } },
@@ -99,7 +99,7 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteCollectionOfPrimitiveValues<string>("applicableMarketplaceIds", ApplicableMarketplaceIds);
+            writer.WriteCollectionOfEnumValues<global::EBay.ListingMetadata.Generated.Taxonomy.Models.MarketplaceIdEnum>("applicableMarketplaceIds", ApplicableMarketplaceIds);
             writer.WriteStringValue("categoryTreeId", CategoryTreeId);
             writer.WriteStringValue("categoryTreeVersion", CategoryTreeVersion);
             writer.WriteObjectValue<global::EBay.ListingMetadata.Generated.Taxonomy.Models.CategoryTreeNode>("rootCategoryNode", RootCategoryNode);

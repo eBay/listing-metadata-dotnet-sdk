@@ -22,14 +22,14 @@ using System;
 namespace EBay.ListingMetadata.Generated.Catalog.Models
 {
     /// <summary>
-    /// This type contains a summary of a specified product. The product summary includes information about the product&apos;s identifiers, product images, aspects, and the &lt;b&gt;getProduct&lt;/b&gt; URL for retrieving the product details.
+    /// This type contains a summary of a specified product. The product summary includes information about the product&apos;s identifiers, product images, aspects, and the &lt;strong&gt;getProduct&lt;/strong&gt; URL for retrieving the product details.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class ProductSummary : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Contains information about additional images associated with this product. For the primary image, see the &lt;b&gt;image&lt;/b&gt; container.</summary>
+        /// <summary>This array is returned if the category product has additional images besides the primary image returned in the &lt;strong&gt;image&lt;/strong&gt; container.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::EBay.ListingMetadata.Generated.Catalog.Models.Image>? AdditionalImages { get; set; }
@@ -69,7 +69,7 @@ namespace EBay.ListingMetadata.Generated.Catalog.Models
 #else
         public string Epid { get; set; }
 #endif
-        /// <summary>A list of all GTINs that identify this product. This includes all of the values returned in the &lt;b&gt;ean&lt;/b&gt;, &lt;b&gt;isbn&lt;/b&gt;, and &lt;b&gt;upc&lt;/b&gt; fields.</summary>
+        /// <summary>A list of all GTINs that identify this product. This includes all of the values returned in the &lt;strong&gt;ean&lt;/strong&gt;, &lt;strong&gt;isbn&lt;/strong&gt;, and &lt;strong&gt;upc&lt;/strong&gt; fields.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<string>? Gtin { get; set; }
@@ -77,7 +77,7 @@ namespace EBay.ListingMetadata.Generated.Catalog.Models
 #else
         public List<string> Gtin { get; set; }
 #endif
-        /// <summary>This type contains information about a product image stored in eBay Picture Services (EPS).</summary>
+        /// <summary>Contains information about the primary image of this product. For more images of this product, see the &lt;strong&gt;additionalImages&lt;/strong&gt; container.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.ListingMetadata.Generated.Catalog.Models.Image? Image { get; set; }
@@ -101,7 +101,7 @@ namespace EBay.ListingMetadata.Generated.Catalog.Models
 #else
         public List<string> Mpn { get; set; }
 #endif
-        /// <summary>The URI of the &lt;b&gt;getProduct&lt;/b&gt; call request that retrieves this product&apos;s details.</summary>
+        /// <summary>The URI of the &lt;strong&gt;getProduct&lt;/strong&gt; call request that retrieves this product&apos;s details.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ProductHref { get; set; }

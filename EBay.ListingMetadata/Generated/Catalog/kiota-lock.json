@@ -1,8 +1,8 @@
 {
-  "descriptionHash": "71DB1DA157E1F37422B6A12C61AE40E05B4743F279F2F8BA93B8AF9411A1ADD8E2FE5B5C5481E6021A6BE037F9D4F33D051523ECD69AA0BCDE2B851A421A68F6",
-  "descriptionLocation": "../../../specs/openapi/catalog.yaml",
+  "descriptionHash": "40041E4A70B22B94C1CBEFECD1AA693288EE2469225B526237C32180DF93B548E8ACBEB65DA18FBB4E3698463B74F0B7A8DC4BEE0AF662AEF61ACFDD93C47EE5",
+  "descriptionLocation": "../../../specs/openapi/catalog.json",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.31.1",
+  "kiotaVersion": "1.35.0",
   "clientClassName": "CatalogApiClient",
   "typeAccessModifier": "Public",
   "clientNamespaceName": "EBay.ListingMetadata.Generated.Catalog",
@@ -30,5 +30,6 @@
   ],
   "includePatterns": [],
   "excludePatterns": [],
-  "disabledValidationRules": []
+  "disabledValidationRules": [],
+  "allowedExternalOrigins": []
 }

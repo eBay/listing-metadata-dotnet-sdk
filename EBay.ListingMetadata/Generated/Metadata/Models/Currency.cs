@@ -22,7 +22,7 @@ using System;
 namespace EBay.ListingMetadata.Generated.Metadata.Models
 {
     /// <summary>
-    /// This field specifies the default currency used by the marketplace.
+    /// The type defining valid currencies for the marketplace.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Currency : IAdditionalDataHolder, IParsable

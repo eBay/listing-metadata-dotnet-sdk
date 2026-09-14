@@ -17,7 +17,7 @@ using System.Runtime.Serialization;
 using System;
 namespace EBay.ListingMetadata.Generated.Metadata.Models
 {
-    /// <summary>This enum value indicates the listing type for which minimum starting price policies are being returned.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; The only applicable values for this method are &lt;code&gt;AUCTION&lt;/code&gt; and &lt;code&gt;FIXED_PRICE_ITEM&lt;/code&gt;.&lt;/span&gt;</summary>
+    /// <summary>The enumerated value returned in this field indicates the listing type for the duration value(s).</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum ListingTypeEnum
     {

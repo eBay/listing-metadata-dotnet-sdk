@@ -29,30 +29,18 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Indicates additional data type requirements for the aspect. For example, &lt;code&gt;NUMERIC_RANGE&lt;/code&gt; indicates that the aspect value must be in numeric range format.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt; &lt;strong&gt;Note:&lt;/strong&gt; Currently only &lt;code&gt;NUMERIC_RANGE&lt;/code&gt; is supported.&lt;/span&gt; For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/taxonomy/types/txn:AspectAdvancedDataTypeEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
+        /// <summary>Indicates additional data type requirements for the aspect. For example, &lt;code&gt;NUMERIC_RANGE&lt;/code&gt; indicates that the aspect value must be in numeric range format.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt; &lt;strong&gt;Note:&lt;/strong&gt; Currently only &lt;code&gt;NUMERIC_RANGE&lt;/code&gt; is supported.&lt;/span&gt;</summary>
+        public global::EBay.ListingMetadata.Generated.Taxonomy.Models.AspectAdvancedDataTypeEnum? AspectAdvancedDataType { get; set; }
+        /// <summary>This value indicates if the aspect identified by the &lt;b&gt;aspects.localizedAspectName&lt;/b&gt; field is a product aspect (relevant to catalog products in the category) or an item/instance aspect, which is an aspect whose value will vary based on a particular instance of the product.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? AspectAdvancedDataType { get; set; }
+        public List<global::EBay.ListingMetadata.Generated.Taxonomy.Models.AspectApplicableToEnum?>? AspectApplicableTo { get; set; }
 #nullable restore
 #else
-        public string AspectAdvancedDataType { get; set; }
+        public List<global::EBay.ListingMetadata.Generated.Taxonomy.Models.AspectApplicableToEnum?> AspectApplicableTo { get; set; }
 #endif
-        /// <summary>This value indicate if the aspect identified by the &lt;b&gt;aspects.localizedAspectName&lt;/b&gt; field is a product aspect (relevant to catalog products in the category) or an item/instance aspect, which is an aspect whose value will vary based on a particular instance of the product.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public List<string>? AspectApplicableTo { get; set; }
-#nullable restore
-#else
-        public List<string> AspectApplicableTo { get; set; }
-#endif
-        /// <summary>The data type of this aspect. For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/taxonomy/types/txn:AspectDataTypeEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? AspectDataType { get; set; }
-#nullable restore
-#else
-        public string AspectDataType { get; set; }
-#endif
+        /// <summary>The data type of this aspect.</summary>
+        public global::EBay.ListingMetadata.Generated.Taxonomy.Models.AspectDataTypeEnum? AspectDataType { get; set; }
         /// <summary>A value of &lt;code&gt;true&lt;/code&gt; indicates that this aspect can be used to help identify item variations.</summary>
         public bool? AspectEnabledForVariations { get; set; }
         /// <summary>&lt;i&gt;Returned only if&lt;/i&gt; the value of &lt;b&gt;aspectDataType&lt;/b&gt; identifies a data type that requires specific formatting. Currently, this field provides formatting hints as follows: &lt;ul&gt; &lt;li&gt;&lt;b&gt;DATE&lt;/b&gt;: &lt;code&gt;YYYY&lt;/code&gt;, &lt;code&gt;YYYYMM&lt;/code&gt;, &lt;code&gt;YYYYMMDD&lt;/code&gt;&lt;/li&gt; &lt;li&gt;&lt;b&gt;NUMBER&lt;/b&gt;: &lt;code&gt;int32&lt;/code&gt;, &lt;code&gt;double&lt;/code&gt;&lt;/li&gt; &lt;/ul&gt;</summary>
@@ -65,24 +53,12 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Models
 #endif
         /// <summary>The maximum length of the item/instance aspect&apos;s value. The seller must make sure not to exceed this length when specifying the instance aspect&apos;s value for a product. This field is only returned for instance aspects.</summary>
         public int? AspectMaxLength { get; set; }
-        /// <summary>The manner in which values of this aspect must be specified by the seller (as free text or by selecting from available options).  For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/taxonomy/types/txn:AspectModeEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? AspectMode { get; set; }
-#nullable restore
-#else
-        public string AspectMode { get; set; }
-#endif
+        /// <summary>The manner in which values of this aspect must be specified by the seller (as free text or by selecting from available options). </summary>
+        public global::EBay.ListingMetadata.Generated.Taxonomy.Models.AspectModeEnum? AspectMode { get; set; }
         /// <summary>A value of &lt;code&gt;true&lt;/code&gt; indicates that this aspect is required when offering items in the specified category.</summary>
         public bool? AspectRequired { get; set; }
-        /// <summary>The enumeration value returned in this field will indicate if the corresponding aspect is recommended or optional.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt; &lt;strong&gt;Note:&lt;/strong&gt; This field is always returned, even for hard-mandated/required aspects (where &lt;code&gt;&lt;strong&gt;aspectRequired&lt;/strong&gt;: true&lt;/code&gt;). The value returned for required aspects will be &lt;code&gt;RECOMMENDED&lt;/code&gt;, but they are actually required and a seller will be blocked from listing or revising an item without these aspects. &lt;/span&gt; For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/taxonomy/types/txn:AspectUsageEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? AspectUsage { get; set; }
-#nullable restore
-#else
-        public string AspectUsage { get; set; }
-#endif
+        /// <summary>The enumeration value returned in this field will indicate if the corresponding aspect is recommended or optional.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt; &lt;strong&gt;Note:&lt;/strong&gt; This field is always returned, even for hard-mandated/required aspects (where &lt;strong&gt;aspectRequired&lt;/strong&gt;: &lt;code&gt;true&lt;/code&gt;). The value returned for required aspects will be &lt;code&gt;RECOMMENDED&lt;/code&gt;, but they are actually required and a seller will be blocked from listing or revising an item without these aspects. &lt;/span&gt;</summary>
+        public global::EBay.ListingMetadata.Generated.Taxonomy.Models.AspectUsageEnum? AspectUsage { get; set; }
         /// <summary>The expected date after which the aspect will be required.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt; &lt;strong&gt;Note:&lt;/strong&gt; The value returned in this field specifies only an approximate date, which may not reflect the actual date after which the aspect is required.&lt;/span&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -91,14 +67,8 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Models
 #else
         public string ExpectedRequiredByDate { get; set; }
 #endif
-        /// <summary>Indicates whether this aspect can accept single or multiple values for items in the specified category.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt; &lt;strong&gt;Note:&lt;/strong&gt; Up to 30 values can be supplied for aspects that accept multiple values.&lt;/span&gt; For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/taxonomy/types/txn:ItemToAspectCardinalityEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? ItemToAspectCardinality { get; set; }
-#nullable restore
-#else
-        public string ItemToAspectCardinality { get; set; }
-#endif
+        /// <summary>Indicates whether this aspect can accept single or multiple values for items in the specified category.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt; &lt;strong&gt;Note:&lt;/strong&gt; Up to 30 values can be supplied for aspects that accept multiple values.&lt;/span&gt;</summary>
+        public global::EBay.ListingMetadata.Generated.Taxonomy.Models.ItemToAspectCardinalityEnum? ItemToAspectCardinality { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.ListingMetadata.Generated.Taxonomy.Models.AspectConstraint"/> and sets the default values.
         /// </summary>
@@ -124,17 +94,17 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "aspectAdvancedDataType", n => { AspectAdvancedDataType = n.GetStringValue(); } },
-                { "aspectApplicableTo", n => { AspectApplicableTo = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
-                { "aspectDataType", n => { AspectDataType = n.GetStringValue(); } },
+                { "aspectAdvancedDataType", n => { AspectAdvancedDataType = n.GetEnumValue<global::EBay.ListingMetadata.Generated.Taxonomy.Models.AspectAdvancedDataTypeEnum>(); } },
+                { "aspectApplicableTo", n => { AspectApplicableTo = n.GetCollectionOfEnumValues<global::EBay.ListingMetadata.Generated.Taxonomy.Models.AspectApplicableToEnum>()?.AsList(); } },
+                { "aspectDataType", n => { AspectDataType = n.GetEnumValue<global::EBay.ListingMetadata.Generated.Taxonomy.Models.AspectDataTypeEnum>(); } },
                 { "aspectEnabledForVariations", n => { AspectEnabledForVariations = n.GetBoolValue(); } },
                 { "aspectFormat", n => { AspectFormat = n.GetStringValue(); } },
                 { "aspectMaxLength", n => { AspectMaxLength = n.GetIntValue(); } },
-                { "aspectMode", n => { AspectMode = n.GetStringValue(); } },
+                { "aspectMode", n => { AspectMode = n.GetEnumValue<global::EBay.ListingMetadata.Generated.Taxonomy.Models.AspectModeEnum>(); } },
                 { "aspectRequired", n => { AspectRequired = n.GetBoolValue(); } },
-                { "aspectUsage", n => { AspectUsage = n.GetStringValue(); } },
+                { "aspectUsage", n => { AspectUsage = n.GetEnumValue<global::EBay.ListingMetadata.Generated.Taxonomy.Models.AspectUsageEnum>(); } },
                 { "expectedRequiredByDate", n => { ExpectedRequiredByDate = n.GetStringValue(); } },
-                { "itemToAspectCardinality", n => { ItemToAspectCardinality = n.GetStringValue(); } },
+                { "itemToAspectCardinality", n => { ItemToAspectCardinality = n.GetEnumValue<global::EBay.ListingMetadata.Generated.Taxonomy.Models.ItemToAspectCardinalityEnum>(); } },
             };
         }
         /// <summary>
@@ -144,17 +114,17 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("aspectAdvancedDataType", AspectAdvancedDataType);
-            writer.WriteCollectionOfPrimitiveValues<string>("aspectApplicableTo", AspectApplicableTo);
-            writer.WriteStringValue("aspectDataType", AspectDataType);
+            writer.WriteEnumValue<global::EBay.ListingMetadata.Generated.Taxonomy.Models.AspectAdvancedDataTypeEnum>("aspectAdvancedDataType", AspectAdvancedDataType);
+            writer.WriteCollectionOfEnumValues<global::EBay.ListingMetadata.Generated.Taxonomy.Models.AspectApplicableToEnum>("aspectApplicableTo", AspectApplicableTo);
+            writer.WriteEnumValue<global::EBay.ListingMetadata.Generated.Taxonomy.Models.AspectDataTypeEnum>("aspectDataType", AspectDataType);
             writer.WriteBoolValue("aspectEnabledForVariations", AspectEnabledForVariations);
             writer.WriteStringValue("aspectFormat", AspectFormat);
             writer.WriteIntValue("aspectMaxLength", AspectMaxLength);
-            writer.WriteStringValue("aspectMode", AspectMode);
+            writer.WriteEnumValue<global::EBay.ListingMetadata.Generated.Taxonomy.Models.AspectModeEnum>("aspectMode", AspectMode);
             writer.WriteBoolValue("aspectRequired", AspectRequired);
-            writer.WriteStringValue("aspectUsage", AspectUsage);
+            writer.WriteEnumValue<global::EBay.ListingMetadata.Generated.Taxonomy.Models.AspectUsageEnum>("aspectUsage", AspectUsage);
             writer.WriteStringValue("expectedRequiredByDate", ExpectedRequiredByDate);
-            writer.WriteStringValue("itemToAspectCardinality", ItemToAspectCardinality);
+            writer.WriteEnumValue<global::EBay.ListingMetadata.Generated.Taxonomy.Models.ItemToAspectCardinalityEnum>("itemToAspectCardinality", ItemToAspectCardinality);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

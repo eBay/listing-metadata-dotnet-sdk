@@ -90,11 +90,13 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Category_tree.Item
         {
         }
         /// <summary>
-        /// This method retrieves the complete category tree that is identified by the &lt;b&gt;category_tree_id&lt;/b&gt; parameter. The value of &lt;b&gt;category_tree_id&lt;/b&gt; was returned by the &lt;b&gt;getDefaultCategoryTreeId&lt;/b&gt; method in the &lt;b&gt;categoryTreeId&lt;/b&gt; field. The response contains details of all nodes of the specified eBay category tree, as well as the eBay marketplaces that use this category tree.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt; &lt;strong&gt;Note:&lt;/strong&gt; This method can return a very large payload, so gzip compression is supported. To enable gzip compression, include the &lt;code&gt;Accept-Encoding&lt;/code&gt; header and set its value to &lt;code&gt;gzip&lt;/code&gt; as shown below: &lt;br&gt;&lt;br&gt;&lt;code&gt;&amp;nbsp;&amp;nbsp;Accept-Encoding: gzip&lt;/code&gt;&lt;/span&gt;
+        /// This method retrieves the complete category tree that is identified by the &lt;b&gt;category_tree_id&lt;/b&gt; parameter. The value of &lt;b&gt;category_tree_id&lt;/b&gt; was returned by the &lt;a href=&quot;/develop/api/sell/taxonomy_api#sell-taxonomy_api-category_tree-getdefaultcategorytreeid&quot; &gt;getDefaultCategoryTreeId&lt;/a&gt; method in the &lt;b&gt;categoryTreeId&lt;/b&gt; field. The response contains details of all nodes of the specified eBay category tree, as well as the eBay marketplaces that use this category tree.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt; &lt;strong&gt;Note:&lt;/strong&gt; This method can return a very large payload, so gzip compression is supported. To enable gzip compression, include the &lt;code&gt;Accept-Encoding&lt;/code&gt; header and set its value to &lt;code&gt;gzip&lt;/code&gt; as shown below: &lt;br&gt;&lt;br&gt;&lt;code&gt;Accept-Encoding: gzip&lt;/code&gt;&lt;/span&gt;
         /// </summary>
         /// <returns>A <see cref="global::EBay.ListingMetadata.Generated.Taxonomy.Models.CategoryTree"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Taxonomy.Models.Error>">When receiving a 404 status code</exception>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Taxonomy.Models.Error>">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.ListingMetadata.Generated.Taxonomy.Models.CategoryTree?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -105,10 +107,15 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Category_tree.Item
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Taxonomy.Models.CategoryTree>(requestInfo, global::EBay.ListingMetadata.Generated.Taxonomy.Models.CategoryTree.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "404", global::EBay.ListingMetadata.Generated.Taxonomy.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.ListingMetadata.Generated.Taxonomy.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Taxonomy.Models.CategoryTree>(requestInfo, global::EBay.ListingMetadata.Generated.Taxonomy.Models.CategoryTree.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// This method retrieves the complete category tree that is identified by the &lt;b&gt;category_tree_id&lt;/b&gt; parameter. The value of &lt;b&gt;category_tree_id&lt;/b&gt; was returned by the &lt;b&gt;getDefaultCategoryTreeId&lt;/b&gt; method in the &lt;b&gt;categoryTreeId&lt;/b&gt; field. The response contains details of all nodes of the specified eBay category tree, as well as the eBay marketplaces that use this category tree.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt; &lt;strong&gt;Note:&lt;/strong&gt; This method can return a very large payload, so gzip compression is supported. To enable gzip compression, include the &lt;code&gt;Accept-Encoding&lt;/code&gt; header and set its value to &lt;code&gt;gzip&lt;/code&gt; as shown below: &lt;br&gt;&lt;br&gt;&lt;code&gt;&amp;nbsp;&amp;nbsp;Accept-Encoding: gzip&lt;/code&gt;&lt;/span&gt;
+        /// This method retrieves the complete category tree that is identified by the &lt;b&gt;category_tree_id&lt;/b&gt; parameter. The value of &lt;b&gt;category_tree_id&lt;/b&gt; was returned by the &lt;a href=&quot;/develop/api/sell/taxonomy_api#sell-taxonomy_api-category_tree-getdefaultcategorytreeid&quot; &gt;getDefaultCategoryTreeId&lt;/a&gt; method in the &lt;b&gt;categoryTreeId&lt;/b&gt; field. The response contains details of all nodes of the specified eBay category tree, as well as the eBay marketplaces that use this category tree.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt; &lt;strong&gt;Note:&lt;/strong&gt; This method can return a very large payload, so gzip compression is supported. To enable gzip compression, include the &lt;code&gt;Accept-Encoding&lt;/code&gt; header and set its value to &lt;code&gt;gzip&lt;/code&gt; as shown below: &lt;br&gt;&lt;br&gt;&lt;code&gt;Accept-Encoding: gzip&lt;/code&gt;&lt;/span&gt;
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

@@ -29,7 +29,7 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This container consists of an array of all compatible vehicle properties applicable to the specified eBay marketplace and eBay category ID.</summary>
+        /// <summary>An array of all compatible vehicle properties applicable to the specified eBay marketplace and eBay category ID.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::EBay.ListingMetadata.Generated.Taxonomy.Models.CompatibilityProperty>? CompatibilityProperties { get; set; }

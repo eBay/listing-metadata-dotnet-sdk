@@ -29,7 +29,7 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This type contains information about a particular eBay category.</summary>
+        /// <summary>Contains details about the suggested category.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.ListingMetadata.Generated.Taxonomy.Models.Category? Category { get; set; }

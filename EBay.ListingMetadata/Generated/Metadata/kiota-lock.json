@@ -1,8 +1,8 @@
 {
-  "descriptionHash": "A79BFD059E8D963C45441E22D43072633EAB102ED56B1C60E73E257EEA6345C861C513913781D14A6A58D813F9ECA83EE71038F68BED7171514D4EA9C7A370BC",
-  "descriptionLocation": "../../../specs/openapi/metadata.yaml",
+  "descriptionHash": "340723B144A2421A0326D192211BAC0B200968C734737FC5126B2F419946EA0EA42A737EA894B2E4734D9133816DC75C74D5AE6B9400B87D018A1B26CACDB88A",
+  "descriptionLocation": "../../../specs/openapi/metadata.json",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.31.1",
+  "kiotaVersion": "1.35.0",
   "clientClassName": "MetadataApiClient",
   "typeAccessModifier": "Public",
   "clientNamespaceName": "EBay.ListingMetadata.Generated.Metadata",
@@ -30,5 +30,6 @@
   ],
   "includePatterns": [],
   "excludePatterns": [],
-  "disabledValidationRules": []
+  "disabledValidationRules": [],
+  "allowedExternalOrigins": []
 }

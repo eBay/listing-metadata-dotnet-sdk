@@ -22,7 +22,7 @@ using System;
 namespace EBay.ListingMetadata.Generated.Metadata.Models
 {
     /// <summary>
-    /// For auction listings, this field indicates the lowest dollar value that can be set for the item&apos;s starting bid.&lt;br&gt;&lt;br&gt;For fixed-price listings, this field indicates the lower dollar value that can be set for the item&apos;s sale price.
+    /// The type that defines the fields for the currency and a monetary amount.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Amount : IAdditionalDataHolder, IParsable

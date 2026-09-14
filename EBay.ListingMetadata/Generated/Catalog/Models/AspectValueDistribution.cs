@@ -29,7 +29,7 @@ namespace EBay.ListingMetadata.Generated.Catalog.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The localized value of the category aspect identified by &lt;b&gt;refinement.aspectDistributions.localizedAspectName&lt;/b&gt;.</summary>
+        /// <summary>The localized value of the category aspect identified by &lt;strong&gt;refinement.aspectDistributions.localizedAspectName&lt;/strong&gt;.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? LocalizedAspectValue { get; set; }
@@ -37,9 +37,9 @@ namespace EBay.ListingMetadata.Generated.Catalog.Models
 #else
         public string LocalizedAspectValue { get; set; }
 #endif
-        /// <summary>The number of times the value of &lt;b&gt;localizedAspectValue&lt;/b&gt; has been used for eBay product listings. By comparing this quantity to the &lt;b&gt;matchCount&lt;/b&gt; for other values of the same aspect, you can present a histogram of the values to sellers, who can use that information to select which aspect value is most appropriate for their product. You can then include the user-selected value in the the &lt;b&gt;search&lt;/b&gt; call&apos;s &lt;b&gt;aspect_filter&lt;/b&gt; parameter to refine your search.</summary>
+        /// <summary>The number of times the value of &lt;strong&gt;localizedAspectValue&lt;/strong&gt; has been used for eBay product listings. By comparing this quantity to the &lt;strong&gt;matchCount&lt;/strong&gt; for other values of the same aspect, you can present a histogram of the values to sellers, who can use that information to select which aspect value is most appropriate for their product. You can then include the user-selected value in the the &lt;strong&gt;search&lt;/strong&gt; call&apos;s &lt;strong&gt;aspect_filter&lt;/strong&gt; parameter to refine your search.</summary>
         public int? MatchCount { get; set; }
-        /// <summary>A HATEOAS reference that further refines the search with this particular &lt;b&gt;localizedAspectValue&lt;/b&gt;.</summary>
+        /// <summary>A HATEOAS reference that further refines the search with this particular &lt;strong&gt;localizedAspectValue&lt;/strong&gt;.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? RefinementHref { get; set; }

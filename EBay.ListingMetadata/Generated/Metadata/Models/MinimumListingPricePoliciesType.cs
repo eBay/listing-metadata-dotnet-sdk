@@ -22,14 +22,14 @@ using System;
 namespace EBay.ListingMetadata.Generated.Metadata.Models
 {
     /// <summary>
-    /// This type defines the minimum starting prices for the supported types of eBay listings
+    /// This type defines the minimum starting prices for the supported types of eBay listings.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class MinimumListingPricePoliciesType : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The description of the listing type for which the pricing data is intended, such as &quot;Pricing for the auction-like listings&quot;.</summary>
+        /// <summary>The description of the listing type for which the pricing data is intended.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Description { get; set; }
@@ -39,7 +39,7 @@ namespace EBay.ListingMetadata.Generated.Metadata.Models
 #endif
         /// <summary>This enum value indicates the listing type for which minimum starting price policies are being returned.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; The only applicable values for this method are &lt;code&gt;AUCTION&lt;/code&gt; and &lt;code&gt;FIXED_PRICE_ITEM&lt;/code&gt;.&lt;/span&gt;</summary>
         public global::EBay.ListingMetadata.Generated.Metadata.Models.ListingTypeEnum? ListingType { get; set; }
-        /// <summary>The minimum percentage value that a Buy It Now price for an auction listing must be above the starting bid price for the same listing.&lt;br&gt;&lt;br&gt;This field is only returned and applicable for auction listings.</summary>
+        /// <summary>The minimum percentage value that a Buy It Now price for an auction listing must be above the starting bid price.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? MinBuyItNowPricePercent { get; set; }

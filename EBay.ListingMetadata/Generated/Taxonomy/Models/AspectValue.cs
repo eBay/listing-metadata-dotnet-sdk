@@ -29,7 +29,7 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The localized value of this aspect.&lt;br&gt;&lt;br&gt;          &lt;span class=&quot;tablenote&quot;&gt; &lt;strong&gt;Note:&lt;/strong&gt; This value is always localized for the specified marketplace. &lt;/span&gt;</summary>
+        /// <summary>The localized value of this aspect.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt; &lt;strong&gt;Note:&lt;/strong&gt; This value is always localized for the specified marketplace. &lt;/span&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? LocalizedValue { get; set; }

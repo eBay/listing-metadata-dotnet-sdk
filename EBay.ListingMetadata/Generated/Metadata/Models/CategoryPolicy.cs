@@ -29,9 +29,9 @@ namespace EBay.ListingMetadata.Generated.Metadata.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>If this field is returned as &lt;code&gt;true&lt;/code&gt;, the corresponding category supports immediate payment for listings. The immediate payment feature is applicable to fixed-price listings, to auction listings with the &apos;Buy It Now&apos; option enabled, and for a motor vehicle listing that requires an initial deposit. If the immediate payment feature is enabled for a listing, the buyer must pay immediately after clicking the &apos;Buy it Now&apos; button. &lt;p&gt;This field is only returned when &lt;code&gt;true&lt;/code&gt; (not returned when false).&lt;/p&gt;</summary>
+        /// <summary>If this field is returned as true, the corresponding category supports immediate payment for listings. The immediate payment feature is applicable to fixed-price listings, to auction listings with the Buy It Now option enabled, and for a motor vehicle listing that requires an initial deposit. If the immediate payment feature is enabled for a listing, the buyer must pay immediately after clicking the &apos;Buy it Now&apos; button. This field is only returned when true.</summary>
         public bool? AutoPayEnabled { get; set; }
-        /// <summary>If this field is returned as &lt;code&gt;true&lt;/code&gt;, the corresponding category supports business-to-business (B2B) VAT listings. If this field is not present, the category does not have B2B VAT listings. This feature is applicable to the eBay Germany (DE), Austria (AT), and Switzerland (CH) sites only.&lt;p&gt;This field is only returned when &lt;code&gt;true&lt;/code&gt; (not returned when false).&lt;/p&gt;</summary>
+        /// <summary>If this field is returned as true, the corresponding category supports business-to-business (B2B) VAT listings. If this field is not present, the category does not B2B VAT listings. This field is not returned when false. This feature is applicable to the eBay Germany (DE), Austria (AT), and Switzerland (CH) sites only.</summary>
         public bool? B2bVatEnabled { get; set; }
         /// <summary>The unique identifier of the eBay leaf category for which metadata is being returned.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -51,17 +51,17 @@ namespace EBay.ListingMetadata.Generated.Metadata.Models
 #endif
         /// <summary>This enumerated value indicates whether or not European Article Numbers (EANs) are supported/required when listing products in the category.</summary>
         public global::EBay.ListingMetadata.Generated.Metadata.Models.ProductIdentiferEnabledEnum? EanSupport { get; set; }
-        /// <summary>If this field is returned as &lt;code&gt;true&lt;/code&gt;, the corresponding category is no longer a valid eBay category on the site, and items may not be listed in this category. You can use the &lt;a href=&quot;/api-docs/sell/taxonomy/resources/category_tree/methods/getExpiredCategories&quot; target=&quot;_blank&quot;&gt;getExpiredCategories&lt;/a&gt; method (of the &lt;b&gt;Taxonomy API&lt;/b&gt;) to find the leaf category that replaced the expired category. &lt;p&gt;This field is only returned when &lt;code&gt;true&lt;/code&gt; (not returned when false).&lt;/p&gt;</summary>
+        /// <summary>If this field is returned as true, the corresponding category is no longer a valid eBay category on the site, and items may not be listed in this category. This field is not returned when false.</summary>
         public bool? Expired { get; set; }
-        /// <summary>If this field is returned as &lt;code&gt;true&lt;/code&gt;, the category supports the listing of intangible goods or services.</summary>
+        /// <summary>If this field is returned as true, the category supports the listing of intangible goods or services.</summary>
         public bool? IntangibleEnabled { get; set; }
         /// <summary>This enumerated value indicates whether or not International Standard Book Numbers (ISBNs) are supported/required when listing products in the specified category.</summary>
         public global::EBay.ListingMetadata.Generated.Metadata.Models.ProductIdentiferEnabledEnum? IsbnSupport { get; set; }
         /// <summary>If this field (Lot Size Disabled) is returned as &lt;code&gt;true&lt;/code&gt;, the corresponding category does not support lot listings. A lot listing is a listing that features multiple related items that must be purchased by one buyer in one transaction. &lt;p&gt;This field is only returned when &lt;code&gt;true&lt;/code&gt; (not returned when false).&lt;/p&gt;</summary>
         public bool? Lsd { get; set; }
-        /// <summary>Indicates the Minimum Reserve Price for an auction listing in this category. If there is no Minimum Reserve Price, a value of &lt;code&gt;0.0&lt;/code&gt; is returned in this field.</summary>
+        /// <summary>Indicates the Minimum Reserve Price for an auction listing in this category. If there is no Minimum Reserve Price, a value of 0.0 is returned in this field.</summary>
         public double? MinimumReservePrice { get; set; }
-        /// <summary>This field (Override Reserve Price Allowed) is returned as &lt;code&gt;true&lt;/code&gt; if the eBay marketplace&apos;s default policy is to allow reserve prices for auction listings, but the corresponding category does not allow a reserve price. &lt;p&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#004680&quot;&gt;&lt;strong&gt;Note: &lt;/strong&gt;This field is not returned if the marketplace does not permit reserve prices.&lt;/span&gt;&lt;/p&gt;</summary>
+        /// <summary>This field (Override Reserve Price Allowed) is returned as true if the eBay marketplace&apos;s default policy is to allow reserve prices for auction listings, but the corresponding category does not allow a reserve price. This field is not returned if the marketplace does not permit reserve prices.</summary>
         public bool? Orpa { get; set; }
         /// <summary>If this field (Override Reduce Reserve Allowed) is returned as &lt;code&gt;true&lt;/code&gt;, the seller can reduce or remove a reserve price that had already been reduced for an active auction listing.</summary>
         public bool? Orra { get; set; }
@@ -73,15 +73,15 @@ namespace EBay.ListingMetadata.Generated.Metadata.Models
 #else
         public List<global::EBay.ListingMetadata.Generated.Metadata.Models.PaymentEnum?> PaymentMethods { get; set; }
 #endif
-        /// <summary>If this field (Reduce Reserve Allowed) is &lt;code&gt;true&lt;/code&gt;, the corresponding leaf category allows the seller to reduce an item&apos;s reserve price. If false, this field is not returned in the response and the corresponding leaf category on the site do not normally allow sellers to reduce an item&apos;s reserve price.&lt;p&gt;This field is only returned when &lt;code&gt;true&lt;/code&gt; (not returned when false).&lt;/p&gt;</summary>
+        /// <summary>If true, ReduceReserveAllowed indicates that all categories on the site allow the seller to reduce an item&apos;s reserve price. If false, this field is not returned in the response and all categories on the site do not normally allow sellers to reduce an item&apos;s reserve price. The Category ORRA (override reduce reserve price) field can override (or toggle) the reserve price reduction setting for a given category.</summary>
         public bool? ReduceReserveAllowed { get; set; }
-        /// <summary>This field indicates whether reserve prices are allowed for auction listings in this category. This field returns as &lt;code&gt;true&lt;/code&gt; when the category supports reserve prices, or &lt;code&gt;false&lt;/code&gt; if the eBay marketplace does not permit reserve prices or the category override blocks reserve prices (&lt;b&gt;orpa&lt;/b&gt; is &lt;code&gt;true&lt;/code&gt;).</summary>
+        /// <summary>This field indicates whether reserve prices are allowed for auction listings in this category. This field returns as true when the category supports reserve prices, or false if the eBay marketplace does not permit reserve prices or the category override blocks reserve prices (orpa is true).</summary>
         public bool? ReservePriceAllowed { get; set; }
         /// <summary>This enumerated value indicates whether or not the category on the specified eBay site supports the use of Universal Product Codes (UPCs) to help create a listing.</summary>
         public global::EBay.ListingMetadata.Generated.Metadata.Models.ProductIdentiferEnabledEnum? UpcSupport { get; set; }
         /// <summary>When returned as &lt;code&gt;true&lt;/code&gt;, this boolean indicates that the leaf category for the specified site is designated by eBay as a value category. Value categories can be used as a secondary category for a listing at no extra charge.</summary>
         public bool? ValueCategory { get; set; }
-        /// <summary>If this field is returned as &lt;code&gt;true&lt;/code&gt;, the corresponding category is an eBay virtual category, a category in which items may not be listed.&lt;p&gt;This field is only returned when &lt;code&gt;true&lt;/code&gt; (not returned when false).&lt;/p&gt;</summary>
+        /// <summary>If this field is returned as true, the corresponding category is an eBay virtual category, a category in which items may not be listed. This field is not returned when false.</summary>
         public bool? Virtual { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.ListingMetadata.Generated.Metadata.Models.CategoryPolicy"/> and sets the default values.

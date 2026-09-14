@@ -22,7 +22,7 @@ using System;
 namespace EBay.ListingMetadata.Generated.Metadata.Models
 {
     /// <summary>
-    /// This type defines the category ID and property names for which to retrieve values.
+    /// This type defines the request fields used in the &lt;b&gt;getMultiCompatibilityPropertyValues&lt;/b&gt; method.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class MultiCompatibilityPropertyValuesRequest : IAdditionalDataHolder, IParsable

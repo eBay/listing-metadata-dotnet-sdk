@@ -53,6 +53,9 @@ namespace EBay.ListingMetadata.Generated.Metadata.Marketplace.Item.Get_classifie
         /// <returns>A <see cref="global::EBay.ListingMetadata.Generated.Metadata.Models.ClassifiedAdPolicyResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 400 status code</exception>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 404 status code</exception>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.ListingMetadata.Generated.Metadata.Models.ClassifiedAdPolicyResponse?> GetAsync(Action<RequestConfiguration<global::EBay.ListingMetadata.Generated.Metadata.Marketplace.Item.Get_classified_ad_policies.Get_classified_ad_policiesRequestBuilder.Get_classified_ad_policiesRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -63,7 +66,13 @@ namespace EBay.ListingMetadata.Generated.Metadata.Marketplace.Item.Get_classifie
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Metadata.Models.ClassifiedAdPolicyResponse>(requestInfo, global::EBay.ListingMetadata.Generated.Metadata.Models.ClassifiedAdPolicyResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+                { "404", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Metadata.Models.ClassifiedAdPolicyResponse>(requestInfo, global::EBay.ListingMetadata.Generated.Metadata.Models.ClassifiedAdPolicyResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// This method returns eBay classified ad policy metadata for all leaf categories on the specified marketplace.&lt;p&gt;By default, this method returns metadata on all leaf categories. You can limit the size of the result set by using the &lt;b&gt;filter&lt;/b&gt; query parameter to specify only the leaf category IDs you want to review.&lt;/p&gt;&lt;p&gt;If you specify a valid marketplace ID but that marketplace does not contain policy information, or if you filter out all results, a successful call returns a &lt;b&gt;204 No content&lt;/b&gt; status code with an empty response body.&lt;/p&gt;&lt;p&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#004680&quot;&gt;&lt;strong&gt;Note: &lt;/strong&gt;This method does not support classified ads for eBay US Motors categories (EBAY_MOTORS_US). For eBay Motors Pro users, use &lt;a href=&quot;/api-docs/sell/metadata/resources/marketplace/methods/getMotorsListingPolicies&quot;  target=&quot;_blank&quot;&gt;getMotorsListingPolicies&lt;/a&gt;.&lt;/span&gt;&lt;/p&gt;

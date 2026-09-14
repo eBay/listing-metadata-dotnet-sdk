@@ -45,7 +45,7 @@ namespace EBay.ListingMetadata.Generated.Metadata.Models
 #else
         public string CategoryTreeId { get; set; }
 #endif
-        /// <summary>Indicates if the Global Shipping Program (GSP) is supported for the category. &lt;p&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#004680&quot;&gt;&lt;strong&gt;Note: &lt;/strong&gt;GSP is only supported by the eBay UK marketplace (&lt;code&gt;EBAY_GB&lt;/code&gt;).&lt;/span&gt;&lt;/p&gt;</summary>
+        /// <summary>Indicates if the Global Shipping Program (GSP) is supported for the category.</summary>
         public bool? GlobalShippingEnabled { get; set; }
         /// <summary>Returns the applicable max cap per shipping cost for shipping service group1.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

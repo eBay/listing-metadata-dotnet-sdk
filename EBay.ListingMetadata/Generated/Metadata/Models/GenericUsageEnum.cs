@@ -21,6 +21,10 @@ namespace EBay.ListingMetadata.Generated.Metadata.Models
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum GenericUsageEnum
     {
+        [EnumMember(Value = "REQUIRED")]
+        #pragma warning disable CS1591
+        REQUIRED,
+        #pragma warning restore CS1591
         [EnumMember(Value = "OPTIONAL")]
         #pragma warning disable CS1591
         OPTIONAL,
@@ -28,10 +32,6 @@ namespace EBay.ListingMetadata.Generated.Metadata.Models
         [EnumMember(Value = "RECOMMENDED")]
         #pragma warning disable CS1591
         RECOMMENDED,
-        #pragma warning restore CS1591
-        [EnumMember(Value = "REQUIRED")]
-        #pragma warning disable CS1591
-        REQUIRED,
         #pragma warning restore CS1591
     }
 }

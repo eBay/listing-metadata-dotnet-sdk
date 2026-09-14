@@ -53,6 +53,9 @@ namespace EBay.ListingMetadata.Generated.Metadata.Marketplace.Item.Get_motors_li
         /// <returns>A <see cref="global::EBay.ListingMetadata.Generated.Metadata.Models.MotorsListingPoliciesResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 400 status code</exception>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 404 status code</exception>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.ListingMetadata.Generated.Metadata.Models.MotorsListingPoliciesResponse?> GetAsync(Action<RequestConfiguration<global::EBay.ListingMetadata.Generated.Metadata.Marketplace.Item.Get_motors_listing_policies.Get_motors_listing_policiesRequestBuilder.Get_motors_listing_policiesRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -63,7 +66,13 @@ namespace EBay.ListingMetadata.Generated.Metadata.Marketplace.Item.Get_motors_li
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Metadata.Models.MotorsListingPoliciesResponse>(requestInfo, global::EBay.ListingMetadata.Generated.Metadata.Models.MotorsListingPoliciesResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+                { "404", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Metadata.Models.MotorsListingPoliciesResponse>(requestInfo, global::EBay.ListingMetadata.Generated.Metadata.Models.MotorsListingPoliciesResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// This method returns eBay Motors policy metadata for all leaf categories on the specified marketplace. &lt;p&gt;By default, this method returns metadata on all leaf categories. You can limit the size of the result set by using the &lt;b&gt;filter&lt;/b&gt; query parameter to specify only the leaf category IDs you want to review.&lt;/p&gt;&lt;p&gt;If you specify a valid marketplace ID but that marketplace does not contain policy information, or if you filter out all results, a successful call returns a &lt;b&gt;204 No content&lt;/b&gt; status code with an empty response body.&lt;/p&gt;&lt;p&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#004680&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt;&lt;/span&gt; To return policy information for eBay US Motors categories, specify &lt;b&gt;marketplace_id&lt;/b&gt; as &lt;code&gt;EBAY_MOTORS_US&lt;/code&gt;.&lt;/span&gt;&lt;/p&gt;

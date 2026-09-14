@@ -53,6 +53,8 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Get_default_category_tree_id
         /// <returns>A <see cref="global::EBay.ListingMetadata.Generated.Taxonomy.Models.BaseCategoryTree"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Taxonomy.Models.Error>">When receiving a 400 status code</exception>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Taxonomy.Models.Error>">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.ListingMetadata.Generated.Taxonomy.Models.BaseCategoryTree?> GetAsync(Action<RequestConfiguration<global::EBay.ListingMetadata.Generated.Taxonomy.Get_default_category_tree_id.Get_default_category_tree_idRequestBuilder.Get_default_category_tree_idRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -63,7 +65,12 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Get_default_category_tree_id
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Taxonomy.Models.BaseCategoryTree>(requestInfo, global::EBay.ListingMetadata.Generated.Taxonomy.Models.BaseCategoryTree.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.ListingMetadata.Generated.Taxonomy.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.ListingMetadata.Generated.Taxonomy.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Taxonomy.Models.BaseCategoryTree>(requestInfo, global::EBay.ListingMetadata.Generated.Taxonomy.Models.BaseCategoryTree.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// A given eBay marketplace might use multiple category trees, but one of those trees is considered to be the default for that marketplace. This call retrieves a reference to the default category tree associated with the specified eBay marketplace ID. The response includes only the tree&apos;s unique identifier and version, which you can use to retrieve more details about the tree, its structure, and its individual category nodes.
@@ -99,7 +106,7 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Get_default_category_tree_id
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class Get_default_category_tree_idRequestBuilderGetQueryParameters 
         {
-            /// <summary>The unique identifier of the eBay marketplace for which the category tree ID is requested. For a list of supported marketplace IDs, see &lt;a href=&quot;/api-docs/commerce/taxonomy/static/supportedmarketplaces.html&quot;&gt;Marketplaces with Default Category Trees&lt;/a&gt;.</summary>
+            /// <summary>The unique identifier of the eBay marketplace for which the category tree ID is requested. For a list of supported marketplace IDs, see &lt;a href=&quot;/api-docs/commerce/taxonomy/static/supportedmarketplaces.html&quot; target=&quot;_blank&quot;&gt;Marketplaces with Default Category Trees&lt;/a&gt;.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
             [QueryParameter("marketplace_id")]

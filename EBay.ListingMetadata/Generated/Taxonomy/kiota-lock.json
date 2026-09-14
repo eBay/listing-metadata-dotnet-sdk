@@ -1,8 +1,8 @@
 {
-  "descriptionHash": "F314E181B3DB9405E0F859658601A8DF6C86BB9053D83B769F4B999E353BED671008ECCE4D29610D91C03C78A4801C2927440167771DC43A05E6E97139013D16",
-  "descriptionLocation": "../../../specs/openapi/taxonomy.yaml",
+  "descriptionHash": "1EBA27C728851570DBB7847FAD1C193E068C17956ED5A3438C3A55DAB2E3477B4D98A062A054E00150609AF6930E5C2DC8906AFE5DAD02490BCD1688FF464D78",
+  "descriptionLocation": "../../../specs/openapi/taxonomy.json",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.31.1",
+  "kiotaVersion": "1.35.0",
   "clientClassName": "TaxonomyApiClient",
   "typeAccessModifier": "Public",
   "clientNamespaceName": "EBay.ListingMetadata.Generated.Taxonomy",
@@ -30,5 +30,6 @@
   ],
   "includePatterns": [],
   "excludePatterns": [],
-  "disabledValidationRules": []
+  "disabledValidationRules": [],
+  "allowedExternalOrigins": []
 }

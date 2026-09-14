@@ -1,8 +1,8 @@
 {
-  "descriptionHash": "BF7624713D7DF0487424F02084757CEF4E7E8AECEC2820D7ED8AAD3F750D80F8781F274594D00F6920400A435300DE459D8845647278FF0FDB29E0618CA0BDF6",
-  "descriptionLocation": "../../../specs/openapi/charity.yaml",
+  "descriptionHash": "20957C7E082877833818B3AFB53ED58C5486F9EFE848EBCAB206C954ED33271C355C531B60B7D4EB03D647BD5C07AE30CB71A4EA7DE291004C67D80F1E5CFA75",
+  "descriptionLocation": "../../../specs/openapi/charity.json",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.31.1",
+  "kiotaVersion": "1.35.0",
   "clientClassName": "CharityApiClient",
   "typeAccessModifier": "Public",
   "clientNamespaceName": "EBay.ListingMetadata.Generated.Charity",
@@ -30,5 +30,6 @@
   ],
   "includePatterns": [],
   "excludePatterns": [],
-  "disabledValidationRules": []
+  "disabledValidationRules": [],
+  "allowedExternalOrigins": []
 }

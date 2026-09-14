@@ -16,6 +16,9 @@
 
 set -euo pipefail
 
+echo "Pinning Kiota to 1.35.0..."
+dotnet tool update microsoft.openapi.kiota --local --version 1.35.0 --allow-downgrade
+
 echo "Restoring tools..."
 dotnet tool restore
 
@@ -24,7 +27,7 @@ rm -rf ./EBay.ListingMetadata/Generated
 
 dotnet kiota generate \
   -l csharp \
-  -d specs/openapi/catalog.yaml \
+  -d specs/openapi/catalog.json \
   -c CatalogApiClient \
   -n EBay.ListingMetadata.Generated.Catalog \
   -o EBay.ListingMetadata/Generated/Catalog \
@@ -32,7 +35,7 @@ dotnet kiota generate \
 
 dotnet kiota generate \
   -l csharp \
-  -d specs/openapi/charity.yaml \
+  -d specs/openapi/charity.json \
   -c CharityApiClient \
   -n EBay.ListingMetadata.Generated.Charity \
   -o EBay.ListingMetadata/Generated/Charity \
@@ -40,7 +43,7 @@ dotnet kiota generate \
 
 dotnet kiota generate \
   -l csharp \
-  -d specs/openapi/metadata.yaml \
+  -d specs/openapi/metadata.json \
   -c MetadataApiClient \
   -n EBay.ListingMetadata.Generated.Metadata \
   -o EBay.ListingMetadata/Generated/Metadata \
@@ -48,7 +51,7 @@ dotnet kiota generate \
 
 dotnet kiota generate \
   -l csharp \
-  -d specs/openapi/taxonomy.yaml \
+  -d specs/openapi/taxonomy.json \
   -c TaxonomyApiClient \
   -n EBay.ListingMetadata.Generated.Taxonomy \
   -o EBay.ListingMetadata/Generated/Taxonomy \

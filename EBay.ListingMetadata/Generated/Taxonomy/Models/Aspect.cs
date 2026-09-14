@@ -29,7 +29,7 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This type contains information about the formatting, occurrence, and support of an aspect.</summary>
+        /// <summary>Information about the formatting, occurrence, and support of this aspect.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.ListingMetadata.Generated.Taxonomy.Models.AspectConstraint? AspectConstraint { get; set; }
@@ -53,7 +53,7 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Models
 #else
         public string LocalizedAspectName { get; set; }
 #endif
-        /// <summary>The relevance of this aspect. This field is returned if eBay has data on how many searches have been performed for listings in the category using this item aspect.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt; &lt;strong&gt;Note:&lt;/strong&gt; This container is restricted to applications that have been granted permission to access this feature. You must submit an &lt;a href=&quot;https://developer.ebay.com/my/support/tickets?tab=app-check &quot;&gt;App Check ticket&lt;/a&gt; to request this access. In the App Check form, add a note to the &lt;b&gt;Application Title/Summary&lt;/b&gt; and/or &lt;b&gt;Application Details&lt;/b&gt; fields that you want access to &apos;Buyer Demand Data&apos; in the Taxonomy API.&lt;/span&gt;</summary>
+        /// <summary>The relevance of this aspect. This field is returned if eBay has data on how many searches have been performed for listings in the category using this item aspect.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt; &lt;strong&gt;Note:&lt;/strong&gt; This container is restricted to applications that have been granted permission to access this feature. You must submit an &lt;a href=&quot;https://developer.ebay.com/my/support/tickets?tab=app-check &quot; target=&quot;_blank&quot;&gt;App Check ticket&lt;/a&gt; to request this access. In the App Check form, add a note to the &lt;b&gt;Application Title/Summary&lt;/b&gt; and/or &lt;b&gt;Application Details&lt;/b&gt; fields that you want access to &apos;Buyer Demand Data&apos; in the Taxonomy API.&lt;/span&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.ListingMetadata.Generated.Taxonomy.Models.RelevanceIndicator? RelevanceIndicator { get; set; }
