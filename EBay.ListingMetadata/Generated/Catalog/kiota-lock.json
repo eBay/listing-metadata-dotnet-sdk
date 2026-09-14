@@ -1,6 +1,6 @@
 {
   "descriptionHash": "71DB1DA157E1F37422B6A12C61AE40E05B4743F279F2F8BA93B8AF9411A1ADD8E2FE5B5C5481E6021A6BE037F9D4F33D051523ECD69AA0BCDE2B851A421A68F6",
-  "descriptionLocation": "../../../specs/commerce_catalog_v1_beta_oas3 (2).yaml",
+  "descriptionLocation": "../../../specs/openapi/catalog.yaml",
   "lockFileVersion": "1.0.0",
   "kiotaVersion": "1.31.1",
   "clientClassName": "CatalogApiClient",

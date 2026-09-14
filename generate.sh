@@ -16,10 +16,12 @@
 
 set -euo pipefail
 
-echo "Restoring dotnet tools..."
+echo "Restoring tools..."
 dotnet tool restore
 
-echo "Regenerating REST clients with Kiota..."
+echo "Regenerating REST clients via Kiota..."
+rm -rf ./EBay.ListingMetadata/Generated
+
 dotnet kiota generate \
   -l csharp \
   -d specs/openapi/catalog.yaml \
@@ -30,10 +32,10 @@ dotnet kiota generate \
 
 dotnet kiota generate \
   -l csharp \
-  -d specs/openapi/taxonomy.yaml \
-  -c TaxonomyApiClient \
-  -n EBay.ListingMetadata.Generated.Taxonomy \
-  -o EBay.ListingMetadata/Generated/Taxonomy \
+  -d specs/openapi/charity.yaml \
+  -c CharityApiClient \
+  -n EBay.ListingMetadata.Generated.Charity \
+  -o EBay.ListingMetadata/Generated/Charity \
   --ebc --co
 
 dotnet kiota generate \
@@ -46,16 +48,16 @@ dotnet kiota generate \
 
 dotnet kiota generate \
   -l csharp \
-  -d specs/openapi/charity.yaml \
-  -c CharityApiClient \
-  -n EBay.ListingMetadata.Generated.Charity \
-  -o EBay.ListingMetadata/Generated/Charity \
+  -d specs/openapi/taxonomy.yaml \
+  -c TaxonomyApiClient \
+  -n EBay.ListingMetadata.Generated.Taxonomy \
+  -o EBay.ListingMetadata/Generated/Taxonomy \
   --ebc --co
 
 echo "Adding license headers to generated files..."
 ./add-license-headers.sh ./EBay.ListingMetadata/Generated
 
-echo "Building SDK..."
+echo "Building (triggers StrawberryShake GraphQL codegen)..."
 DOTNET_ROLL_FORWARD=LatestMajor dotnet build EBay.ListingMetadata/EBay.ListingMetadata.csproj
 
-echo "Done! SDK regenerated successfully."
+echo "Done."

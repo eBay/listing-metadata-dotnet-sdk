@@ -12,106 +12,112 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-using System.Net;
-using EBay.ListingMetadata.Generated.Catalog;
-using EBay.ListingMetadata.Generated.Taxonomy;
-using EBay.ListingMetadata.Generated.Metadata;
-using EBay.ListingMetadata.Generated.Charity;
 using EBay.ListingMetadata.Clients.Rest;
 using EBay.ListingMetadata.Configuration;
+using EBay.ListingMetadata.Generated.Catalog;
+using EBay.ListingMetadata.Generated.Charity;
+using EBay.ListingMetadata.Generated.Metadata;
+using EBay.ListingMetadata.Generated.Taxonomy;
 using Microsoft.Kiota.Abstractions.Authentication;
 using Microsoft.Kiota.Http.HttpClientLibrary;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 
 namespace EBay.ListingMetadata;
 
-/// <summary>
-/// Main SDK client providing unified access to all eBay Listing Metadata APIs
-/// </summary>
-public sealed class ListingMetadataClient : IDisposable
+public class ListingMetadataClient : IDisposable
 {
-    private readonly HttpClient _httpClient;
-    private readonly bool _disposeHttpClient;
+    internal const string CatalogClientName = "ListingMetadataClient.Catalog";
+    internal const string CharityClientName = "ListingMetadataClient.Charity";
+    internal const string MetadataClientName = "ListingMetadataClient.Metadata";
+    internal const string TaxonomyClientName = "ListingMetadataClient.Taxonomy";
+
+    private readonly HttpClient[] _ownedClients;
+
+    public CatalogClient Catalog { get; private set; } = null!;
+    public CharityClient Charity { get; private set; } = null!;
+    public MetadataClient Metadata { get; private set; } = null!;
+    public TaxonomyClient Taxonomy { get; private set; } = null!;
 
     /// <summary>
-    /// Catalog API client for product catalog operations
+    /// DI-friendly constructor. Named HttpClients come from <see cref="IHttpClientFactory"/>.
     /// </summary>
-    public CatalogClient Catalog { get; }
-
-    /// <summary>
-    /// Taxonomy API client for category tree operations
-    /// </summary>
-    public TaxonomyClient Taxonomy { get; }
-
-    /// <summary>
-    /// Metadata API client for marketplace metadata operations
-    /// </summary>
-    public MetadataClient Metadata { get; }
-
-    /// <summary>
-    /// Charity API client for charitable organization operations
-    /// </summary>
-    public CharityClient Charity { get; }
-
-    /// <summary>
-    /// Creates a new SDK client.
-    /// </summary>
-    /// <param name="config">SDK configuration</param>
-    /// <param name="httpClient">Optional HttpClient (if not provided, a standalone client with diagnostic logging will be created)</param>
-    public ListingMetadataClient(
+    internal ListingMetadataClient(
         ListingMetadataConfiguration config,
-        HttpClient? httpClient = null)
+        IHttpClientFactory factory,
+        ITokenContext tokenContext)
     {
-        _httpClient = httpClient ?? BuildStandaloneHttpClient(config);
-        _disposeHttpClient = httpClient is null;
-
-        var authProvider = BuildAuthProvider(
-            ct => config.GetAccessTokenAsync(ct),
-            config.GetAllowedHosts());
-
-        var catalogAdapter = new HttpClientRequestAdapter(authProvider, httpClient: _httpClient);
-        catalogAdapter.BaseUrl = config.CatalogBaseUrl;
-
-        var taxonomyAdapter = new HttpClientRequestAdapter(authProvider, httpClient: _httpClient);
-        taxonomyAdapter.BaseUrl = config.TaxonomyBaseUrl;
-
-        var metadataAdapter = new HttpClientRequestAdapter(authProvider, httpClient: _httpClient);
-        metadataAdapter.BaseUrl = config.MetadataBaseUrl;
-
-        var charityAdapter = new HttpClientRequestAdapter(authProvider, httpClient: _httpClient);
-        charityAdapter.BaseUrl = config.CharityBaseUrl;
-
-        Catalog = new CatalogClient(new CatalogApiClient(catalogAdapter));
-        Taxonomy = new TaxonomyClient(new TaxonomyApiClient(taxonomyAdapter));
-        Metadata = new MetadataClient(new MetadataApiClient(metadataAdapter));
-        Charity = new CharityClient(new CharityApiClient(charityAdapter));
+        _ownedClients = [];
+        var auth = new BaseBearerTokenAuthenticationProvider(new KiotaAuthProvider(config, tokenContext));
+        InitializeRestClients(auth, config, tokenContext, endpoint => factory.CreateClient(endpoint.HttpClientName));
     }
 
-    private static HttpClient BuildStandaloneHttpClient(ListingMetadataConfiguration config)
+    /// <summary>
+    /// Standalone constructor for use outside DI (tests, scripts).
+    /// Creates its own HttpClients with DiagnosticLoggingHandler.
+    /// </summary>
+    public ListingMetadataClient(ListingMetadataConfiguration config)
+    {
+        var tokenContext = new AsyncLocalTokenContext();
+        var auth = new BaseBearerTokenAuthenticationProvider(new KiotaAuthProvider(config, tokenContext));
+        var owned = new List<HttpClient>();
+        InitializeRestClients(auth, config, tokenContext, endpoint =>
+        {
+            var client = BuildStandaloneHttpClient(config, endpoint.BaseUrl);
+            owned.Add(client);
+            return client;
+        });
+        _ownedClients = [.. owned];
+    }
+
+    private static HttpClient BuildStandaloneHttpClient(ListingMetadataConfiguration config, string baseUrl)
     {
         var handler = new DiagnosticLoggingHandler(config)
         {
             InnerHandler = new SocketsHttpHandler { PooledConnectionLifetime = TimeSpan.FromMinutes(2) }
         };
-        return new HttpClient(handler) { Timeout = config.HttpTimeout };
+        return new HttpClient(handler) { BaseAddress = new Uri(baseUrl), Timeout = config.HttpTimeout };
     }
 
-    private static BaseBearerTokenAuthenticationProvider BuildAuthProvider(
-        Func<CancellationToken, Task<string>> tokenProvider,
-        IEnumerable<string> allowedHosts)
+    internal static IReadOnlyList<(string ApiId, string HttpClientName)> RestEndpointNames { get; } =
+    [
+        ("catalog", CatalogClientName),
+        ("charity", CharityClientName),
+        ("metadata", MetadataClientName),
+        ("taxonomy", TaxonomyClientName)
+    ];
+
+    internal static IReadOnlyList<RestEndpoint> RestEndpoints(ListingMetadataConfiguration config) =>
+        [.. RestEndpointNames.Select(name => new RestEndpoint(name.ApiId, name.HttpClientName, config.RestBaseUrl(name.ApiId)))];
+
+    private void InitializeRestClients(
+        IAuthenticationProvider auth,
+        ListingMetadataConfiguration config,
+        ITokenContext tokenContext,
+        RestHttpClientProvider httpClientFor)
     {
-        var accessTokenProvider = new DelegateAccessTokenProvider(tokenProvider, allowedHosts);
-        return new BaseBearerTokenAuthenticationProvider(accessTokenProvider);
+        var endpoints = RestEndpoints(config);
+        var catalogAdapter = new HttpClientRequestAdapter(auth, httpClient: httpClientFor(endpoints.First(endpoint => endpoint.ApiId == "catalog")));
+        Catalog = new CatalogClient(new CatalogApiClient(catalogAdapter), config, tokenContext, catalogAdapter);
+        var charityAdapter = new HttpClientRequestAdapter(auth, httpClient: httpClientFor(endpoints.First(endpoint => endpoint.ApiId == "charity")));
+        Charity = new CharityClient(new CharityApiClient(charityAdapter), config, tokenContext, charityAdapter);
+        var metadataAdapter = new HttpClientRequestAdapter(auth, httpClient: httpClientFor(endpoints.First(endpoint => endpoint.ApiId == "metadata")));
+        Metadata = new MetadataClient(new MetadataApiClient(metadataAdapter), config, tokenContext, metadataAdapter);
+        var taxonomyAdapter = new HttpClientRequestAdapter(auth, httpClient: httpClientFor(endpoints.First(endpoint => endpoint.ApiId == "taxonomy")));
+        Taxonomy = new TaxonomyClient(new TaxonomyApiClient(taxonomyAdapter), config, tokenContext, taxonomyAdapter);
     }
 
-    /// <summary>
-    /// Disposes the SDK client and releases resources
-    /// </summary>
     public void Dispose()
     {
-        if (_disposeHttpClient)
+        foreach (var client in _ownedClients)
         {
-            _httpClient?.Dispose();
+            client.Dispose();
         }
+        GC.SuppressFinalize(this);
     }
 }
+
+internal sealed record RestEndpoint(string ApiId, string HttpClientName, string BaseUrl);
+
+internal delegate HttpClient RestHttpClientProvider(RestEndpoint endpoint);
