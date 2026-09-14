@@ -13,6 +13,7 @@
 // limitations under the License.
 
 
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
 namespace EBay.ListingMetadata.Models.Common;
@@ -20,6 +21,7 @@ namespace EBay.ListingMetadata.Models.Common;
 /// <summary>
 /// Standard error response
 /// </summary>
+[SuppressMessage("Naming", "CA1716", Justification = "OpenAPI schema type name.")]
 public sealed record Error
 {
     /// <summary>
