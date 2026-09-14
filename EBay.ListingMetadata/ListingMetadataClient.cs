@@ -96,7 +96,7 @@ public sealed class ListingMetadataClient : IDisposable
         return new HttpClient(handler) { Timeout = config.HttpTimeout };
     }
 
-    private static IAuthenticationProvider BuildAuthProvider(
+    private static BaseBearerTokenAuthenticationProvider BuildAuthProvider(
         Func<CancellationToken, Task<string>> tokenProvider,
         IEnumerable<string> allowedHosts)
     {
