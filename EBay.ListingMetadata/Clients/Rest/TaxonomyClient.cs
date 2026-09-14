@@ -12,180 +12,205 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
+using EBay.ListingMetadata.Configuration;
+using EBay.ListingMetadata.Generated.Taxonomy.Models;
 using EBay.ListingMetadata.Generated.Taxonomy;
 using Microsoft.Kiota.Abstractions;
 
 namespace EBay.ListingMetadata.Clients.Rest;
 
-/// <summary>
-/// Client for Taxonomy API operations
-/// </summary>
 public sealed class TaxonomyClient
 {
     private readonly TaxonomyApiClient _kiota;
+    private readonly ListingMetadataConfiguration _config;
+    private readonly ITokenContext _tokenContext;
+    private readonly IRequestAdapter _adapter;
 
-    internal TaxonomyClient(TaxonomyApiClient kiota)
+    internal TaxonomyClient(TaxonomyApiClient kiota, ListingMetadataConfiguration config, ITokenContext tokenContext, IRequestAdapter adapter)
     {
         _kiota = kiota;
+        _config = config;
+        _tokenContext = tokenContext;
+        _adapter = adapter;
     }
 
     /// <summary>
-    /// Retrieves the default category tree ID for a specified marketplace
+    /// Get Aspects for All Leaf Categories in a Marketplace
     /// </summary>
-    /// <param name="marketplaceId">eBay marketplace ID (e.g., EBAY_US)</param>
-    /// <param name="options">Optional request configuration (access token override, custom headers)</param>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>Default category tree information</returns>
-    public async Task<EBay.ListingMetadata.Generated.Taxonomy.Models.BaseCategoryTree?> GetDefaultCategoryTreeIdAsync(
+    public Task<GetCategoriesAspectResponse?> FetchItemAspectsAsync(
+        string categoryTreeId,
+        string? accessToken = null,
+        RequestOptions? requestOptions = null,
+        CancellationToken ct = default)
+        => RestInvocation.CallAsync(
+            _tokenContext,
+            accessToken,
+            () => _kiota.Category_tree[categoryTreeId].Fetch_item_aspects.GetAsync(cfg =>
+        {
+            RestInvocation.ApplyHeaders(cfg.Headers, _config, requestOptions);
+        }, ct));
+
+    /// <summary>
+    /// Get a Default Category Tree ID
+    /// </summary>
+    public Task<BaseCategoryTree?> GetDefaultCategoryTreeIdAsync(
         string marketplaceId,
-        RequestOptions? options = null,
-        CancellationToken cancellationToken = default)
-    {
-        return await _kiota.Get_default_category_tree_id.GetAsync(cfg =>
+        string? accessToken = null,
+        RequestOptions? requestOptions = null,
+        CancellationToken ct = default)
+        => RestInvocation.CallAsync(
+            _tokenContext,
+            accessToken,
+            () => _kiota.Get_default_category_tree_id.GetAsync(cfg =>
         {
             cfg.QueryParameters.MarketplaceId = marketplaceId;
-
-            if (options?.Headers != null)
-            {
-                foreach (var (key, value) in options.Headers)
-                {
-                    cfg.Headers.Add(key, value);
-                }
-            }
-
-            if (!string.IsNullOrEmpty(options?.AccessToken))
-            {
-                cfg.Headers.Add("Authorization", $"Bearer {options.AccessToken}");
-            }
-        }, cancellationToken);
-    }
+            RestInvocation.ApplyHeaders(cfg.Headers, _config, requestOptions);
+        }, ct));
 
     /// <summary>
-    /// Retrieves the complete category tree for a specified category tree ID
+    /// Get a Category Tree
     /// </summary>
-    /// <param name="categoryTreeId">Category tree ID</param>
-    /// <param name="options">Optional request configuration (access token override, custom headers)</param>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>Complete category tree</returns>
-    public async Task<EBay.ListingMetadata.Generated.Taxonomy.Models.CategoryTree?> GetCategoryTreeAsync(
+    public Task<CategoryTree?> GetCategoryTreeAsync(
         string categoryTreeId,
-        RequestOptions? options = null,
-        CancellationToken cancellationToken = default)
-    {
-        return await _kiota.Category_tree[categoryTreeId].GetAsync(cfg =>
+        string? acceptEncoding = null,
+        string? accessToken = null,
+        RequestOptions? requestOptions = null,
+        CancellationToken ct = default)
+        => RestInvocation.CallAsync(
+            _tokenContext,
+            accessToken,
+            () => _kiota.Category_tree[categoryTreeId].GetAsync(cfg =>
         {
-            if (options?.Headers != null)
+            if (acceptEncoding is not null)
             {
-                foreach (var (key, value) in options.Headers)
-                {
-                    cfg.Headers.Add(key, value);
-                }
+                cfg.Headers.TryAdd("Accept-Encoding", acceptEncoding);
             }
-
-            if (!string.IsNullOrEmpty(options?.AccessToken))
-            {
-                cfg.Headers.Add("Authorization", $"Bearer {options.AccessToken}");
-            }
-        }, cancellationToken);
-    }
+            RestInvocation.ApplyHeaders(cfg.Headers, _config, requestOptions);
+        }, ct));
 
     /// <summary>
-    /// Retrieves category suggestions for a product query
+    /// Get a Category Subtree
     /// </summary>
-    /// <param name="categoryTreeId">Category tree ID</param>
-    /// <param name="query">Product query string</param>
-    /// <param name="options">Optional request configuration (access token override, custom headers)</param>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>Category suggestions</returns>
-    public async Task<EBay.ListingMetadata.Generated.Taxonomy.Models.CategorySuggestionResponse?> GetCategorySuggestionsAsync(
-        string categoryTreeId,
-        string query,
-        RequestOptions? options = null,
-        CancellationToken cancellationToken = default)
-    {
-        return await _kiota.Category_tree[categoryTreeId].Get_category_suggestions.GetAsync(cfg =>
-        {
-            cfg.QueryParameters.Q = query;
-
-            if (options?.Headers != null)
-            {
-                foreach (var (key, value) in options.Headers)
-                {
-                    cfg.Headers.Add(key, value);
-                }
-            }
-
-            if (!string.IsNullOrEmpty(options?.AccessToken))
-            {
-                cfg.Headers.Add("Authorization", $"Bearer {options.AccessToken}");
-            }
-        }, cancellationToken);
-    }
-
-    /// <summary>
-    /// Retrieves item aspects for a specific category
-    /// </summary>
-    /// <param name="categoryTreeId">Category tree ID</param>
-    /// <param name="categoryId">Category ID</param>
-    /// <param name="options">Optional request configuration (access token override, custom headers)</param>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>Aspect metadata for the category</returns>
-    public async Task<EBay.ListingMetadata.Generated.Taxonomy.Models.AspectMetadata?> GetItemAspectsForCategoryAsync(
-        string categoryTreeId,
+    public Task<CategorySubtree?> GetCategorySubtreeAsync(
         string categoryId,
-        RequestOptions? options = null,
-        CancellationToken cancellationToken = default)
-    {
-        return await _kiota.Category_tree[categoryTreeId].Get_item_aspects_for_category.GetAsync(cfg =>
+        string categoryTreeId,
+        string? acceptEncoding = null,
+        string? accessToken = null,
+        RequestOptions? requestOptions = null,
+        CancellationToken ct = default)
+        => RestInvocation.CallAsync(
+            _tokenContext,
+            accessToken,
+            () => _kiota.Category_tree[categoryTreeId].Get_category_subtree.GetAsync(cfg =>
         {
             cfg.QueryParameters.CategoryId = categoryId;
-
-            if (options?.Headers != null)
+            if (acceptEncoding is not null)
             {
-                foreach (var (key, value) in options.Headers)
-                {
-                    cfg.Headers.Add(key, value);
-                }
+                cfg.Headers.TryAdd("Accept-Encoding", acceptEncoding);
             }
-
-            if (!string.IsNullOrEmpty(options?.AccessToken))
-            {
-                cfg.Headers.Add("Authorization", $"Bearer {options.AccessToken}");
-            }
-        }, cancellationToken);
-    }
+            RestInvocation.ApplyHeaders(cfg.Headers, _config, requestOptions);
+        }, ct));
 
     /// <summary>
-    /// Retrieves a category subtree starting from a specified category
+    /// Get Suggested Categories
     /// </summary>
-    /// <param name="categoryTreeId">Category tree ID</param>
-    /// <param name="categoryId">Category ID for subtree root</param>
-    /// <param name="options">Optional request configuration (access token override, custom headers)</param>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>Category subtree</returns>
-    public async Task<EBay.ListingMetadata.Generated.Taxonomy.Models.CategorySubtree?> GetCategorySubtreeAsync(
+    public Task<CategorySuggestionResponse?> GetCategorySuggestionsAsync(
         string categoryTreeId,
+        string q,
+        string? accessToken = null,
+        RequestOptions? requestOptions = null,
+        CancellationToken ct = default)
+        => RestInvocation.CallAsync(
+            _tokenContext,
+            accessToken,
+            () => _kiota.Category_tree[categoryTreeId].Get_category_suggestions.GetAsync(cfg =>
+        {
+            cfg.QueryParameters.Q = q;
+            RestInvocation.ApplyHeaders(cfg.Headers, _config, requestOptions);
+        }, ct));
+
+    /// <summary>
+    /// This call returns a list of <i>aspects</i> that are appropriate or necessary for accurately describing items in the specified leaf category. Each aspect identifies an item attribute (for example, color,) for which the seller will be required or encouraged to provide a value (or variation values) when offering an item in that category on eBay.
+    /// For each aspect, <b>getItemAspectsForCategory</b> provides complete metadata, including:
+    /// - The aspect's data type, format, and entry mode
+    /// - Whether the aspect is required in listings
+    /// - Whether the aspect can be used for item variations
+    /// - Whether the aspect accepts multiple values for an item
+    /// - Allowed values for the aspect
+    /// Use this information to construct an interface through which sellers can enter or select the appropriate values for their items or item variations. Once you collect those values, include them as product aspects when creating inventory items using the Inventory API.
+    /// </summary>
+    public Task<AspectMetadata?> GetItemAspectsForCategoryAsync(
         string categoryId,
-        RequestOptions? options = null,
-        CancellationToken cancellationToken = default)
-    {
-        return await _kiota.Category_tree[categoryTreeId].Get_category_subtree.GetAsync(cfg =>
+        string categoryTreeId,
+        string? accessToken = null,
+        RequestOptions? requestOptions = null,
+        CancellationToken ct = default)
+        => RestInvocation.CallAsync(
+            _tokenContext,
+            accessToken,
+            () => _kiota.Category_tree[categoryTreeId].Get_item_aspects_for_category.GetAsync(cfg =>
         {
             cfg.QueryParameters.CategoryId = categoryId;
+            RestInvocation.ApplyHeaders(cfg.Headers, _config, requestOptions);
+        }, ct));
 
-            if (options?.Headers != null)
-            {
-                foreach (var (key, value) in options.Headers)
-                {
-                    cfg.Headers.Add(key, value);
-                }
-            }
+    /// <summary>
+    /// Get Compatibility Properties
+    /// </summary>
+    public Task<GetCompatibilityMetadataResponse?> GetCompatibilityPropertiesAsync(
+        string categoryTreeId,
+        string categoryId,
+        string? accessToken = null,
+        RequestOptions? requestOptions = null,
+        CancellationToken ct = default)
+        => RestInvocation.CallAsync(
+            _tokenContext,
+            accessToken,
+            () => _kiota.Category_tree[categoryTreeId].Get_compatibility_properties.GetAsync(cfg =>
+        {
+            cfg.QueryParameters.CategoryId = categoryId;
+            RestInvocation.ApplyHeaders(cfg.Headers, _config, requestOptions);
+        }, ct));
 
-            if (!string.IsNullOrEmpty(options?.AccessToken))
+    /// <summary>
+    /// Get Compatibility Property Values
+    /// </summary>
+    public Task<GetCompatibilityPropertyValuesResponse?> GetCompatibilityPropertyValuesAsync(
+        string categoryTreeId,
+        string compatibilityProperty,
+        string categoryId,
+        string? filter = null,
+        string? accessToken = null,
+        RequestOptions? requestOptions = null,
+        CancellationToken ct = default)
+        => RestInvocation.CallAsync(
+            _tokenContext,
+            accessToken,
+            () => _kiota.Category_tree[categoryTreeId].Get_compatibility_property_values.GetAsync(cfg =>
+        {
+            cfg.QueryParameters.CompatibilityProperty = compatibilityProperty;
+            cfg.QueryParameters.CategoryId = categoryId;
+            if (filter is not null)
             {
-                cfg.Headers.Add("Authorization", $"Bearer {options.AccessToken}");
+                cfg.QueryParameters.Filter = filter;
             }
-        }, cancellationToken);
-    }
+            RestInvocation.ApplyHeaders(cfg.Headers, _config, requestOptions);
+        }, ct));
+
+    /// <summary>
+    /// This method retrieves the mappings of expired leaf categories in the specified category tree to their corresponding active leaf categories. Note that in some cases, several expired categories are mapped to a single active category.
+    /// <b>Note:</b> This method only returns information about categories that have been mapped (i.e., combined categories and split categories). It does not return information about expired categories that have no corresponding active categories. When a category expires in this manner, any completed items that were listed in the expired category can still be found, but new listings cannot be created in the category.
+    /// </summary>
+    public Task<ExpiredCategories?> GetExpiredCategoriesAsync(
+        string categoryTreeId,
+        string? accessToken = null,
+        RequestOptions? requestOptions = null,
+        CancellationToken ct = default)
+        => RestInvocation.CallAsync(
+            _tokenContext,
+            accessToken,
+            () => _kiota.Category_tree[categoryTreeId].Get_expired_categories.GetAsync(cfg =>
+        {
+            RestInvocation.ApplyHeaders(cfg.Headers, _config, requestOptions);
+        }, ct));
 }

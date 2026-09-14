@@ -12,45 +12,45 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-using EBay.ListingMetadata.Clients.Rest;
+using EBay.ListingMetadata;
 using EBay.ListingMetadata.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EBay.ListingMetadata.Extensions;
 
-/// <summary>
-/// Dependency injection extensions for ListingMetadataSdk
-/// </summary>
 public static class ServiceCollectionExtensions
 {
-    /// <summary>
-    /// Adds ListingMetadataSdk clients to the service collection
-    /// </summary>
-    /// <param name="services">Service collection</param>
-    /// <param name="configuration">SDK configuration instance</param>
-    /// <returns>Service collection for chaining</returns>
     public static IServiceCollection AddListingMetadataSdk(
         this IServiceCollection services,
-        ListingMetadataConfiguration configuration)
+        ListingMetadataConfiguration config)
     {
-        services.AddSingleton(configuration);
+        services.AddSingleton(config);
+        services.AddSingleton<ITokenContext, AsyncLocalTokenContext>();
 
-        services.AddHttpClient(nameof(ListingMetadataClient))
-            .ConfigureHttpClient(c => c.Timeout = configuration.HttpTimeout)
-            .AddHttpMessageHandler(sp =>
-                new DiagnosticLoggingHandler(sp.GetRequiredService<ListingMetadataConfiguration>()));
+        foreach (var endpoint in ListingMetadataClient.RestEndpointNames)
+        {
+            var id = endpoint.ApiId;
+            services.AddHttpClient(endpoint.HttpClientName, (sp, c) =>
+                    c.BaseAddress = new Uri(sp.GetRequiredService<ListingMetadataConfiguration>().RestBaseUrl(id)))
+                .ConfigureHttpClient((sp, c) =>
+                    c.Timeout = sp.GetRequiredService<ListingMetadataConfiguration>().HttpTimeout)
+                .AddHttpMessageHandler(sp =>
+                    new DiagnosticLoggingHandler(sp.GetRequiredService<ListingMetadataConfiguration>()));
+        }
 
         services.AddScoped<ListingMetadataClient>(sp =>
-            new ListingMetadataClient(
+        {
+            var factory = sp.GetRequiredService<IHttpClientFactory>();
+            return new ListingMetadataClient(
                 sp.GetRequiredService<ListingMetadataConfiguration>(),
-                sp.GetRequiredService<IHttpClientFactory>().CreateClient(nameof(ListingMetadataClient))));
+                factory,
+                sp.GetRequiredService<ITokenContext>());
+        });
 
         services.AddScoped(sp => sp.GetRequiredService<ListingMetadataClient>().Catalog);
-        services.AddScoped(sp => sp.GetRequiredService<ListingMetadataClient>().Taxonomy);
-        services.AddScoped(sp => sp.GetRequiredService<ListingMetadataClient>().Metadata);
         services.AddScoped(sp => sp.GetRequiredService<ListingMetadataClient>().Charity);
-
+        services.AddScoped(sp => sp.GetRequiredService<ListingMetadataClient>().Metadata);
+        services.AddScoped(sp => sp.GetRequiredService<ListingMetadataClient>().Taxonomy);
         return services;
     }
 }

@@ -12,90 +12,81 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
+using EBay.ListingMetadata.Configuration;
+using EBay.ListingMetadata.Generated.Charity.Models;
 using EBay.ListingMetadata.Generated.Charity;
+using Microsoft.Kiota.Abstractions;
 
 namespace EBay.ListingMetadata.Clients.Rest;
 
-/// <summary>
-/// Client for Charity API operations
-/// </summary>
 public sealed class CharityClient
 {
     private readonly CharityApiClient _kiota;
+    private readonly ListingMetadataConfiguration _config;
+    private readonly ITokenContext _tokenContext;
+    private readonly IRequestAdapter _adapter;
 
-    internal CharityClient(CharityApiClient kiota)
+    internal CharityClient(CharityApiClient kiota, ListingMetadataConfiguration config, ITokenContext tokenContext, IRequestAdapter adapter)
     {
         _kiota = kiota;
+        _config = config;
+        _tokenContext = tokenContext;
+        _adapter = adapter;
     }
 
     /// <summary>
-    /// Retrieves details of a specific charity organization
+    /// This call is used to retrieve detailed information about supported charitable organizations. It allows users to retrieve the details for a specific charitable organization using its charity organization ID.
     /// </summary>
-    /// <param name="charityOrgId">Charity organization ID</param>
-    /// <param name="xEbayCMarketplaceId">eBay marketplace ID header (e.g., EBAY_US)</param>
-    /// <param name="options">Optional request configuration (access token override, custom headers)</param>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>Charity organization details</returns>
-    public async Task<EBay.ListingMetadata.Generated.Charity.Models.CharityOrg?> GetCharityOrgAsync(
+    public Task<CharityOrg?> GetCharityOrgAsync(
         string charityOrgId,
-        string xEbayCMarketplaceId,
-        RequestOptions? options = null,
-        CancellationToken cancellationToken = default)
-    {
-        return await _kiota.Charity_org[charityOrgId].GetAsync(cfg =>
+        string xEBAYCMARKETPLACEID,
+        string? accessToken = null,
+        RequestOptions? requestOptions = null,
+        CancellationToken ct = default)
+        => RestInvocation.CallAsync(
+            _tokenContext,
+            accessToken,
+            () => _kiota.Charity_org[charityOrgId].GetAsync(cfg =>
         {
-            cfg.Headers.Add("X-EBAY-C-MARKETPLACE-ID", xEbayCMarketplaceId);
-
-            if (options?.Headers != null)
-            {
-                foreach (var (key, value) in options.Headers)
-                {
-                    cfg.Headers.Add(key, value);
-                }
-            }
-
-            if (!string.IsNullOrEmpty(options?.AccessToken))
-            {
-                cfg.Headers.Add("Authorization", $"Bearer {options.AccessToken}");
-            }
-        }, cancellationToken);
-    }
+            cfg.Headers.TryAdd("X-EBAY-C-MARKETPLACE-ID", xEBAYCMARKETPLACEID);
+            RestInvocation.ApplyHeaders(cfg.Headers, _config, requestOptions);
+        }, ct));
 
     /// <summary>
-    /// Searches for charity organizations
+    /// This call is used to search for supported charitable organizations. It allows users to search for a specific charitable organization, or for multiple charitable organizations, from a particular charitable domain and/or geographical region, or by using search criteria.
+    /// The call returns paginated search results containing the charitable organizations that match the specified criteria.
     /// </summary>
-    /// <param name="xEbayCMarketplaceId">eBay marketplace ID header (e.g., EBAY_US)</param>
-    /// <param name="query">Optional search query</param>
-    /// <param name="options">Optional request configuration (access token override, custom headers)</param>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>List of charity organizations</returns>
-    public async Task<EBay.ListingMetadata.Generated.Charity.Models.CharitySearchResponse?> GetCharityOrgsAsync(
-        string xEbayCMarketplaceId,
-        string? query = null,
-        RequestOptions? options = null,
-        CancellationToken cancellationToken = default)
-    {
-        return await _kiota.Charity_org.GetAsync(cfg =>
+    public Task<CharitySearchResponse?> GetCharityOrgsAsync(
+        string xEBAYCMARKETPLACEID,
+        string? limit = null,
+        string? offset = null,
+        string? q = null,
+        string? registrationIds = null,
+        string? accessToken = null,
+        RequestOptions? requestOptions = null,
+        CancellationToken ct = default)
+        => RestInvocation.CallAsync(
+            _tokenContext,
+            accessToken,
+            () => _kiota.Charity_org.GetAsync(cfg =>
         {
-            cfg.Headers.Add("X-EBAY-C-MARKETPLACE-ID", xEbayCMarketplaceId);
-            if (query != null)
+            if (limit is not null)
             {
-                cfg.QueryParameters.Q = query;
+                cfg.QueryParameters.Limit = limit;
             }
-
-            if (options?.Headers != null)
+            if (offset is not null)
             {
-                foreach (var (key, value) in options.Headers)
-                {
-                    cfg.Headers.Add(key, value);
-                }
+                cfg.QueryParameters.Offset = offset;
             }
-
-            if (!string.IsNullOrEmpty(options?.AccessToken))
+            if (q is not null)
             {
-                cfg.Headers.Add("Authorization", $"Bearer {options.AccessToken}");
+                cfg.QueryParameters.Q = q;
             }
-        }, cancellationToken);
-    }
+            if (registrationIds is not null)
+            {
+                cfg.QueryParameters.RegistrationIds = registrationIds;
+            }
+            cfg.Headers.TryAdd("X-EBAY-C-MARKETPLACE-ID", xEBAYCMARKETPLACEID);
+            RestInvocation.ApplyHeaders(cfg.Headers, _config, requestOptions);
+        }, ct));
 }

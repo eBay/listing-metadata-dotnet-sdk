@@ -1,6 +1,6 @@
 {
   "descriptionHash": "A79BFD059E8D963C45441E22D43072633EAB102ED56B1C60E73E257EEA6345C861C513913781D14A6A58D813F9ECA83EE71038F68BED7171514D4EA9C7A370BC",
-  "descriptionLocation": "../../../specs/sell_metadata_v1_oas3.yaml",
+  "descriptionLocation": "../../../specs/openapi/metadata.yaml",
   "lockFileVersion": "1.0.0",
   "kiotaVersion": "1.31.1",
   "clientClassName": "MetadataApiClient",

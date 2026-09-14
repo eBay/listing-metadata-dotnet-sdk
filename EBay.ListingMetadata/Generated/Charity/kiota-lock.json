@@ -1,6 +1,6 @@
 {
   "descriptionHash": "BF7624713D7DF0487424F02084757CEF4E7E8AECEC2820D7ED8AAD3F750D80F8781F274594D00F6920400A435300DE459D8845647278FF0FDB29E0618CA0BDF6",
-  "descriptionLocation": "../../../specs/commerce_charity_v1_oas3.yaml",
+  "descriptionLocation": "../../../specs/openapi/charity.yaml",
   "lockFileVersion": "1.0.0",
   "kiotaVersion": "1.31.1",
   "clientClassName": "CharityApiClient",
