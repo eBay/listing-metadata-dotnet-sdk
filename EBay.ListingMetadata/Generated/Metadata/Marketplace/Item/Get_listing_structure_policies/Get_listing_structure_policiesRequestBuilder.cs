@@ -53,6 +53,9 @@ namespace EBay.ListingMetadata.Generated.Metadata.Marketplace.Item.Get_listing_s
         /// <returns>A <see cref="global::EBay.ListingMetadata.Generated.Metadata.Models.ListingStructurePolicyResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 400 status code</exception>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 404 status code</exception>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.ListingMetadata.Generated.Metadata.Models.ListingStructurePolicyResponse?> GetAsync(Action<RequestConfiguration<global::EBay.ListingMetadata.Generated.Metadata.Marketplace.Item.Get_listing_structure_policies.Get_listing_structure_policiesRequestBuilder.Get_listing_structure_policiesRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -63,7 +66,13 @@ namespace EBay.ListingMetadata.Generated.Metadata.Marketplace.Item.Get_listing_s
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Metadata.Models.ListingStructurePolicyResponse>(requestInfo, global::EBay.ListingMetadata.Generated.Metadata.Models.ListingStructurePolicyResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+                { "404", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Metadata.Models.ListingStructurePolicyResponse>(requestInfo, global::EBay.ListingMetadata.Generated.Metadata.Models.ListingStructurePolicyResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// This method returns the eBay policies that define the allowed listing structures for the categories of a specific marketplace. The listing-structure policies currently pertain to whether or not you can list items with variations.  &lt;br&gt;&lt;br&gt;By default, this method returns the entire category tree for the specified marketplace. You can limit the size of the result set by using the &lt;b&gt;filter&lt;/b&gt; query parameter to specify only the category IDs you want to review.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#478415&quot;&gt;&lt;strong&gt;Tip:&lt;/strong&gt;&lt;/span&gt; This method can potentially return a very large response payload. eBay recommends that the response payload be compressed by passing in the &lt;b&gt;Accept-Encoding&lt;/b&gt; request header and setting the value to &lt;code&gt;gzip&lt;/code&gt;.&lt;/span&gt;

@@ -30,7 +30,7 @@ namespace EBay.ListingMetadata.Generated.Catalog.Product
     public partial class ProductRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the EBay.ListingMetadata.Generated.Catalog.product.item collection</summary>
-        /// <param name="position">The eBay product identifier (ePID) of the product being requested. This value can be discovered by issuing the &lt;b&gt;search&lt;/b&gt; method and examining the value of the &lt;b&gt;productSummaries.epid&lt;/b&gt; field for the desired returned product summary.</param>
+        /// <param name="position">The eBay product identifier (ePID) of the product being requested. This value can be discovered by issuing the &lt;strong&gt;search&lt;/strong&gt; method and examining the value of the &lt;strong&gt;productSummaries.epid&lt;/strong&gt; field for the desired returned product summary.</param>
         /// <returns>A <see cref="global::EBay.ListingMetadata.Generated.Catalog.Product.Item.WithEpItemRequestBuilder"/></returns>
         public global::EBay.ListingMetadata.Generated.Catalog.Product.Item.WithEpItemRequestBuilder this[string position]
         {

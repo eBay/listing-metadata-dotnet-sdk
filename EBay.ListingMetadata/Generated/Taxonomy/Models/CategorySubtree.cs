@@ -29,7 +29,7 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This type contains information about all nodes of a category tree or subtree hierarchy, including and below the specified &lt;b&gt;Category&lt;/b&gt;, down to the leaf nodes. It is a recursive structure.</summary>
+        /// <summary>Contains details of all nodes of the category subtree hierarchy below a specified node. This is a recursive structure.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.ListingMetadata.Generated.Taxonomy.Models.CategoryTreeNode? CategorySubtreeNode { get; set; }

@@ -28,7 +28,7 @@ namespace EBay.ListingMetadata.Generated.Charity.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The physical location of the item.</summary>
+        /// <summary>The address of the charitable organization.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.ListingMetadata.Generated.Charity.Models.Address? Address { get; set; }
@@ -36,7 +36,7 @@ namespace EBay.ListingMetadata.Generated.Charity.Models
 #else
         public global::EBay.ListingMetadata.Generated.Charity.Models.Address Address { get; set; }
 #endif
-        /// <summary>Defines the format of a geographic coordinate.</summary>
+        /// <summary>The geo-coordinates of the charitable organization.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.ListingMetadata.Generated.Charity.Models.GeoCoordinates? GeoCoordinates { get; set; }

@@ -22,7 +22,7 @@ using System;
 namespace EBay.ListingMetadata.Generated.Metadata.Models
 {
     /// <summary>
-    /// The metadata for a property.
+    /// This type defines the property name metadata.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class PropertyNamesResponsePropertyNameMetadata : IAdditionalDataHolder, IParsable

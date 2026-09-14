@@ -22,7 +22,7 @@ using System;
 namespace EBay.ListingMetadata.Generated.Metadata.Models
 {
     /// <summary>
-    /// This container is used to define the property to be used in the sorting.
+    /// This type is used to define the property to be used in sorting. 
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class SortOrderProperties : IAdditionalDataHolder, IParsable

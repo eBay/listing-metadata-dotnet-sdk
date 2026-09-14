@@ -53,6 +53,9 @@ namespace EBay.ListingMetadata.Generated.Metadata.Marketplace.Item.Get_negotiate
         /// <returns>A <see cref="global::EBay.ListingMetadata.Generated.Metadata.Models.NegotiatedPricePolicyResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 400 status code</exception>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 404 status code</exception>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.ListingMetadata.Generated.Metadata.Models.NegotiatedPricePolicyResponse?> GetAsync(Action<RequestConfiguration<global::EBay.ListingMetadata.Generated.Metadata.Marketplace.Item.Get_negotiated_price_policies.Get_negotiated_price_policiesRequestBuilder.Get_negotiated_price_policiesRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -63,7 +66,13 @@ namespace EBay.ListingMetadata.Generated.Metadata.Marketplace.Item.Get_negotiate
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Metadata.Models.NegotiatedPricePolicyResponse>(requestInfo, global::EBay.ListingMetadata.Generated.Metadata.Models.NegotiatedPricePolicyResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+                { "404", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Metadata.Models.NegotiatedPricePolicyResponse>(requestInfo, global::EBay.ListingMetadata.Generated.Metadata.Models.NegotiatedPricePolicyResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// This method returns the eBay policies that define the supported negotiated price features (like &quot;best offer&quot;) for the categories of a specific marketplace.  &lt;br&gt;&lt;br&gt;By default, this method returns the entire category tree for the specified marketplace. You can limit the size of the result set by using the &lt;b&gt;filter&lt;/b&gt; query parameter to specify only the category IDs you want to review.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#478415&quot;&gt;&lt;strong&gt;Tip:&lt;/strong&gt;&lt;/span&gt; This method can potentially return a very large response payload. eBay recommends that the response payload be compressed by passing in the &lt;b&gt;Accept-Encoding&lt;/b&gt; request header and setting the value to &lt;code&gt;gzip&lt;/code&gt;.&lt;/span&gt;

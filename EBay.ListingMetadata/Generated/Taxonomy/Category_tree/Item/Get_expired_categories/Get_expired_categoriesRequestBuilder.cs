@@ -53,6 +53,8 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Category_tree.Item.Get_expired
         /// <returns>A <see cref="global::EBay.ListingMetadata.Generated.Taxonomy.Models.ExpiredCategories"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Taxonomy.Models.Error>">When receiving a 400 status code</exception>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Taxonomy.Models.Error>">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.ListingMetadata.Generated.Taxonomy.Models.ExpiredCategories?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -63,7 +65,12 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Category_tree.Item.Get_expired
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Taxonomy.Models.ExpiredCategories>(requestInfo, global::EBay.ListingMetadata.Generated.Taxonomy.Models.ExpiredCategories.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.ListingMetadata.Generated.Taxonomy.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.ListingMetadata.Generated.Taxonomy.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Taxonomy.Models.ExpiredCategories>(requestInfo, global::EBay.ListingMetadata.Generated.Taxonomy.Models.ExpiredCategories.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// This method retrieves the mappings of expired leaf categories in the specified category tree to their corresponding active leaf categories. Note that in some cases, several expired categories are mapped to a single active category.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; This method only returns information about categories that have been mapped (i.e., combined categories and split categories). It does not return information about expired categories that have no corresponding active categories. When a category expires in this manner, any completed items that were listed in the expired category can still be found, but new listings cannot be created in the category.&lt;/span&gt;

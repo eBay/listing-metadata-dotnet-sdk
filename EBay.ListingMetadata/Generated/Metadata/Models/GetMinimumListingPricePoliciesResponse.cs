@@ -22,14 +22,14 @@ using System;
 namespace EBay.ListingMetadata.Generated.Metadata.Models
 {
     /// <summary>
-    /// This type defines the response container for the &lt;b&gt;getMinimumListingPricePolicies&lt;/b&gt; method.
+    /// This type defines the response container for the getMinimumListingPricePolicies method.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class GetMinimumListingPricePoliciesResponse : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This array returns a list of minimum listing price policies for supported types of listings on the specific marketplace</summary>
+        /// <summary>This array returns a list of minimum listing price policies for supported types of listings on the specific marketplace.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::EBay.ListingMetadata.Generated.Metadata.Models.MinimumListingPricePoliciesType>? MinimumListingPricePolicies { get; set; }

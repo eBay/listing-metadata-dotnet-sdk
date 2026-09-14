@@ -53,6 +53,9 @@ namespace EBay.ListingMetadata.Generated.Metadata.Marketplace.Item.Get_hazardous
         /// <returns>A <see cref="global::EBay.ListingMetadata.Generated.Metadata.Models.HazardousMaterialDetailsResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 400 status code</exception>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 404 status code</exception>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.ListingMetadata.Generated.Metadata.Models.HazardousMaterialDetailsResponse?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -63,7 +66,13 @@ namespace EBay.ListingMetadata.Generated.Metadata.Marketplace.Item.Get_hazardous
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Metadata.Models.HazardousMaterialDetailsResponse>(requestInfo, global::EBay.ListingMetadata.Generated.Metadata.Models.HazardousMaterialDetailsResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+                { "404", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Metadata.Models.HazardousMaterialDetailsResponse>(requestInfo, global::EBay.ListingMetadata.Generated.Metadata.Models.HazardousMaterialDetailsResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// This method returns hazardous materials label information for the specified eBay marketplace. The information includes IDs, descriptions, and URLs (as applicable) for the available signal words, statements, and pictograms. The returned statements are localized for the default language of the marketplace. If a marketplace does not support hazardous materials label information, no response payload is returned, but only a &lt;b&gt;204 No content&lt;/b&gt; status code.&lt;p&gt;This information is used by the seller to add hazardous materials label related information to their listings (see &lt;a href=&apos;/api-docs/sell/static/metadata/feature-regulatorhazmatcontainer.html&apos;&gt;Specifying hazardous material related information&lt;/a&gt;).&lt;/p&gt;

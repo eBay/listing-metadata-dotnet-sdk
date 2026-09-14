@@ -45,7 +45,7 @@ namespace EBay.ListingMetadata.Generated.Charity.Models
 #else
         public string Description { get; set; }
 #endif
-        /// <summary>The location property</summary>
+        /// <summary>The location details of the charitable organization.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.ListingMetadata.Generated.Charity.Models.Location? Location { get; set; }

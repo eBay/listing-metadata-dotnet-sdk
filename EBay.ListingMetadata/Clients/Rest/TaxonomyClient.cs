@@ -35,7 +35,7 @@ public sealed class TaxonomyClient
     }
 
     /// <summary>
-    /// Get Aspects for All Leaf Categories in a Marketplace
+    /// Get item aspects for all leaf categories in a marketplace
     /// </summary>
     public Task<GetCategoriesAspectResponse?> FetchItemAspectsAsync(
         string categoryTreeId,
@@ -51,7 +51,7 @@ public sealed class TaxonomyClient
         }, ct));
 
     /// <summary>
-    /// Get a Default Category Tree ID
+    /// Get the default category tree ID for a marketplace
     /// </summary>
     public Task<BaseCategoryTree?> GetDefaultCategoryTreeIdAsync(
         string marketplaceId,
@@ -68,7 +68,7 @@ public sealed class TaxonomyClient
         }, ct));
 
     /// <summary>
-    /// Get a Category Tree
+    /// Get a category tree
     /// </summary>
     public Task<CategoryTree?> GetCategoryTreeAsync(
         string categoryTreeId,
@@ -89,7 +89,7 @@ public sealed class TaxonomyClient
         }, ct));
 
     /// <summary>
-    /// Get a Category Subtree
+    /// Get a category subtree
     /// </summary>
     public Task<CategorySubtree?> GetCategorySubtreeAsync(
         string categoryId,
@@ -112,7 +112,7 @@ public sealed class TaxonomyClient
         }, ct));
 
     /// <summary>
-    /// Get Suggested Categories
+    /// Get suggested categories for a keyword
     /// </summary>
     public Task<CategorySuggestionResponse?> GetCategorySuggestionsAsync(
         string categoryTreeId,
@@ -130,14 +130,7 @@ public sealed class TaxonomyClient
         }, ct));
 
     /// <summary>
-    /// This call returns a list of <i>aspects</i> that are appropriate or necessary for accurately describing items in the specified leaf category. Each aspect identifies an item attribute (for example, color,) for which the seller will be required or encouraged to provide a value (or variation values) when offering an item in that category on eBay.
-    /// For each aspect, <b>getItemAspectsForCategory</b> provides complete metadata, including:
-    /// - The aspect's data type, format, and entry mode
-    /// - Whether the aspect is required in listings
-    /// - Whether the aspect can be used for item variations
-    /// - Whether the aspect accepts multiple values for an item
-    /// - Allowed values for the aspect
-    /// Use this information to construct an interface through which sellers can enter or select the appropriate values for their items or item variations. Once you collect those values, include them as product aspects when creating inventory items using the Inventory API.
+    /// Get aspects for a leaf category
     /// </summary>
     public Task<AspectMetadata?> GetItemAspectsForCategoryAsync(
         string categoryId,
@@ -155,7 +148,7 @@ public sealed class TaxonomyClient
         }, ct));
 
     /// <summary>
-    /// Get Compatibility Properties
+    /// Get compatibility properties for a compatibility-enabled category
     /// </summary>
     public Task<GetCompatibilityMetadataResponse?> GetCompatibilityPropertiesAsync(
         string categoryTreeId,
@@ -173,7 +166,7 @@ public sealed class TaxonomyClient
         }, ct));
 
     /// <summary>
-    /// Get Compatibility Property Values
+    /// Get compatibility property values for a compatibility-enabled category
     /// </summary>
     public Task<GetCompatibilityPropertyValuesResponse?> GetCompatibilityPropertyValuesAsync(
         string categoryTreeId,
@@ -198,8 +191,7 @@ public sealed class TaxonomyClient
         }, ct));
 
     /// <summary>
-    /// This method retrieves the mappings of expired leaf categories in the specified category tree to their corresponding active leaf categories. Note that in some cases, several expired categories are mapped to a single active category.
-    /// <b>Note:</b> This method only returns information about categories that have been mapped (i.e., combined categories and split categories). It does not return information about expired categories that have no corresponding active categories. When a category expires in this manner, any completed items that were listed in the expired category can still be found, but new listings cannot be created in the category.
+    /// Get expired categories for a marketplace
     /// </summary>
     public Task<ExpiredCategories?> GetExpiredCategoriesAsync(
         string categoryTreeId,

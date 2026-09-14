@@ -37,14 +37,8 @@ namespace EBay.ListingMetadata.Generated.Charity.Models
 #else
         public string City { get; set; }
 #endif
-        /// <summary>The two-letter &lt;a href=&quot;https://www.iso.org/iso-3166-country-codes.html &quot;&gt;ISO 3166&lt;/a&gt; standard of the country of the address. For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/charity/types/bas:CountryCodeEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Country { get; set; }
-#nullable restore
-#else
-        public string Country { get; set; }
-#endif
+        /// <summary>The two-letter &lt;a href=&quot;https://www.iso.org/iso-3166-country-codes.html &quot;&gt;ISO 3166&lt;/a&gt; standard of the country of the address.</summary>
+        public global::EBay.ListingMetadata.Generated.Charity.Models.CountryCodeEnum? Country { get; set; }
         /// <summary>The postal code of the charitable organization.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -87,7 +81,7 @@ namespace EBay.ListingMetadata.Generated.Charity.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "city", n => { City = n.GetStringValue(); } },
-                { "country", n => { Country = n.GetStringValue(); } },
+                { "country", n => { Country = n.GetEnumValue<global::EBay.ListingMetadata.Generated.Charity.Models.CountryCodeEnum>(); } },
                 { "postalCode", n => { PostalCode = n.GetStringValue(); } },
                 { "stateOrProvince", n => { StateOrProvince = n.GetStringValue(); } },
             };
@@ -100,7 +94,7 @@ namespace EBay.ListingMetadata.Generated.Charity.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("city", City);
-            writer.WriteStringValue("country", Country);
+            writer.WriteEnumValue<global::EBay.ListingMetadata.Generated.Charity.Models.CountryCodeEnum>("country", Country);
             writer.WriteStringValue("postalCode", PostalCode);
             writer.WriteStringValue("stateOrProvince", StateOrProvince);
             writer.WriteAdditionalData(AdditionalData);

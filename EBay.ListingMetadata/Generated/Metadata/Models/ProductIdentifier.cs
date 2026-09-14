@@ -22,7 +22,7 @@ using System;
 namespace EBay.ListingMetadata.Generated.Metadata.Models
 {
     /// <summary>
-    /// This container is used to provide unique identifier for the product. The product identifier consists of an identifier type and value, and are unique across all sites.
+    /// This type defines the supported product identifiers.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class ProductIdentifier : IAdditionalDataHolder, IParsable

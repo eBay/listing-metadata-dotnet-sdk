@@ -48,11 +48,15 @@ namespace EBay.ListingMetadata.Generated.Catalog.Product.Item
         {
         }
         /// <summary>
-        /// This method retrieves details of the catalog product identified by the eBay product identifier (ePID) specified in the request. These details include the product&apos;s title and description, aspects and their values, associated images, applicable category IDs, and any recognized identifiers that apply to the product. &lt;br /&gt;&lt;br /&gt; For a new listing, you can use the &lt;b&gt;search&lt;/b&gt; method to identify candidate products on which to base the listing, then use the &lt;b&gt;getProduct&lt;/b&gt; method to present the full details of those candidate products to the seller to make a a final selection.
+        /// This method retrieves details of the catalog product identified by the eBay product identifier (ePID) specified in the request. These details include the product&apos;s title and description, aspects and their values, associated images, applicable category IDs, and any recognized identifiers that apply to the product. &lt;br /&gt;&lt;br /&gt; For a new listing, you can use the &lt;strong&gt;search&lt;/strong&gt; method to identify candidate products on which to base the listing, then use the &lt;strong&gt;getProduct&lt;/strong&gt; method to present the full details of those candidate products to the seller to make a a final selection.
         /// </summary>
         /// <returns>A <see cref="global::EBay.ListingMetadata.Generated.Catalog.Models.Product"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::EBay.ListingMetadata.Generated.Catalog.Models.Error">When receiving a 400 status code</exception>
+        /// <exception cref="global::EBay.ListingMetadata.Generated.Catalog.Models.Error">When receiving a 403 status code</exception>
+        /// <exception cref="global::EBay.ListingMetadata.Generated.Catalog.Models.Error">When receiving a 404 status code</exception>
+        /// <exception cref="global::EBay.ListingMetadata.Generated.Catalog.Models.Error">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.ListingMetadata.Generated.Catalog.Models.Product?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -63,10 +67,17 @@ namespace EBay.ListingMetadata.Generated.Catalog.Product.Item
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Catalog.Models.Product>(requestInfo, global::EBay.ListingMetadata.Generated.Catalog.Models.Product.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.ListingMetadata.Generated.Catalog.Models.Error.CreateFromDiscriminatorValue },
+                { "403", global::EBay.ListingMetadata.Generated.Catalog.Models.Error.CreateFromDiscriminatorValue },
+                { "404", global::EBay.ListingMetadata.Generated.Catalog.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.ListingMetadata.Generated.Catalog.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Catalog.Models.Product>(requestInfo, global::EBay.ListingMetadata.Generated.Catalog.Models.Product.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// This method retrieves details of the catalog product identified by the eBay product identifier (ePID) specified in the request. These details include the product&apos;s title and description, aspects and their values, associated images, applicable category IDs, and any recognized identifiers that apply to the product. &lt;br /&gt;&lt;br /&gt; For a new listing, you can use the &lt;b&gt;search&lt;/b&gt; method to identify candidate products on which to base the listing, then use the &lt;b&gt;getProduct&lt;/b&gt; method to present the full details of those candidate products to the seller to make a a final selection.
+        /// This method retrieves details of the catalog product identified by the eBay product identifier (ePID) specified in the request. These details include the product&apos;s title and description, aspects and their values, associated images, applicable category IDs, and any recognized identifiers that apply to the product. &lt;br /&gt;&lt;br /&gt; For a new listing, you can use the &lt;strong&gt;search&lt;/strong&gt; method to identify candidate products on which to base the listing, then use the &lt;strong&gt;getProduct&lt;/strong&gt; method to present the full details of those candidate products to the seller to make a a final selection.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

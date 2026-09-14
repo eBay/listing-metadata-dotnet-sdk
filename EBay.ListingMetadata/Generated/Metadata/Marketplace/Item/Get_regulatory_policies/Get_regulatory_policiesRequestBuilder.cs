@@ -53,6 +53,9 @@ namespace EBay.ListingMetadata.Generated.Metadata.Marketplace.Item.Get_regulator
         /// <returns>A <see cref="global::EBay.ListingMetadata.Generated.Metadata.Models.RegulatoryPolicyResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 400 status code</exception>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 404 status code</exception>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.ListingMetadata.Generated.Metadata.Models.RegulatoryPolicyResponse?> GetAsync(Action<RequestConfiguration<global::EBay.ListingMetadata.Generated.Metadata.Marketplace.Item.Get_regulatory_policies.Get_regulatory_policiesRequestBuilder.Get_regulatory_policiesRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -63,7 +66,13 @@ namespace EBay.ListingMetadata.Generated.Metadata.Marketplace.Item.Get_regulator
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Metadata.Models.RegulatoryPolicyResponse>(requestInfo, global::EBay.ListingMetadata.Generated.Metadata.Models.RegulatoryPolicyResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+                { "404", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Metadata.Models.RegulatoryPolicyResponse>(requestInfo, global::EBay.ListingMetadata.Generated.Metadata.Models.RegulatoryPolicyResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// This method returns regulatory policies for one, multiple, or all eBay categories in an eBay marketplace. The identifier of the eBay marketplace is passed in as a path parameter, and unless one or more eBay category IDs are passed in through the filter query parameter, this method will return metadata for every listing category in the specified marketplace.&lt;/p&gt;&lt;p&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#478415&quot;&gt;&lt;strong&gt;Tip:&lt;/strong&gt;&lt;/span&gt; This method can potentially return a very large response payload. eBay recommends that the response payload be compressed by passing in the &lt;b&gt;Accept-Encoding&lt;/b&gt; request header and setting the value to &lt;code&gt;gzip&lt;/code&gt;.&lt;/span&gt;&lt;/p&gt;

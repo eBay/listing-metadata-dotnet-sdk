@@ -53,7 +53,7 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Models
 #else
         public string CategorySubtreeNodeHref { get; set; }
 #endif
-        /// <summary>The absolute level of the ancestor category node in the hierarchy of its category tree.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt; &lt;strong&gt;Note:&lt;/strong&gt; The root node of any full category tree is always at level &lt;code&gt;&lt;b&gt;0&lt;/b&gt;&lt;/code&gt;. &lt;/span&gt;</summary>
+        /// <summary>The absolute level of the ancestor category node in the hierarchy of its category tree.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt; &lt;strong&gt;Note:&lt;/strong&gt; The root node of any full category tree is always at level &lt;code&gt;0&lt;/code&gt;. &lt;/span&gt;</summary>
         public int? CategoryTreeNodeLevel { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.ListingMetadata.Generated.Taxonomy.Models.AncestorReference"/> and sets the default values.

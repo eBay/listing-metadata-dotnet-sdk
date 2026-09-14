@@ -55,7 +55,7 @@ namespace EBay.ListingMetadata.Generated.Metadata.Models
 #else
         public List<global::EBay.ListingMetadata.Generated.Metadata.Models.ListingDuration> ListingDurations { get; set; }
 #endif
-        /// <summary>A true value in this field indicates that items listed in the category (specified in the &lt;b&gt;listingTypePolicies.categoryId&lt;/b&gt; field) may be enabled with the &apos;Click and Collect&apos; feature. With the &apos;Click and Collect&apos; feature, a buyer can purchase certain items on an eBay site and collect them at a local store. Buyers are notified by eBay once their items are available. A false value in this field indicates that items listed in the category are not eligible for the &apos;Click and Collect&apos; feature.</summary>
+        /// <summary>A true value in this field indicates that items listed in the category (specified in the Category.CategoryID field) may be enabled with the &apos;Click and Collect&apos; feature. With the &apos;Click and Collect&apos; feature, a buyer can purchase certain items on an eBay site and collect them at a local store. Buyers are notified by eBay once their items are available. A false value in this field indicates that items listed in the category are not eligible for the &apos;Click and Collect&apos; feature.</summary>
         public bool? PickupDropOffEnabled { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.ListingMetadata.Generated.Metadata.Models.ListingTypePolicy"/> and sets the default values.

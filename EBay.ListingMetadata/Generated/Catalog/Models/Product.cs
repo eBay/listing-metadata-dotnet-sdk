@@ -29,7 +29,7 @@ namespace EBay.ListingMetadata.Generated.Catalog.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Contains information about  additional images associated with this product. For the primary image, see the &lt;b&gt;image&lt;/b&gt; container.</summary>
+        /// <summary>This array is returned if the category product has additional images besides the primary image returned in the &lt;strong&gt;image&lt;/strong&gt; container.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::EBay.ListingMetadata.Generated.Catalog.Models.Image>? AdditionalImages { get; set; }
@@ -87,7 +87,7 @@ namespace EBay.ListingMetadata.Generated.Catalog.Models
 #else
         public List<string> Gtin { get; set; }
 #endif
-        /// <summary>This type contains information about a product image stored in eBay Picture Services (EPS).</summary>
+        /// <summary>Contains information about the primary image of this product. For more images of this product, see the &lt;strong&gt;additionalImages&lt;/strong&gt; container.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.ListingMetadata.Generated.Catalog.Models.Image? Image { get; set; }
@@ -111,7 +111,7 @@ namespace EBay.ListingMetadata.Generated.Catalog.Models
 #else
         public List<string> Mpn { get; set; }
 #endif
-        /// <summary>A list of category IDs (other than the value of &lt;b&gt;primaryCategoryId&lt;/b&gt;) for all the leaf categories to which this product might belong.</summary>
+        /// <summary>A list of category IDs (other than the value of &lt;strong&gt;primaryCategoryId&lt;/strong&gt;) for all the leaf categories to which this product might belong.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<string>? OtherApplicableCategoryIds { get; set; }
@@ -119,7 +119,7 @@ namespace EBay.ListingMetadata.Generated.Catalog.Models
 #else
         public List<string> OtherApplicableCategoryIds { get; set; }
 #endif
-        /// <summary>The identifier of the leaf category that eBay recommends using to list this product, based on previous listings of similar products. Products in the eBay catalog are not automatically associated with any particular category, but using an inappropriate category can make it difficult for prospective buyers to find the product. For other possible categories that might be used, see &lt;b&gt;otherApplicableCategoryIds&lt;/b&gt;.</summary>
+        /// <summary>The identifier of the leaf category that eBay recommends using to list this product, based on previous listings of similar products. Products in the eBay catalog are not automatically associated with any particular category, but using an inappropriate category can make it difficult for prospective buyers to find the product. For other possible categories that might be used, see &lt;strong&gt;otherApplicableCategoryIds&lt;/strong&gt;.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? PrimaryCategoryId { get; set; }

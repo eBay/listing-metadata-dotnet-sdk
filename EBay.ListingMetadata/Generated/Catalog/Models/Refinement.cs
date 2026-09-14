@@ -29,7 +29,7 @@ namespace EBay.ListingMetadata.Generated.Catalog.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Contains information about one or more aspects that are associated with the category identified by &lt;b&gt;dominantCategoryId&lt;/b&gt;.</summary>
+        /// <summary>This array contains information about one or more aspects that are associated with the category identified by &lt;strong&gt;dominantCategoryId&lt;/strong&gt;.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::EBay.ListingMetadata.Generated.Catalog.Models.AspectDistribution>? AspectDistributions { get; set; }

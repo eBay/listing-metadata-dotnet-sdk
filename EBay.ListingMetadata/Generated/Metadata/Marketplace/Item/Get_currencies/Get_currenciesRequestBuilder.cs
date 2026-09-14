@@ -53,6 +53,9 @@ namespace EBay.ListingMetadata.Generated.Metadata.Marketplace.Item.Get_currencie
         /// <returns>A <see cref="global::EBay.ListingMetadata.Generated.Metadata.Models.GetCurrenciesResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 400 status code</exception>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 404 status code</exception>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Metadata.Models.Error>">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.ListingMetadata.Generated.Metadata.Models.GetCurrenciesResponse?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -63,7 +66,13 @@ namespace EBay.ListingMetadata.Generated.Metadata.Marketplace.Item.Get_currencie
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Metadata.Models.GetCurrenciesResponse>(requestInfo, global::EBay.ListingMetadata.Generated.Metadata.Models.GetCurrenciesResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+                { "404", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.ListingMetadata.Generated.Metadata.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Metadata.Models.GetCurrenciesResponse>(requestInfo, global::EBay.ListingMetadata.Generated.Metadata.Models.GetCurrenciesResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// This method returns the default currency used by the eBay marketplace specified in the request. This is the currency that the seller should use when providing price data for this marketplace through listing APIs.

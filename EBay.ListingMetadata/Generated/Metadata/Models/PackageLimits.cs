@@ -22,7 +22,7 @@ using System;
 namespace EBay.ListingMetadata.Generated.Metadata.Models
 {
     /// <summary>
-    /// This container provides name-value pairs that specify physical constraints and measurement units of packages for the &lt;b&gt;shippingCarrier&lt;/b&gt; and the corresponding &lt;b&gt;shippingService&lt;/b&gt;. An empty container is returned if the shipping service does not have any package limits defined.
+    /// The packageLimits field is used to specify the physical constraints and measurement units of packages, ensuring compliance with various shipping requirements.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class PackageLimits : IAdditionalDataHolder, IParsable

@@ -53,6 +53,9 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Category_tree.Item.Fetch_item_
         /// <returns>A <see cref="global::EBay.ListingMetadata.Generated.Taxonomy.Models.GetCategoriesAspectResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Taxonomy.Models.Error>">When receiving a 400 status code</exception>
+        /// <exception cref="global::EBay.ListingMetadata.Generated.Taxonomy.Models.Error">When receiving a 404 status code</exception>
+        /// <exception cref="List<global::EBay.ListingMetadata.Generated.Taxonomy.Models.Error>">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.ListingMetadata.Generated.Taxonomy.Models.GetCategoriesAspectResponse?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -63,7 +66,13 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Category_tree.Item.Fetch_item_
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Taxonomy.Models.GetCategoriesAspectResponse>(requestInfo, global::EBay.ListingMetadata.Generated.Taxonomy.Models.GetCategoriesAspectResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.ListingMetadata.Generated.Taxonomy.Models.Error.CreateFromDiscriminatorValue },
+                { "404", global::EBay.ListingMetadata.Generated.Taxonomy.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.ListingMetadata.Generated.Taxonomy.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Taxonomy.Models.GetCategoriesAspectResponse>(requestInfo, global::EBay.ListingMetadata.Generated.Taxonomy.Models.GetCategoriesAspectResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// This method returns a complete list of aspects for all of the leaf categories that belong to an eBay marketplace. The eBay marketplace is specified through the &lt;b&gt;category_tree_id&lt;/b&gt; URI parameter.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt; &lt;strong&gt;Note:&lt;/strong&gt; A successful call returns a payload as a gzipped JSON file sent as a binary file using the content-type:application/octet-stream in the response. This file may be large (over 100 MB, compressed). Extract the JSON file from the compressed file with a utility that handles .gz or .gzip. The open source &lt;a href=&quot;https://github.com/eBay/taxonomy-sdk &quot; target=&quot;_blank&quot;&gt;Taxonomy SDK&lt;/a&gt; can be used to compare the aspect metadata that is returned in this response. The &lt;b&gt;Taxonomy SDK&lt;/b&gt; uses this call to surface changes (new, modified, and removed entities) between an updated version of a bulk downloaded file relative to a previous version.&lt;/span&gt;

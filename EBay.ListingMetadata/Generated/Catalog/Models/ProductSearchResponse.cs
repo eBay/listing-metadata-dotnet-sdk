@@ -22,14 +22,14 @@ using System;
 namespace EBay.ListingMetadata.Generated.Catalog.Models
 {
     /// <summary>
-    /// This type contains the specifications for the collection of products that match the search or filter criteria of a &lt;b&gt;search&lt;/b&gt; call. A maximum of 200 product summaries is returned (the result set), fewer if you include the &lt;b&gt;limit&lt;/b&gt; query parameter in the request. 
+    /// This type contains the specifications for the collection of products that match the search or filter criteria of a &lt;strong&gt;search&lt;/strong&gt; call. A maximum of 200 product summaries is returned (the result set), fewer if you include the &lt;strong&gt;limit&lt;/strong&gt; query parameter in the request. 
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class ProductSearchResponse : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This field is reserved for internal or future use. &lt;!-- The URI of the &lt;b&gt;search&lt;/b&gt; method request that produced this result set. --&gt;</summary>
+        /// <summary>This field is reserved for internal or future use. &lt;!-- The URI of the &lt;strong&gt;search&lt;/strong&gt; method request that produced this result set. --&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Href { get; set; }
@@ -37,7 +37,7 @@ namespace EBay.ListingMetadata.Generated.Catalog.Models
 #else
         public string Href { get; set; }
 #endif
-        /// <summary>The number of product summaries returned in the response. This is the &lt;i&gt;result set&lt;/i&gt;, a subset of the full collection of products that match the search or filter criteria of this call. If the &lt;b&gt;limit&lt;/b&gt; query parameter was included in the request, this field will have the same value. &lt;br /&gt;&lt;br /&gt; &lt;b&gt;Default:&lt;/b&gt; &lt;code&gt;50&lt;/code&gt;</summary>
+        /// <summary>The number of product summaries returned in the response. This is the &lt;i&gt;result set&lt;/i&gt;, a subset of the full collection of products that match the search or filter criteria of this call. If the &lt;strong&gt;limit&lt;/strong&gt; query parameter was included in the request, this field will have the same value. &lt;br /&gt;&lt;br /&gt; &lt;strong&gt;Default:&lt;/strong&gt; &lt;code&gt;50&lt;/code&gt;</summary>
         public int? Limit { get; set; }
         /// <summary>This field is reserved for internal or future use. &lt;!-- &lt;i&gt;Returned only if&lt;/i&gt; there are more product records to retrieve from the current collection of matching products, this field contains the &lt;b&gt;search&lt;/b&gt; call URI for the next result set. For example, the following URI returns records 41 thru 50 from the collection of matched products: &lt;br /&gt;&lt;br /&gt; &lt;code&gt;&lt;i&gt;path&lt;/i&gt;/product_summary/search?limit=10&amp;offset=40&lt;/code&gt; &lt;br /&gt;&lt;br /&gt;  &lt;span class=&quot;tablenote&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; This feature employs a zero-based list, where the first product in the list has an offset of &lt;code&gt;0&lt;/code&gt;.&lt;/span&gt; --&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -57,7 +57,7 @@ namespace EBay.ListingMetadata.Generated.Catalog.Models
 #else
         public string Prev { get; set; }
 #endif
-        /// <summary>&lt;i&gt;Returned if&lt;/i&gt; the &lt;b&gt;fieldGroups&lt;/b&gt; query parameter was omitted from the request, or if it was included with a value of &lt;code&gt;MATCHING_PRODUCTS&lt;/code&gt; or &lt;code&gt;FULL&lt;/code&gt;. This container provides an array of product summaries in the current result set for products that match the combination of the &lt;b&gt;q&lt;/b&gt;, &lt;b&gt;category_ids&lt;/b&gt;, and &lt;b&gt;aspect_filter&lt;/b&gt; parameters that were provided in the request. Each product summary includes information about the product&apos;s identifiers, product images, aspects, the product page URL, and the &lt;b&gt;getProduct&lt;/b&gt; URL for retrieving the product details.</summary>
+        /// <summary>&lt;i&gt;Returned if&lt;/i&gt; the &lt;strong&gt;fieldGroups&lt;/strong&gt; query parameter was omitted from the request, or if it was included with a value of &lt;code&gt;MATCHING_PRODUCTS&lt;/code&gt; or &lt;code&gt;FULL&lt;/code&gt;. This container provides an array of product summaries in the current result set for products that match the combination of the &lt;strong&gt;q&lt;/strong&gt;, &lt;strong&gt;category_ids&lt;/strong&gt;, and &lt;strong&gt;aspect_filter&lt;/strong&gt; parameters that were provided in the request. Each product summary includes information about the product&apos;s identifiers, product images, aspects, the product page URL, and the &lt;strong&gt;getProduct&lt;/strong&gt; URL for retrieving the product details.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::EBay.ListingMetadata.Generated.Catalog.Models.ProductSummary>? ProductSummaries { get; set; }
@@ -65,7 +65,7 @@ namespace EBay.ListingMetadata.Generated.Catalog.Models
 #else
         public List<global::EBay.ListingMetadata.Generated.Catalog.Models.ProductSummary> ProductSummaries { get; set; }
 #endif
-        /// <summary>This type identifies a product category and the aspects associated with that category. Each aspect distribution container returns the distribution of values that have been used for the aspect.</summary>
+        /// <summary>&lt;i&gt;Returned only if&lt;/i&gt; the &lt;strong&gt;fieldGroups&lt;/strong&gt; query parameter was included in the request with a value of &lt;code&gt;ASPECT_REFINEMENTS&lt;/code&gt; or &lt;code&gt;FULL&lt;/code&gt;. &lt;br /&gt;&lt;br /&gt; An aspect is a property of a category, used by sellers to provide details about the items they&apos;re listing. For example, the &lt;i&gt;Cell Phones &amp;amp; Smartphones&lt;/i&gt; category (#9355) includes a &lt;i&gt;Storage Capacity&lt;/i&gt; aspect. &lt;br /&gt;&lt;br /&gt; This container provides information about the distribution of values of a set of category aspects. The category aspects are those associated with the category that eBay determines is most likely to cover the products that match the search criteria.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.ListingMetadata.Generated.Catalog.Models.Refinement? Refinement { get; set; }

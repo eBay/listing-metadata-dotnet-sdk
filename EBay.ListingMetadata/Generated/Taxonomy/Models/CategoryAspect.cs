@@ -21,10 +21,11 @@ using System.IO;
 using System;
 namespace EBay.ListingMetadata.Generated.Taxonomy.Models
 {
+    /// <summary>
+    /// This type defines information about a category and the aspects used to describe items in that category.
+    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    #pragma warning disable CS1591
     public partial class CategoryAspect : IAdditionalDataHolder, IParsable
-    #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
@@ -36,7 +37,7 @@ namespace EBay.ListingMetadata.Generated.Taxonomy.Models
 #else
         public List<global::EBay.ListingMetadata.Generated.Taxonomy.Models.Aspect> Aspects { get; set; }
 #endif
-        /// <summary>This type contains information about a particular eBay category.</summary>
+        /// <summary>The details that are appropriate or necessary to accurately define the category.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.ListingMetadata.Generated.Taxonomy.Models.Category? Category { get; set; }
