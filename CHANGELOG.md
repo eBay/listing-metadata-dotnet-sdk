@@ -1,54 +1,79 @@
 # ChangeLog
 
-## 1.0.0 (09/14/2026)
+## 0.2.0 (09/14/2026)
 
-**Breaking changes**
-- The following operations changed signature on `CatalogClient`:
-  - `GetProductAsync`: `(string, RequestOptions?, CancellationToken)` → `(string, string?, string?, RequestOptions?, CancellationToken)`
-- The following operations changed signature on `CharityClient`:
-  - `GetCharityOrgAsync`: `(string, string, RequestOptions?, CancellationToken)` → `(string, string, string?, RequestOptions?, CancellationToken)`
-  - `GetCharityOrgsAsync`: `(string, string?, RequestOptions?, CancellationToken)` → `(string, string?, string?, string?, string?, string?, RequestOptions?, CancellationToken)`
-- The following operations changed signature on `MetadataClient`:
-  - `GetCurrenciesAsync`: `(string, RequestOptions?, CancellationToken)` → `(string, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetItemConditionPoliciesAsync`: `(string, string?, RequestOptions?, CancellationToken)` → `(string, string?, string?, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetReturnPoliciesAsync`: `(string, RequestOptions?, CancellationToken)` → `(string, string?, string?, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetShippingCarriersAsync`: `(string, RequestOptions?, CancellationToken)` → `(string, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetShippingPoliciesAsync`: `(string, RequestOptions?, CancellationToken)` → `(string, string?, string?, string?, RequestOptions?, CancellationToken)`
-- The following operations changed signature on `TaxonomyClient`:
-  - `GetCategorySubtreeAsync`: `(string, string, RequestOptions?, CancellationToken)` → `(string, string, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetCategorySuggestionsAsync`: `(string, string, RequestOptions?, CancellationToken)` → `(string, string, string?, RequestOptions?, CancellationToken)`
-  - `GetCategoryTreeAsync`: `(string, RequestOptions?, CancellationToken)` → `(string, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetDefaultCategoryTreeIdAsync`: `(string, RequestOptions?, CancellationToken)` → `(string, string?, RequestOptions?, CancellationToken)`
-  - `GetItemAspectsForCategoryAsync`: `(string, string, RequestOptions?, CancellationToken)` → `(string, string, string?, RequestOptions?, CancellationToken)`
+### Breaking changes
 
-- The following operations were added to `CatalogClient`:
-  - `SearchAsync(string?, string?, string?, string?, string?, string?, string?, string?, string?, string?, RequestOptions?, CancellationToken)`
-- The following operations were added to `MetadataClient`:
-  - `GetAutomotivePartsCompatibilityPoliciesAsync(string, string?, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetCategoryPoliciesAsync(string, string?, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetClassifiedAdPoliciesAsync(string, string?, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetCompatibilitiesBySpecificationAsync(string, SpecificationRequest, string?, RequestOptions?, CancellationToken)`
-  - `GetCompatibilityPropertyNamesAsync(string, PropertyNamesRequest, string?, RequestOptions?, CancellationToken)`
-  - `GetCompatibilityPropertyValuesAsync(string, PropertyValuesRequest, string?, RequestOptions?, CancellationToken)`
-  - `GetExcludeShippingLocationsAsync(string, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetExtendedProducerResponsibilityPoliciesAsync(string, string?, string?, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetHandlingTimesAsync(string, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetHazardousMaterialsLabelsAsync(string, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetListingStructurePoliciesAsync(string, string?, string?, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetListingTypePoliciesAsync(string, string?, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetMinimumListingPricePoliciesAsync(string, string?, RequestOptions?, CancellationToken)`
-  - `GetMotorsListingPoliciesAsync(string, string?, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetMultiCompatibilityPropertyValuesAsync(string, MultiCompatibilityPropertyValuesRequest, string?, RequestOptions?, CancellationToken)`
-  - `GetNegotiatedPricePoliciesAsync(string, string?, string?, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetProductCompatibilitiesAsync(string, ProductRequest, string?, RequestOptions?, CancellationToken)`
-  - `GetProductSafetyLabelsAsync(string, string?, RequestOptions?, CancellationToken)`
-  - `GetRegulatoryPoliciesAsync(string, string?, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetSalesTaxJurisdictionsAsync(string, string?, RequestOptions?, CancellationToken)`
-  - `GetShippingLocationsAsync(string, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetShippingServicesAsync(string, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetSiteVisibilityPoliciesAsync(string, string?, string?, string?, RequestOptions?, CancellationToken)`
-- The following operations were added to `TaxonomyClient`:
-  - `FetchItemAspectsAsync(string, string?, RequestOptions?, CancellationToken)`
-  - `GetCompatibilityPropertiesAsync(string, string, string?, RequestOptions?, CancellationToken)`
-  - `GetCompatibilityPropertyValuesAsync(string, string, string, string?, string?, RequestOptions?, CancellationToken)`
-  - `GetExpiredCategoriesAsync(string, string?, RequestOptions?, CancellationToken)`
+#### Changed signatures
+
+`CatalogClient`:
+
+| Operation | Previous parameters | Current parameters |
+| --- | --- | --- |
+| `GetProductAsync` | `(string epid, RequestOptions? options, CancellationToken cancellationToken)` | `(string epid, string? xEBAYCMARKETPLACEID, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)` |
+
+`CharityClient`:
+
+| Operation | Previous parameters | Current parameters |
+| --- | --- | --- |
+| `GetCharityOrgAsync` | `(string charityOrgId, string xEbayCMarketplaceId, RequestOptions? options, CancellationToken cancellationToken)` | `(string charityOrgId, string xEBAYCMARKETPLACEID, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)` |
+| `GetCharityOrgsAsync` | `(string xEbayCMarketplaceId, string? query, RequestOptions? options, CancellationToken cancellationToken)` | `(string xEBAYCMARKETPLACEID, string? limit, string? offset, string? q, string? registrationIds, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)` |
+
+`MetadataClient`:
+
+| Operation | Previous parameters | Current parameters |
+| --- | --- | --- |
+| `GetCurrenciesAsync` | `(string marketplaceId, RequestOptions? options, CancellationToken cancellationToken)` | `(string marketplaceId, string? acceptLanguage, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)` |
+| `GetItemConditionPoliciesAsync` | `(string marketplaceId, string? categoryId, RequestOptions? options, CancellationToken cancellationToken)` | `(string marketplaceId, string? filter, string? acceptEncoding, string? acceptLanguage, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)` |
+| `GetReturnPoliciesAsync` | `(string marketplaceId, RequestOptions? options, CancellationToken cancellationToken)` | `(string marketplaceId, string? filter, string? acceptEncoding, string? acceptLanguage, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)` |
+| `GetShippingCarriersAsync` | `(string marketplaceId, RequestOptions? options, CancellationToken cancellationToken)` | `(string marketplaceId, string? acceptLanguage, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)` |
+| `GetShippingPoliciesAsync` | `(string marketplaceId, RequestOptions? options, CancellationToken cancellationToken)` | `(string marketplaceId, string? filter, string? acceptLanguage, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)` |
+
+`TaxonomyClient`:
+
+| Operation | Previous parameters | Current parameters |
+| --- | --- | --- |
+| `GetCategorySubtreeAsync` | `(string categoryTreeId, string categoryId, RequestOptions? options, CancellationToken cancellationToken)` | `(string categoryId, string categoryTreeId, string? acceptEncoding, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)` |
+| `GetCategorySuggestionsAsync` | `(string categoryTreeId, string query, RequestOptions? options, CancellationToken cancellationToken)` | `(string categoryTreeId, string q, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)` |
+| `GetCategoryTreeAsync` | `(string categoryTreeId, RequestOptions? options, CancellationToken cancellationToken)` | `(string categoryTreeId, string? acceptEncoding, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)` |
+| `GetDefaultCategoryTreeIdAsync` | `(string marketplaceId, RequestOptions? options, CancellationToken cancellationToken)` | `(string marketplaceId, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)` |
+| `GetItemAspectsForCategoryAsync` | `(string categoryTreeId, string categoryId, RequestOptions? options, CancellationToken cancellationToken)` | `(string categoryId, string categoryTreeId, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)` |
+
+### Added
+
+`CatalogClient`:
+
+- `SearchAsync(string? xEBAYCMARKETPLACEID, string? aspectFilter, string? categoryIds, string? fieldgroups, string? gtin, string? limit, string? mpn, string? offset, string? q, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+
+`MetadataClient`:
+
+- `GetAutomotivePartsCompatibilityPoliciesAsync(string marketplaceId, string? filter, string? acceptEncoding, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetCategoryPoliciesAsync(string marketplaceId, string? filter, string? acceptLanguage, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetClassifiedAdPoliciesAsync(string marketplaceId, string? filter, string? acceptLanguage, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetCompatibilitiesBySpecificationAsync(string xEBAYCMARKETPLACEID, SpecificationRequest body, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetCompatibilityPropertyNamesAsync(string xEBAYCMARKETPLACEID, PropertyNamesRequest body, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetCompatibilityPropertyValuesAsync(string xEBAYCMARKETPLACEID, PropertyValuesRequest body, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetExcludeShippingLocationsAsync(string marketplaceId, string? acceptLanguage, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetExtendedProducerResponsibilityPoliciesAsync(string marketplaceId, string? filter, string? acceptEncoding, string? acceptLanguage, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetHandlingTimesAsync(string marketplaceId, string? acceptLanguage, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetHazardousMaterialsLabelsAsync(string marketplaceId, string? acceptLanguage, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetListingStructurePoliciesAsync(string marketplaceId, string? filter, string? acceptEncoding, string? acceptLanguage, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetListingTypePoliciesAsync(string marketplaceId, string? filter, string? acceptLanguage, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetMinimumListingPricePoliciesAsync(string marketplaceId, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetMotorsListingPoliciesAsync(string marketplaceId, string? filter, string? acceptLanguage, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetMultiCompatibilityPropertyValuesAsync(string xEBAYCMARKETPLACEID, MultiCompatibilityPropertyValuesRequest body, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetNegotiatedPricePoliciesAsync(string marketplaceId, string? filter, string? acceptEncoding, string? acceptLanguage, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetProductCompatibilitiesAsync(string xEBAYCMARKETPLACEID, ProductRequest body, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetProductSafetyLabelsAsync(string marketplaceId, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetRegulatoryPoliciesAsync(string marketplaceId, string? filter, string? acceptLanguage, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetSalesTaxJurisdictionsAsync(string countryCode, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetShippingLocationsAsync(string marketplaceId, string? acceptLanguage, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetShippingServicesAsync(string marketplaceId, string? acceptLanguage, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetSiteVisibilityPoliciesAsync(string marketplaceId, string? filter, string? acceptLanguage, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+
+`TaxonomyClient`:
+
+- `FetchItemAspectsAsync(string categoryTreeId, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetCompatibilityPropertiesAsync(string categoryTreeId, string categoryId, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetCompatibilityPropertyValuesAsync(string categoryTreeId, string compatibilityProperty, string categoryId, string? filter, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
+- `GetExpiredCategoriesAsync(string categoryTreeId, string? accessToken, RequestOptions? requestOptions, CancellationToken ct)`
