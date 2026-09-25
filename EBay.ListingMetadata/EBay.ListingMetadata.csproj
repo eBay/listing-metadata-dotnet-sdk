@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -9,7 +9,7 @@
     <AssemblyName>EBay.ListingMetadata</AssemblyName>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>EBay.ListingMetadata</PackageId>
-    <Version>0.2.0</Version>
+    <Version>0.3.0</Version>
     <Authors>eBay</Authors>
     <Description>Unified .NET SDK for eBay Listing Metadata APIs including Catalog, Taxonomy, Metadata, and Charity operations</Description>
     <PackageTags>ebay;api;sdk;listing;metadata;catalog;taxonomy;charity</PackageTags>

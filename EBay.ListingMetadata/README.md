@@ -1,6 +1,6 @@
 # ListingMetadataSdk
 
-Unified .NET 10 SDK for eBay Listing Metadata APIs, providing type-safe clients for REST (Catalog, Taxonomy, Metadata, Charity) and GraphQL (Inventory Mapping) operations.
+Unified .NET SDK for eBay Listing Metadata APIs, providing type-safe clients for REST (Catalog, Taxonomy, Metadata, Charity) and GraphQL (Inventory Mapping) operations. Targets .NET 8, .NET 9, and .NET 10.
 
 ## Features
 
@@ -10,7 +10,7 @@ Unified .NET 10 SDK for eBay Listing Metadata APIs, providing type-safe clients 
 - **OAuth2 Support** - Built-in token refresh and per-request token override
 - **Dependency Injection** - First-class DI support
 - **Async/Await** - Modern async patterns throughout
-- **.NET 10** - Built for the latest .NET runtime
+- **.NET 8, 9, and 10** - Targets the current long-term support release and newer runtimes
 
 ## Installation
 
