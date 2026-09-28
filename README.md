@@ -21,7 +21,7 @@ This SDK requires **TWO SEPARATE authentication tokens**:
 - ✅ **Auto-Refresh** - OAuth2 with automatic 2-hour token renewal
 - ✅ **Type-Safe** - Kiota-generated clients from OpenAPI specs
 - ✅ **Dependency Injection** - First-class ASP.NET Core DI support
-- ✅ **Modern .NET** - Built on .NET 10.0 with nullable reference types
+- ✅ **Modern .NET** - Targets .NET 8, .NET 9, and .NET 10 with nullable reference types
 - ✅ **Async/Await** - All operations are fully asynchronous
 
 ## Installation
@@ -372,7 +372,7 @@ This SDK includes all operations from the listing metadata catalog:
 
 ## Requirements
 
-- .NET 10.0 or higher
+- .NET 8.0, .NET 9.0, or .NET 10.0
 - Valid eBay API credentials
 - OAuth 2.0 access token for authentication
 
