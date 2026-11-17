@@ -54,6 +54,8 @@ namespace EBay.ListingMetadata.Generated.Metadata.Compatibilities.Get_compatibil
         /// <param name="body">This type defines the properties and specifications to use to search for compatibilities.</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::EBay.ListingMetadata.Generated.Metadata.Models.ErrorMessage">When receiving a 400 status code</exception>
+        /// <exception cref="global::EBay.ListingMetadata.Generated.Metadata.Models.ErrorMessage">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.ListingMetadata.Generated.Metadata.Models.SpecificationResponse?> PostAsync(global::EBay.ListingMetadata.Generated.Metadata.Models.SpecificationRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -65,7 +67,12 @@ namespace EBay.ListingMetadata.Generated.Metadata.Compatibilities.Get_compatibil
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Metadata.Models.SpecificationResponse>(requestInfo, global::EBay.ListingMetadata.Generated.Metadata.Models.SpecificationResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.ListingMetadata.Generated.Metadata.Models.ErrorMessage.CreateFromDiscriminatorValue },
+                { "500", global::EBay.ListingMetadata.Generated.Metadata.Models.ErrorMessage.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Metadata.Models.SpecificationResponse>(requestInfo, global::EBay.ListingMetadata.Generated.Metadata.Models.SpecificationResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// This method is used to retrieve all compatible application name-value pairs for a part based on the provided specification(s).&lt;br&gt;&lt;br&gt;The part&apos;s relevant dimensions and/or characteristics can be provided through the &lt;b&gt;specifications&lt;/b&gt; container. For example, when retrieving compatible application name-value pairs for a tire, the tire&apos;s dimensions (such as the section width or rim diameter) should be provided.&lt;br&gt;&lt;br&gt;By default, all compatible application name-value pairs for the specifications are returned. You can limit the size of the result set by using the &lt;b&gt;compatibilityPropertyFilters&lt;/b&gt; array to specify the properties (such as make, model, year, or trim) you wish to be included in the response.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; The &lt;a href=&quot;/develop/api/sell/metadata_api#sell-metadata_api-compatibilities-getcompatibilitypropertynames&quot;&gt;getCompatibilityPropertyNames&lt;/a&gt; and &lt;a href=&quot;/develop/api/sell/metadata_api#sell-metadata_api-compatibilities-getcompatibilitypropertyvalues&quot;&gt;getCompatibilityPropertyValues&lt;/a&gt; methods can be used to retrieve valid property names and values that can be used as the name-value pairs to define specifications.&lt;/span&gt;

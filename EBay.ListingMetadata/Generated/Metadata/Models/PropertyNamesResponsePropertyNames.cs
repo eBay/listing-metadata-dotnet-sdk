@@ -45,7 +45,7 @@ namespace EBay.ListingMetadata.Generated.Metadata.Models
 #else
         public string PropertyName { get; set; }
 #endif
-        /// <summary>The metadata for a property.</summary>
+        /// <summary>This type defines the property name metadata.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.ListingMetadata.Generated.Metadata.Models.PropertyNamesResponsePropertyNameMetadata? PropertyNameMetadata { get; set; }
