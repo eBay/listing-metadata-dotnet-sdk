@@ -71,7 +71,7 @@ namespace EBay.ListingMetadata.Generated.Metadata
             ApiClientBuilder.RegisterDefaultDeserializer<FormParseNodeFactory>();
             if (string.IsNullOrEmpty(RequestAdapter.BaseUrl))
             {
-                RequestAdapter.BaseUrl = "https://api.ebay.com/sell/metadata/v1";
+                RequestAdapter.BaseUrl = "https://api.ebay.com{basePath}";
             }
             PathParameters.TryAdd("baseurl", RequestAdapter.BaseUrl);
         }

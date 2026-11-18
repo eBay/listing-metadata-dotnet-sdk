@@ -14,7 +14,7 @@
   },
   "servers": [
     {
-      "url": "https://api.ebay.com/sell/metadata/v1",
+      "url": "https://api.ebay.com{basePath}",
       "description": "Production",
       "variables": {
         "basePath": {
@@ -217,7 +217,7 @@
           },
           {
             "name": "filter",
-             "in": "query",
+            "in": "query",
             "description": "This query parameter limits the response by only returning metadata for the specified leaf categories. Supply the <b>categoryId</b> for one or more leaf categories. You can verify if a category is a leaf category by using the <a href=\"/api-docs/commerce/taxonomy/overview.html\" target=\"_blank \">Taxonomy API</a> and looking for a <code>\"leafCategory\": true</code> tag.  <br><br>The parameter takes a list of <b>categoryId</b> values and you can specify up to 50 separate category IDs. Separate multiple values with a pipe character ('|'). If you specify more than 50 <code>categoryId</code> values, eBay returns the policies for the first 50 IDs and a warning that not all categories were returned.<br><br><b>Example:</b> <code>filter=categoryIds:{3767|171784}</code>",
             "required": false,
             "schema": {
@@ -972,7 +972,8 @@
         "parameters": [
           {
             "name": "marketplace_id",
-           "description": "This path parameter specifies the eBay marketplace for which policy information is retrieved.<br><br>See <a href=\"/develop/api/sell/request_headers#marketplace-id-values\" target=\"_blank \">Request Headers</a> for a list of supported eBay marketplace ID values.",
+            "in": "path",
+            "description": "This path parameter specifies the eBay marketplace for which policy information is retrieved.<br><br>See <a href=\"/develop/api/sell/request_headers#marketplace-id-values\" target=\"_blank \">Request Headers</a> for a list of supported eBay marketplace ID values.",
             "required": true,
             "schema": {
               "type": "string"
@@ -1789,7 +1790,7 @@
           {
             "name": "marketplace_id",
             "in": "path",
-             "description": "This path parameter specifies the eBay marketplace for which policy information is retrieved.<br><br>See <a href=\"/develop/api/sell/request_headers#marketplace-id-values\" target=\"_blank \">Request Headers</a> for a list of supported eBay marketplace ID values.",
+            "description": "This path parameter specifies the eBay marketplace for which policy information is retrieved.<br><br>See <a href=\"/develop/api/sell/request_headers#marketplace-id-values\" target=\"_blank \">Request Headers</a> for a list of supported eBay marketplace ID values.",
             "required": true,
             "schema": {
               "type": "string"
@@ -2754,7 +2755,9 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "style": "simple",
+            "explode": false
           },
           {
             "name": "Content-Type",
@@ -2763,7 +2766,9 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "style": "simple",
+            "explode": false
           }
         ],
         "requestBody": {
@@ -2776,7 +2781,7 @@
               }
             }
           },
-          "required": false
+          "required": true
         },
         "responses": {
           "200": {
@@ -2799,7 +2804,7 @@
                 "47000": {
                   "domain": "API",
                   "category": "REQUEST",
-                  "description": "Item compatibilities are not enabled for category ID {{category_id}} or invalid propertyFilter."
+                  "description": "Item compatibilities are not enabled for category ID {{category_id}} or invalid propertyFilters."
                 },
                 "47002": {
                   "domain": "API",
@@ -2827,6 +2832,13 @@
                   "description": "The marketplace id {{marketplaceId}} specified in the request does not support compatibility."
                 }
               }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
             }
           },
           "401": {
@@ -2840,6 +2852,13 @@
                   "domain": "API",
                   "category": "APPLICATION",
                   "description": "There was a problem with an eBay internal system or process. Contact eBay developer support for assistance."
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
                 }
               }
             }
@@ -2869,7 +2888,9 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "style": "simple",
+            "explode": false
           },
           {
             "name": "Content-Type",
@@ -2878,7 +2899,9 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "style": "simple",
+            "explode": false
           }
         ],
         "requestBody": {
@@ -2891,7 +2914,7 @@
               }
             }
           },
-          "required": false
+          "required": true
         },
         "responses": {
           "200": {
@@ -2914,7 +2937,7 @@
                 "47000": {
                   "domain": "API",
                   "category": "REQUEST",
-                  "description": "Item compatibilities are not enabled for category ID {{category_id}} or invalid propertyFilter."
+                  "description": "Item compatibilities are not enabled for category ID {{category_id}} or invalid propertyFilters."
                 },
                 "47001": {
                   "domain": "API",
@@ -2947,6 +2970,13 @@
                   "description": "The marketplace id {{marketplaceId}} specified in the request does not support compatibility."
                 }
               }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
             }
           },
           "401": {
@@ -2960,6 +2990,13 @@
                   "domain": "API",
                   "category": "APPLICATION",
                   "description": "There was a problem with an eBay internal system or process. Contact eBay developer support for assistance."
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
                 }
               }
             }
@@ -2979,7 +3016,7 @@
         "tags": [
           "compatibilities"
         ],
-        "description": "This method is used to retrieve product compatibility property values associated with a single property name, in the specified category.<br><br>Compatibility property values can be used alongside the corresponding compatibility property name (retrieved using the <a href=\"/develop/api/sell/metadata_api#sell-metadata_api-compatibilities-getcompatibilitypropertynames\">getCompatibilityPropertyNames</a> method) to describe the assembly for which an item is compatible.<br><br>The <b>categoryId</b> of the compatibility-enabled category for which to retrieve compatibility property values is required in the request body, as well as the <b>propertyName</b> for which you wish to retrieve associated values.<br><br>By default, all property values associated with the specified <b>propertyName</b> are returned. You can limit the size of the result set by using the <b>propertyFilter</b> array. Only property values associated with the specified name-value pairs will be returned.",
+        "description": "This method is used to retrieve product compatibility property values associated with a single property name, in the specified category.<br><br>Compatibility property values can be used alongside the corresponding compatibility property name (retrieved using the <a href=\"/develop/api/sell/metadata_api#sell-metadata_api-compatibilities-getcompatibilitypropertynames\">getCompatibilityPropertyNames</a> method) to describe the assembly for which an item is compatible.<br><br>The <b>categoryId</b> of the compatibility-enabled category for which to retrieve compatibility property values is required in the request body, as well as the <b>propertyName</b> for which you wish to retrieve associated values.<br><br>By default, all property values associated with the specified <b>propertyName</b> are returned. You can limit the size of the result set by using the <b>propertyFilters</b> array. Only property values associated with the specified name-value pairs will be returned.",
         "operationId": "getCompatibilityPropertyValues",
         "parameters": [
           {
@@ -2989,7 +3026,9 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "style": "simple",
+            "explode": false
           },
           {
             "name": "Content-Type",
@@ -2998,7 +3037,9 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "style": "simple",
+            "explode": false
           }
         ],
         "requestBody": {
@@ -3011,7 +3052,7 @@
               }
             }
           },
-          "required": false
+          "required": true
         },
         "responses": {
           "200": {
@@ -3034,7 +3075,7 @@
                 "47000": {
                   "domain": "API",
                   "category": "REQUEST",
-                  "description": "Item compatibilities are not enabled for category ID {{category_id}} or invalid propertyFilter."
+                  "description": "Item compatibilities are not enabled for category ID {{category_id}} or invalid propertyFilters."
                 },
                 "47002": {
                   "domain": "API",
@@ -3062,6 +3103,13 @@
                   "description": "The marketplace id {{marketplaceId}} specified in the request does not support compatibility."
                 }
               }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
             }
           },
           "401": {
@@ -3075,6 +3123,13 @@
                   "domain": "API",
                   "category": "APPLICATION",
                   "description": "There was a problem with an eBay internal system or process. Contact eBay developer support for assistance."
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
                 }
               }
             }
@@ -3094,7 +3149,7 @@
         "tags": [
           "compatibilities"
         ],
-        "description": "This method is used to retrieve product compatibility property values associated with multiple property names, in the specified category.<br><br>Compatibility property values can be used alongside the corresponding compatibility property name (retrieved using the <a href=\"/develop/api/sell/metadata_api#sell-metadata_api-compatibilities-getcompatibilitypropertynames\" >getCompatibilityPropertyNames</a> method) to describe the assembly for which an item is compatible.<br><br>The <b>categoryId</b> of the compatibility-enabled category for which to retrieve compatibility property values is required in the request body, as well as the <b>propertyNames</b> for which you wish to retrieve associated property values. The <b>propertyFilter</b> array is also required to constrain the output. Only property values associated with the specified name-value pairs will be returned.",
+        "description": "This method is used to retrieve product compatibility property values associated with multiple property names, in the specified category.<br><br>Compatibility property values can be used alongside the corresponding compatibility property name (retrieved using the <a href=\"/develop/api/sell/metadata_api#sell-metadata_api-compatibilities-getcompatibilitypropertynames\" >getCompatibilityPropertyNames</a> method) to describe the assembly for which an item is compatible.<br><br>The <b>categoryId</b> of the compatibility-enabled category for which to retrieve compatibility property values is required in the request body, as well as the <b>propertyNames</b> for which you wish to retrieve associated property values. The <b>propertyFilters</b> array is also required to constrain the output. Only property values associated with the specified name-value pairs will be returned.",
         "operationId": "getMultiCompatibilityPropertyValues",
         "parameters": [
           {
@@ -3104,7 +3159,9 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "style": "simple",
+            "explode": false
           },
           {
             "name": "Content-Type",
@@ -3113,7 +3170,9 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "style": "simple",
+            "explode": false
           }
         ],
         "requestBody": {
@@ -3126,7 +3185,7 @@
               }
             }
           },
-          "required": false
+          "required": true
         },
         "responses": {
           "200": {
@@ -3149,7 +3208,7 @@
                 "47000": {
                   "domain": "API",
                   "category": "REQUEST",
-                  "description": "Item compatibilities are not enabled for category ID {{category_id}} or invalid propertyFilter."
+                  "description": "Item compatibilities are not enabled for category ID {{category_id}} or invalid propertyFilters."
                 },
                 "47002": {
                   "domain": "API",
@@ -3177,6 +3236,13 @@
                   "description": "The marketplace id {{marketplaceId}} specified in the request does not support compatibility."
                 }
               }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
             }
           },
           "401": {
@@ -3190,6 +3256,13 @@
                   "domain": "API",
                   "category": "APPLICATION",
                   "description": "There was a problem with an eBay internal system or process. Contact eBay developer support for assistance."
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
                 }
               }
             }
@@ -3209,7 +3282,7 @@
         "tags": [
           "compatibilities"
         ],
-        "description": "This method is used to retrieve all available item compatibility details for the specified product.<br><br>Item compatibility details can be used to see the properties for which an item is compatible. For example, if you are searching for a part for a specific vehicle, you can use this method to see the years, engine, and/or trim for which the part is compatible. Item compatibility details are returned as name-value pairs.<br><br>The product for which to retrieve item compatibility details must be provided through the <b>productIdentifier</b> field. This value can be either an eBay specific identifier (such as an ePID) or an external identifier (such as a UPC).<br><br>By default, all available item compatibility details for the specified product are returned. You can limit the size of the result set using the <b>dataset</b> or <b>datasetPropertyName</b> fields to specify the types of properties you want returned in the response. The <b>applicationPropertyFilter</b> array can also be used so that only parts compatible with the specified name-value pairs are returned.",
+        "description": "This method is used to retrieve all available item compatibility details for the specified product.<br><br>Item compatibility details can be used to see the properties for which an item is compatible. For example, if you are searching for a part for a specific vehicle, you can use this method to see the years, engine, and/or trim for which the part is compatible. Item compatibility details are returned as name-value pairs.<br><br>The product for which to retrieve item compatibility details must be provided through the <b>productIdentifier</b> field. This value can be either an eBay specific identifier (such as an ePID) or an external identifier (such as a UPC).<br><br>By default, all available item compatibility details for the specified product are returned. You can limit the size of the result set using the <b>dataset</b> or <b>datasetPropertyName</b> fields to specify the types of properties you want returned in the response. The <b>applicationPropertyFilters</b> array can also be used so that only parts compatible with the specified name-value pairs are returned.",
         "operationId": "getProductCompatibilities",
         "parameters": [
           {
@@ -3219,7 +3292,9 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "style": "simple",
+            "explode": false
           },
           {
             "name": "Content-Type",
@@ -3228,7 +3303,9 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "style": "simple",
+            "explode": false
           }
         ],
         "requestBody": {
@@ -3241,7 +3318,7 @@
               }
             }
           },
-          "required": false
+          "required": true
         },
         "responses": {
           "200": {
@@ -3264,7 +3341,7 @@
                 "47000": {
                   "domain": "API",
                   "category": "REQUEST",
-                  "description": "Item compatibilities are not enabled for category ID {{category_id}} or invalid propertyFilter."
+                  "description": "Item compatibilities are not enabled for category ID {{category_id}} or invalid propertyFilters."
                 },
                 "47003": {
                   "domain": "API",
@@ -3287,6 +3364,13 @@
                   "description": "The marketplace id {{marketplaceId}} specified in the request does not support compatibility."
                 }
               }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
             }
           },
           "401": {
@@ -3300,6 +3384,13 @@
                   "domain": "API",
                   "category": "APPLICATION",
                   "description": "There was a problem with an eBay internal system or process. Contact eBay developer support for assistance."
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
                 }
               }
             }
@@ -5612,7 +5703,8 @@
             "description": "This comma-delimited array specifies the names of the properties for which to retrieve associated property values.<br><br>For example, typical vehicle property names are 'Make', 'Model', 'Year', 'Engine', and 'Trim', but will vary based on the eBay marketplace and the eBay category.",
             "items": {
               "type": "string"
-            }
+            },
+            "minItems": 1
           }
         },
         "description": "This type defines the request fields used in the <b>getMultiCompatibilityPropertyValues</b> method."
@@ -5862,7 +5954,7 @@
           },
           "dataset": {
             "type": "array",
-            "description": "This array defines the type of properties that are returned for the catalog-enabled category.<br><br>For example, if you specify <code>Searchable</code>, the compatibility details will contain properties that can be used to search for products, such as make or model.<br><br><span class=\"tablenote\"><b>Note:</b> This field cannot be used alongside <b>dataPropertyName</b>. If both are used, an error will occur.</span><br><b>Valid values:</b><ul><li><code>DisplayableProductDetails</code>: Properties for use in a user interface to describe products.</li><li><code>DisplayableSearchResults</code>: Properties for use in results for product searches.</li><li><code>Searchable</code>: Properties for use in searches.</li><li><code>Sortable</code>: Properties that are suitable for sorting.</li></ul><br><b>Default:</b> <code>DisplayableSearchResults</code>",
+            "description": "This array defines the type of properties that are returned for the catalog-enabled category.<br><br>For example, if you specify <code>Searchable</code>, the compatibility details will contain properties that can be used to search for products, such as make or model.<br><br><span class=\"tablenote\"><b>Note:</b> This field cannot be used alongside <b>datasetPropertyName</b>. If both are used, an error will occur.</span><br><b>Valid values:</b><ul><li><code>DisplayableProductDetails</code>: Properties for use in a user interface to describe products.</li><li><code>DisplayableSearchResults</code>: Properties for use in results for product searches.</li><li><code>Searchable</code>: Properties for use in searches.</li><li><code>Sortable</code>: Properties that are suitable for sorting.</li></ul><br><b>Default:</b> <code>DisplayableSearchResults</code>",
             "items": {
               "type": "string"
             }
@@ -5875,15 +5967,12 @@
             }
           },
           "disabledProductFilter": {
-            "description": "This container can be used to specify whether or not to filter out products which are disabled for selling on eBay and/or disabled for product review. ",
             "$ref": "#/components/schemas/DisabledProductFilter"
           },
           "paginationInput": {
-            "description": "This container controls the pagination of the result set.",
             "$ref": "#/components/schemas/PaginationInput"
           },
           "productIdentifier": {
-            "description": "This container is used to provide unique identifier for the product. The product identifier consists of an identifier type and value, and are unique across all sites.",
             "$ref": "#/components/schemas/ProductIdentifier"
           },
           "sortOrders": {
@@ -5894,7 +5983,10 @@
             }
           }
         },
-        "description": "This type defines the request fields for the <b>getProductCompatibilities</b> method."
+        "description": "This type defines the request fields for the <b>getProductCompatibilities</b> method.",
+        "required": [
+          "productIdentifier"
+        ]
       },
       "ProductResponse": {
         "type": "object",
@@ -5910,7 +6002,6 @@
             }
           },
           "pagination": {
-            "description": "This container returns the pagination settings for the result set.",
             "$ref": "#/components/schemas/Pagination"
           }
         },
@@ -6010,7 +6101,7 @@
           },
           "propertyValue": {
             "type": "string",
-            "description": "The value for the property specified in the <b>properyName</b> field.<br><br>For example, if the <b>propertyName</b> is <code>Make</code>, then the <b>propertyValue</b> will be the specific make of the vehicle, such as <code>Toyota</code>. Use the <a href=\"/develop/api/sell/metadata_api#sell-metadata_api-compatibilities-getcompatibilitypropertyvalues\">getCompatibilityPropertyValues</a> to retrieve valid property values associated with a specified property name."
+            "description": "The value for the property specified in the <b>propertyName</b> field.<br><br>For example, if the <b>propertyName</b> is <code>Make</code>, then the <b>propertyValue</b> will be the specific make of the vehicle, such as <code>Toyota</code>. Use the <a href=\"/develop/api/sell/metadata_api#sell-metadata_api-compatibilities-getcompatibilitypropertyvalues\">getCompatibilityPropertyValues</a> to retrieve valid property values associated with a specified property name."
           },
           "unitOfMeasurement": {
             "type": "string",
@@ -6104,7 +6195,6 @@
             "description": "The canonical name of a property. This value is used as part of the name-value pairs used to specify compatibility."
           },
           "propertyNameMetadata": {
-            "description": "The metadata for a property.",
             "$ref": "#/components/schemas/PropertyNamesResponsePropertyNameMetadata"
           }
         },
@@ -6119,7 +6209,7 @@
           },
           "propertyValue": {
             "type": "string",
-            "description": "The value for the property specified in the <b>properyName</b> field.<br><br>For example, if the <b>propertyName</b> is <code>make</code>, then the <b>propertyValue</b> will be the specific make of the vehicle, such as <code>Toyota</code>."
+            "description": "The value for the property specified in the <b>propertyName</b> field.<br><br>For example, if the <b>propertyName</b> is <code>make</code>, then the <b>propertyValue</b> will be the specific make of the vehicle, such as <code>Toyota</code>."
           }
         },
         "description": "This type defines the name-value pair associated with a property value."
@@ -6127,7 +6217,8 @@
       "PropertyValuesRequest": {
         "type": "object",
         "required": [
-          "categoryId"
+          "categoryId",
+          "propertyName"
         ],
         "properties": {
           "categoryId": {
@@ -6762,7 +6853,6 @@
         "type": "object",
         "properties": {
           "sortOrder": {
-            "description": "This container is used to define the property to be used in the sorting.",
             "$ref": "#/components/schemas/SortOrderProperties"
           },
           "sortPriority": {
@@ -6806,7 +6896,7 @@
           },
           "dataset": {
             "type": "string",
-            "description": "This field can be used to define the type of properties that will be returned in the response.<br><br> For example, if you specify <code>Searchable</code>, the compatibility details will contain properties that can be used to search for products, such as make or model.<br><br><span class=\"tablenote\"><b>Note:</b> This field cannot be used alongside <b>dataPropertyName</b>. If both are used, an error will occur.</span><br><b>Valid values:</b><ul><li><code>DisplayableProductDetails</code>: Properties for use in a user interface to describe products.</li><li><code>DisplayableSearchResults</code>: Properties for use in results for product searches.</li><li><code>Searchable</code>: Properties for use in searches.</li><li><code>Sortable</code>: Properties that are suitable for sorting.</li></ul><b>Default value:</b> <code>DisplayableSearchResults</code>"
+            "description": "This field can be used to define the type of properties that will be returned in the response.<br><br> For example, if you specify <code>Searchable</code>, the compatibility details will contain properties that can be used to search for products, such as make or model.<br><br><span class=\"tablenote\"><b>Note:</b> This field cannot be used alongside <b>datasetPropertyName</b>. If both are used, an error will occur.</span><br><b>Valid values:</b><ul><li><code>DisplayableProductDetails</code>: Properties for use in a user interface to describe products.</li><li><code>DisplayableSearchResults</code>: Properties for use in results for product searches.</li><li><code>Searchable</code>: Properties for use in searches.</li><li><code>Sortable</code>: Properties that are suitable for sorting.</li></ul><b>Default value:</b> <code>DisplayableSearchResults</code>"
           },
           "datasetPropertyName": {
             "type": "array",
@@ -6820,7 +6910,6 @@
             "description": "This boolean can be used to specify that the compatibilities returned in the response are to be defined by an exact match on the input value of specification properties.<br><br>By default, an expanded compatibility match is done when it applies, such as for Load Index, where a compatible vehicle is one that has a load index requirement that is less than or equal to the input. By specifying this field as <code>true</code>, only exact matches are returned."
           },
           "paginationInput": {
-            "description": "<div class=\"msgbox_important\"><p class=\"msgbox_importantInDiv\" data-mc-autonum=\"&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;\"><span class=\"autonumber\"><span><b><span style=\"color: #dd1e31;\" class=\"mcFormatColor\">Important!</span></b></span></span> Pagination is not yet supported by this method. If this container is included in the request, it will be ignored.</p></div>",
             "$ref": "#/components/schemas/PaginationInput"
           },
           "sortOrders": {
@@ -6838,24 +6927,23 @@
             }
           }
         },
-        "description": "This type provides the properties and specifications to use to search for compatibilities."
+        "description": "This type provides the properties and specifications to use to search for compatibilities.<br><br><b>paginationInput:</b> <div class=\"msgbox_important\"><p class=\"msgbox_importantInDiv\" data-mc- autonum=\"&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;\"><span class=\"autonumber\"><span><b><span style=\"color: #dd1e31;\" class=\"mcFormatColor\">Important!</span></b></span></span> Pagination is not yet supported by this method. If this container is included in the request, it will be ignored.</p></div>"
       },
       "SpecificationResponse": {
         "type": "object",
         "properties": {
-          "compatibilityDetails": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "compatibilities": {
             "type": "array",
             "description": "This container returns the list of all compatible application name-value pairs for the given filter criteria.",
             "items": {
               "$ref": "#/components/schemas/Compatibility"
             }
-          },
-          "pagination": {
-            "description": "<div class=\"msgbox_important\"><p class=\"msgbox_importantInDiv\" data-mc-autonum=\"&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;\"><span class=\"autonumber\"><span><b><span style=\"color: #dd1e31;\" class=\"mcFormatColor\">Important!</span></b></span></span> Not currently returned. For future use. </p></div> <!-- This container returns the pagination settings for the result set.-->",
-            "$ref": "#/components/schemas/Pagination"
           }
         },
-        "description": "This type defines the fields used in the <b>getCompatibilitiesBySpecification</b> response."
+        "description": "This type defines the fields used in the <b>getCompatibilitiesBySpecification</b> response.<br><br><b>pagination:</b> <div class=\"msgbox_important\"><p class=\"msgbox_importantInDiv\" data-mc-autonum=\"&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;\"><span class=\"autonumber\"><span><b><span style=\"color: #dd1e31;\" class=\"mcFormatColor\">Important!</span></b></span></span> Not currently returned. For future use. </p></div> <!-- This container returns the pagination settings for the result set.-->"
       },
       "TimeDuration": {
         "type": "object",
@@ -6901,6 +6989,19 @@
           "ERROR",
           "WARNING"
         ]
+      },
+      "ErrorMessage": {
+        "type": "object",
+        "description": "This type defines the error envelope returned by the API. Every error response carries its details inside the errors array.",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "description": "A list of errors and/or warnings returned by the API.",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
       }
     },
     "securitySchemes": {

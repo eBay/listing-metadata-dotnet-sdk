@@ -37,7 +37,7 @@ namespace EBay.ListingMetadata.Generated.Metadata.Models
 #else
         public List<global::EBay.ListingMetadata.Generated.Metadata.Models.PropertyFilterInner> ApplicationPropertyFilters { get; set; }
 #endif
-        /// <summary>This array defines the type of properties that are returned for the catalog-enabled category.&lt;br&gt;&lt;br&gt;For example, if you specify &lt;code&gt;Searchable&lt;/code&gt;, the compatibility details will contain properties that can be used to search for products, such as make or model.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; This field cannot be used alongside &lt;b&gt;dataPropertyName&lt;/b&gt;. If both are used, an error will occur.&lt;/span&gt;&lt;br&gt;&lt;b&gt;Valid values:&lt;/b&gt;&lt;ul&gt;&lt;li&gt;&lt;code&gt;DisplayableProductDetails&lt;/code&gt;: Properties for use in a user interface to describe products.&lt;/li&gt;&lt;li&gt;&lt;code&gt;DisplayableSearchResults&lt;/code&gt;: Properties for use in results for product searches.&lt;/li&gt;&lt;li&gt;&lt;code&gt;Searchable&lt;/code&gt;: Properties for use in searches.&lt;/li&gt;&lt;li&gt;&lt;code&gt;Sortable&lt;/code&gt;: Properties that are suitable for sorting.&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;b&gt;Default:&lt;/b&gt; &lt;code&gt;DisplayableSearchResults&lt;/code&gt;</summary>
+        /// <summary>This array defines the type of properties that are returned for the catalog-enabled category.&lt;br&gt;&lt;br&gt;For example, if you specify &lt;code&gt;Searchable&lt;/code&gt;, the compatibility details will contain properties that can be used to search for products, such as make or model.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; This field cannot be used alongside &lt;b&gt;datasetPropertyName&lt;/b&gt;. If both are used, an error will occur.&lt;/span&gt;&lt;br&gt;&lt;b&gt;Valid values:&lt;/b&gt;&lt;ul&gt;&lt;li&gt;&lt;code&gt;DisplayableProductDetails&lt;/code&gt;: Properties for use in a user interface to describe products.&lt;/li&gt;&lt;li&gt;&lt;code&gt;DisplayableSearchResults&lt;/code&gt;: Properties for use in results for product searches.&lt;/li&gt;&lt;li&gt;&lt;code&gt;Searchable&lt;/code&gt;: Properties for use in searches.&lt;/li&gt;&lt;li&gt;&lt;code&gt;Sortable&lt;/code&gt;: Properties that are suitable for sorting.&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;b&gt;Default:&lt;/b&gt; &lt;code&gt;DisplayableSearchResults&lt;/code&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<string>? Dataset { get; set; }
@@ -53,7 +53,7 @@ namespace EBay.ListingMetadata.Generated.Metadata.Models
 #else
         public List<string> DatasetPropertyName { get; set; }
 #endif
-        /// <summary>This container can be used to specify whether or not to filter out products which are disabled for selling on eBay and/or disabled for product review. </summary>
+        /// <summary>This type defines the booleans used to determine if a product is excluded from eBay selling and/or review.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.ListingMetadata.Generated.Metadata.Models.DisabledProductFilter? DisabledProductFilter { get; set; }
@@ -61,7 +61,7 @@ namespace EBay.ListingMetadata.Generated.Metadata.Models
 #else
         public global::EBay.ListingMetadata.Generated.Metadata.Models.DisabledProductFilter DisabledProductFilter { get; set; }
 #endif
-        /// <summary>This container controls the pagination of the result set.</summary>
+        /// <summary>This type defines the fields used to control the pagination of the result set.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.ListingMetadata.Generated.Metadata.Models.PaginationInput? PaginationInput { get; set; }
@@ -69,7 +69,7 @@ namespace EBay.ListingMetadata.Generated.Metadata.Models
 #else
         public global::EBay.ListingMetadata.Generated.Metadata.Models.PaginationInput PaginationInput { get; set; }
 #endif
-        /// <summary>This container is used to provide unique identifier for the product. The product identifier consists of an identifier type and value, and are unique across all sites.</summary>
+        /// <summary>This type defines the supported product identifiers.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.ListingMetadata.Generated.Metadata.Models.ProductIdentifier? ProductIdentifier { get; set; }

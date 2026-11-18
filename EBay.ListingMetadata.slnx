@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="EBay.ListingMetadata/EBay.ListingMetadata.csproj" />
+  <Project Path="tests/EBay.ListingMetadata.CSharp73/EBay.ListingMetadata.CSharp73.csproj" />
+  <Project Path="tests/EBay.ListingMetadata.Tests/EBay.ListingMetadata.Tests.csproj" />
+</Solution>

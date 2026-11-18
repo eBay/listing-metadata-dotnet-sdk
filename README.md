@@ -21,7 +21,7 @@ This SDK requires **TWO SEPARATE authentication tokens**:
 - ✅ **Auto-Refresh** - OAuth2 with automatic 2-hour token renewal
 - ✅ **Type-Safe** - Kiota-generated clients from OpenAPI specs
 - ✅ **Dependency Injection** - First-class ASP.NET Core DI support
-- ✅ **Modern .NET** - Targets .NET 8, .NET 9, and .NET 10 with nullable reference types
+- ✅ **Modern .NET** - Targets .NET Framework 4.7.2, .NET 8, .NET 9 and .NET 10 with nullable reference types
 - ✅ **Async/Await** - All operations are fully asynchronous
 
 ## Installation
@@ -78,40 +78,23 @@ var policies = await client.Metadata.GetReturnPoliciesAsync("EBAY_US");
 
 ### Dependency Injection (ASP.NET Core)
 
-In `Program.cs` or `Startup.cs`:
+`AddListingMetadataSdk` registers the configuration and one shared `ListingMetadataClient` (a singleton that owns its HTTP connections and is disposed with the container). Inject the client and use its properties for the individual APIs:
 
 ```csharp
-using ListingMetadataSdk.Extensions;
+using EBay.ListingMetadata;
+using EBay.ListingMetadata.Configuration;
+using EBay.ListingMetadata.Extensions;
 
-builder.Services.AddListingMetadataSdk(config =>
+builder.Services.AddListingMetadataSdk(new ListingMetadataConfiguration
 {
-    config.BaseUrl = "https://api.ebay.com";
-    config.Authentication = new AuthenticationConfig
-    {
-        Type = AuthenticationType.OAuth2,
-        TokenProvider = async (ct) => await GetAccessTokenAsync(ct)
-    };
+    AccessToken = builder.Configuration["EBay:AccessToken"]
 });
+
+app.MapGet("/example", async (ListingMetadataClient sdk) =>
+    Results.Ok(await sdk.Taxonomy.GetCategoryTreeAsync("0")));
 ```
 
-Then inject in your services or controllers:
-
-```csharp
-public class ProductService
-{
-    private readonly UnifiedClient _client;
-
-    public ProductService(UnifiedClient client)
-    {
-        _client = client;
-    }
-
-    public async Task<Product> GetProductAsync(string epid)
-    {
-        return await _client.Catalog.GetProductAsync(epid);
-    }
-}
-```
+To route requests through your own handler (proxy, client certificates, a test double), pass it to the constructor: `new ListingMetadataClient(config, handler)`. The handler is shared by all APIs and is not disposed by the client.
 
 ## API Clients
 
@@ -266,6 +249,25 @@ var product = await client.Catalog.GetProductAsync(
 );
 ```
 
+## Trusted hosts and sandbox
+
+The access token is only sent to trusted hosts: the eBay hosts in `ListingMetadataConfiguration.DefaultAllowedHosts` (production and their `*.sandbox.ebay.com` counterparts) plus any you add to `AllowedHosts`. The sandbox needs no extra configuration:
+
+```csharp
+var config = new ListingMetadataConfiguration
+{
+    AccessToken = "...",
+    TaxonomyBaseUrl = "https://api.sandbox.ebay.com/commerce/taxonomy/v1",
+};
+```
+
+Any other host, for example a proxy, has to be added explicitly; the client constructor throws `InvalidOperationException` otherwise:
+
+```csharp
+config.TaxonomyBaseUrl = "https://ebay-proxy.example.com/commerce/taxonomy/v1";
+config.AllowedHosts.Add("ebay-proxy.example.com");
+```
+
 ## Error Handling
 
 ```csharp
@@ -355,6 +357,11 @@ ListingMetadataSdk/
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+## Dependencies
+
+- **Microsoft.Kiota.Bundle** (>= 1.22.0): REST runtime
+- **Microsoft.Extensions.DependencyInjection.Abstractions** (>= 6.0.0): `AddListingMetadataSdk` registration
+
 ## License
 
 [Apache 2.0](LICENSE) © 2026 eBay Inc.
@@ -372,7 +379,7 @@ This SDK includes all operations from the listing metadata catalog:
 
 ## Requirements
 
-- .NET 8.0, .NET 9.0, or .NET 10.0
+- .NET Framework 4.7.2, .NET 8.0, .NET 9.0, or .NET 10.0
 - Valid eBay API credentials
 - OAuth 2.0 access token for authentication
 

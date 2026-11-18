@@ -37,7 +37,7 @@ namespace EBay.ListingMetadata.Generated.Metadata.Models
 #else
         public List<global::EBay.ListingMetadata.Generated.Metadata.Models.ProductResponseCompatibilityDetails> CompatibilityDetails { get; set; }
 #endif
-        /// <summary>This container returns the pagination settings for the result set.</summary>
+        /// <summary>This type defines the pagination settings for a result set.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.ListingMetadata.Generated.Metadata.Models.Pagination? Pagination { get; set; }

@@ -22,7 +22,7 @@ using System;
 namespace EBay.ListingMetadata.Generated.Metadata.Models
 {
     /// <summary>
-    /// This type defines the fields used in the &lt;b&gt;getCompatibilitiesBySpecification&lt;/b&gt; response.
+    /// This type defines the fields used in the &lt;b&gt;getCompatibilitiesBySpecification&lt;/b&gt; response.&lt;br&gt;&lt;br&gt;&lt;b&gt;pagination:&lt;/b&gt; &lt;div class=&quot;msgbox_important&quot;&gt;&lt;p class=&quot;msgbox_importantInDiv&quot; data-mc-autonum=&quot;&amp;lt;b&amp;gt;&amp;lt;span style=&amp;quot;color: #dd1e31;&amp;quot; class=&amp;quot;mcFormatColor&amp;quot;&amp;gt;Important! &amp;lt;/span&amp;gt;&amp;lt;/b&amp;gt;&quot;&gt;&lt;span class=&quot;autonumber&quot;&gt;&lt;span&gt;&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important!&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;&lt;/span&gt; Not currently returned. For future use. &lt;/p&gt;&lt;/div&gt; &lt;!-- This container returns the pagination settings for the result set.--&gt;
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class SpecificationResponse : IAdditionalDataHolder, IParsable
@@ -32,12 +32,12 @@ namespace EBay.ListingMetadata.Generated.Metadata.Models
         /// <summary>This container returns the list of all compatible application name-value pairs for the given filter criteria.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::EBay.ListingMetadata.Generated.Metadata.Models.Compatibility>? CompatibilityDetails { get; set; }
+        public List<global::EBay.ListingMetadata.Generated.Metadata.Models.Compatibility>? Compatibilities { get; set; }
 #nullable restore
 #else
-        public List<global::EBay.ListingMetadata.Generated.Metadata.Models.Compatibility> CompatibilityDetails { get; set; }
+        public List<global::EBay.ListingMetadata.Generated.Metadata.Models.Compatibility> Compatibilities { get; set; }
 #endif
-        /// <summary>&lt;div class=&quot;msgbox_important&quot;&gt;&lt;p class=&quot;msgbox_importantInDiv&quot; data-mc-autonum=&quot;&amp;lt;b&amp;gt;&amp;lt;span style=&amp;quot;color: #dd1e31;&amp;quot; class=&amp;quot;mcFormatColor&amp;quot;&amp;gt;Important! &amp;lt;/span&amp;gt;&amp;lt;/b&amp;gt;&quot;&gt;&lt;span class=&quot;autonumber&quot;&gt;&lt;span&gt;&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important!&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;&lt;/span&gt; Not currently returned. For future use. &lt;/p&gt;&lt;/div&gt; &lt;!-- This container returns the pagination settings for the result set.--&gt;</summary>
+        /// <summary>This type defines the pagination settings for a result set.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.ListingMetadata.Generated.Metadata.Models.Pagination? Pagination { get; set; }
@@ -70,7 +70,7 @@ namespace EBay.ListingMetadata.Generated.Metadata.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "compatibilityDetails", n => { CompatibilityDetails = n.GetCollectionOfObjectValues<global::EBay.ListingMetadata.Generated.Metadata.Models.Compatibility>(global::EBay.ListingMetadata.Generated.Metadata.Models.Compatibility.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "compatibilities", n => { Compatibilities = n.GetCollectionOfObjectValues<global::EBay.ListingMetadata.Generated.Metadata.Models.Compatibility>(global::EBay.ListingMetadata.Generated.Metadata.Models.Compatibility.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "pagination", n => { Pagination = n.GetObjectValue<global::EBay.ListingMetadata.Generated.Metadata.Models.Pagination>(global::EBay.ListingMetadata.Generated.Metadata.Models.Pagination.CreateFromDiscriminatorValue); } },
             };
         }
@@ -81,7 +81,7 @@ namespace EBay.ListingMetadata.Generated.Metadata.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteCollectionOfObjectValues<global::EBay.ListingMetadata.Generated.Metadata.Models.Compatibility>("compatibilityDetails", CompatibilityDetails);
+            writer.WriteCollectionOfObjectValues<global::EBay.ListingMetadata.Generated.Metadata.Models.Compatibility>("compatibilities", Compatibilities);
             writer.WriteObjectValue<global::EBay.ListingMetadata.Generated.Metadata.Models.Pagination>("pagination", Pagination);
             writer.WriteAdditionalData(AdditionalData);
         }

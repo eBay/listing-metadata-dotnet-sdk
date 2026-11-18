@@ -57,10 +57,24 @@ dotnet kiota generate \
   -o EBay.ListingMetadata/Generated/Taxonomy \
   --ebc --co
 
+echo "Applying Kiota workarounds..."
+# Fails when the broken text is gone: Kiota fixed the bug, so remove the workaround from
+# api-sdk-definitions src/openapi-distribute/generate-sh/kiota-workarounds.ts.
+apply_kiota_workaround() {
+  local file="$1" find="$2" replace="$3" reason="$4"
+  if ! grep -qF -- "$find" "$file"; then
+    echo "Kiota workaround no longer applies: '$find' not found in $file." >&2
+    echo "Kiota may have fixed it ($reason); remove the workaround from api-sdk-definitions src/openapi-distribute/generate-sh/kiota-workarounds.ts." >&2
+    exit 1
+  fi
+  FIND="$find" REPLACE="$replace" perl -0pi -e 's/\Q$ENV{FIND}\E/$ENV{REPLACE}/g' "$file"
+}
+apply_kiota_workaround 'EBay.ListingMetadata/Generated/Metadata/Models/ErrorMessage.cs' 'get => Errors?.MessageEscaped ?? string.Empty;' 'get => (Errors is null ? null : global::System.Linq.Enumerable.FirstOrDefault(Errors))?.MessageEscaped ?? string.Empty;' 'https://github.com/microsoft/kiota/pull/8013'
+
 echo "Adding license headers to generated files..."
 ./add-license-headers.sh ./EBay.ListingMetadata/Generated
 
-echo "Building (triggers StrawberryShake GraphQL codegen)..."
+echo "Building (compile check)..."
 DOTNET_ROLL_FORWARD=LatestMajor dotnet build EBay.ListingMetadata/EBay.ListingMetadata.csproj
 
 echo "Done."

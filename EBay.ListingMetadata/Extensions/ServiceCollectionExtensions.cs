@@ -20,37 +20,17 @@ namespace EBay.ListingMetadata.Extensions;
 
 public static class ServiceCollectionExtensions
 {
+    /// <summary>
+    /// Registers <paramref name="config"/> and a singleton <see cref="ListingMetadataClient"/>. The client
+    /// owns its HTTP connections and is disposed with the container. Reach the individual APIs through
+    /// its properties.
+    /// </summary>
     public static IServiceCollection AddListingMetadataSdk(
         this IServiceCollection services,
         ListingMetadataConfiguration config)
     {
         services.AddSingleton(config);
-        services.AddSingleton<ITokenContext, AsyncLocalTokenContext>();
-
-        foreach (var endpoint in ListingMetadataClient.RestEndpointNames)
-        {
-            var id = endpoint.ApiId;
-            services.AddHttpClient(endpoint.HttpClientName, (sp, c) =>
-                    c.BaseAddress = new Uri(sp.GetRequiredService<ListingMetadataConfiguration>().RestBaseUrl(id)))
-                .ConfigureHttpClient((sp, c) =>
-                    c.Timeout = sp.GetRequiredService<ListingMetadataConfiguration>().HttpTimeout)
-                .AddHttpMessageHandler(sp =>
-                    new DiagnosticLoggingHandler(sp.GetRequiredService<ListingMetadataConfiguration>()));
-        }
-
-        services.AddScoped<ListingMetadataClient>(sp =>
-        {
-            var factory = sp.GetRequiredService<IHttpClientFactory>();
-            return new ListingMetadataClient(
-                sp.GetRequiredService<ListingMetadataConfiguration>(),
-                factory,
-                sp.GetRequiredService<ITokenContext>());
-        });
-
-        services.AddScoped(sp => sp.GetRequiredService<ListingMetadataClient>().Catalog);
-        services.AddScoped(sp => sp.GetRequiredService<ListingMetadataClient>().Charity);
-        services.AddScoped(sp => sp.GetRequiredService<ListingMetadataClient>().Metadata);
-        services.AddScoped(sp => sp.GetRequiredService<ListingMetadataClient>().Taxonomy);
+        services.AddSingleton(_ => new ListingMetadataClient(config));
         return services;
     }
 }

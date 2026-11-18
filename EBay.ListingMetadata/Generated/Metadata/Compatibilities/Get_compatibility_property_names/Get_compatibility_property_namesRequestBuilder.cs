@@ -54,6 +54,8 @@ namespace EBay.ListingMetadata.Generated.Metadata.Compatibilities.Get_compatibil
         /// <param name="body">This type defines the properties used to retrieve compatibility property names.</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::EBay.ListingMetadata.Generated.Metadata.Models.ErrorMessage">When receiving a 400 status code</exception>
+        /// <exception cref="global::EBay.ListingMetadata.Generated.Metadata.Models.ErrorMessage">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.ListingMetadata.Generated.Metadata.Models.PropertyNamesResponse?> PostAsync(global::EBay.ListingMetadata.Generated.Metadata.Models.PropertyNamesRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -65,7 +67,12 @@ namespace EBay.ListingMetadata.Generated.Metadata.Compatibilities.Get_compatibil
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Metadata.Models.PropertyNamesResponse>(requestInfo, global::EBay.ListingMetadata.Generated.Metadata.Models.PropertyNamesResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.ListingMetadata.Generated.Metadata.Models.ErrorMessage.CreateFromDiscriminatorValue },
+                { "500", global::EBay.ListingMetadata.Generated.Metadata.Models.ErrorMessage.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.ListingMetadata.Generated.Metadata.Models.PropertyNamesResponse>(requestInfo, global::EBay.ListingMetadata.Generated.Metadata.Models.PropertyNamesResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// This method is used to retrieve product compatibility property names for the specified compatibility-enabled category.&lt;br&gt;&lt;br&gt;Compatibility property names can be used alongside the corresponding compatibility property value (retrieved using the &lt;a href=&quot;/develop/api/sell/metadata_api#sell-metadata_api-compatibilities-getcompatibilitypropertyvalues&quot; &gt;getCompatibilityPropertyValues&lt;/a&gt; method) to describe the assembly for which an item is compatible.&lt;br&gt;&lt;br&gt;The &lt;b&gt;categoryId&lt;/b&gt; of the compatibility-enabled category for which to retrieve compatibility property names is required in the request body.&lt;br&gt;&lt;br&gt;By default, all property names within the compatibility category of the specified compatibility-enable category are returned. You can limit the size of the result set by using the &lt;b&gt;dataset&lt;/b&gt; array to specify the types of properties you want returned.
